@@ -8,12 +8,13 @@ export default {
   },
 
   entry: [
-    'webpack-hot-middleware/client',
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
     './src/app'
   ],
 
   output: {
-    path: path.join(__dirname, '../src/dist'),
+    path: path.join(__dirname, '../dist'),
     filename: 'bundle.js',
     publicPath: '/dist/'
   },
@@ -21,24 +22,8 @@ export default {
   module: {
     loaders: [{
       test: /\.js$/,
-      loader: ['babel'],
-      exclude: /node_modules/,
-      query: {
-        stage: 0,
-        plugins: ['react-transform'],
-        extra: {
-          'react-transform': {
-            transforms: [{
-              transform: 'react-transform-hmr',
-              imports: ['react'],
-              locals: ['module']
-            }, {
-              transform: 'react-transform-catch-errors',
-              imports: ['react', 'redbox-react']
-            }]
-          }
-        }
-      }
+      loaders: ['react-hot', 'babel'],
+      exclude: /node_modules/
     }, {
       test: /\.scss$/,
       loaders: ['style', 'css', 'sass'],

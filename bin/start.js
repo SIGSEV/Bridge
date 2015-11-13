@@ -1,9 +1,17 @@
 import webpack from 'webpack'
-import webpackDevServer from 'webpack-dev-server'
+import WebpackDevServer from 'webpack-dev-server'
 
 import config from '../webpack/development'
 
-const compiler = webpack(config)
-const server = new webpackDevServer(compiler)
+const port = 3000
+const devConfig = {
+  publicPath: config.output.publicPath,
+  hot: true,
+  historyApiFallback: true
+}
 
-server.listen(3000)
+new WebpackDevServer(webpack(config), devConfig)
+  .listen(port, 'localhost', err => {
+    if (err) { console.log(err) }
+    console.log('Listening at localhost:3000')
+  })
