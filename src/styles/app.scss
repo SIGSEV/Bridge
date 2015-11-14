@@ -102,15 +102,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1rem;
 
   width: 100%;
 
   .big-val {
     font-size: 3rem;
-
-    & + .gallery {
-      margin-top: 2rem;
-    }
+    margin: 1em 0;
   }
 
   .boris {
