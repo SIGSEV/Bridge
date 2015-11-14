@@ -10,8 +10,13 @@ const state = {
 
   cols: [
     [
-      'Weather',
+      'Weather'
+    ],
+    [
       'StackOverflow'
+    ],
+    [
+      'Github'
     ]
   ],
 
