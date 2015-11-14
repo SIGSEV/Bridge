@@ -5,7 +5,7 @@ $cb2: rgba(black, 0.2);
 $cb3: rgba(black, 0.3);
 $cb6: rgba(black, 0.6);
 
-$cbg-dark: #233336;
+$cbg: darken(white, 15);
 
 @import 'buttons';
 
@@ -55,15 +55,15 @@ body {
   height: 100%;
   overflow: hidden;
 
-  background: $cbg-dark;
+  background: $cbg;
 }
 
 .IconButton {
   @extend .z;
   @extend .s;
   position: absolute;
-  top: 4px;
-  right: 4px;
+  bottom: 4px;
+  left: 4px;
   height: 4rem;
   width: 4rem;
 
@@ -96,7 +96,7 @@ body {
 .box-container {
   margin: 1rem;
   padding: 1rem;
-  background: $cbg-dark;
+  background: $cbg;
   border: 1px dashed $cb3;
   user-select: none;
   cursor: move;

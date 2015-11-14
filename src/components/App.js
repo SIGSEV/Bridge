@@ -4,37 +4,31 @@ import { connect } from 'react-redux'
 
 import 'styles/app.scss'
 
-import { Picker } from 'components'
-import { togglePicker } from 'actions'
+import { toggleEditMode } from 'actions/mode'
 
 @connect(
   state => ({
-    picker: state.ui.picker
+    editMode: state.mode === 'edit'
   })
 )
 class App extends Component {
 
-  _togglePicker () {
-    this.props.dispatch(togglePicker())
+  _toggleEditMode () {
+    this.props.dispatch(toggleEditMode())
   }
 
   render () {
-    const { picker } = this.props
-    const toggleIcon = (picker)
+    const { editMode } = this.props
+    const toggleIcon = (editMode)
       ? 'ion-checkmark'
-      : 'ion-grid'
+      : 'ion-gear-b'
     return (
       <div className='App'>
 
         <ReactTransitionGroup>
-
-          {picker && (
-            <Picker />
-          )}
-
         </ReactTransitionGroup>
 
-        <button className='btn IconButton' onClick={::this._togglePicker}>
+        <button className='btn IconButton' onClick={::this._toggleEditMode}>
           <i className={toggleIcon} />
         </button>
 
