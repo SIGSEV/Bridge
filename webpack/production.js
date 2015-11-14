@@ -25,7 +25,7 @@ export default {
       exclude: /node_modules/
     }, {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('style', 'css!sass'),
+      loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!sass'),
       exclude: /node_modules/
     }]
   },
