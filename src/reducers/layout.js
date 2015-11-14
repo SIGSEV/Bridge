@@ -9,9 +9,10 @@ import {
 const state = {
 
   cols: [
-    ['Weather'],
-    ['Github'],
-    []
+    [
+      'Weather',
+      'StackOverflow'
+    ]
   ],
 
   widgets: {
@@ -43,6 +44,21 @@ const state = {
           .then(res => res.json())
           .then(values => { dispatch(widgetFetched({ type: 'Github', values })) })
           .catch(() => { dispatch(widgetFailed('Github')) })
+      }
+    },
+
+    StackOverflow: {
+      style: {
+        width: 350,
+        height: 500
+      },
+      loading: true,
+      fetch: dispatch => {
+        dispatch(widgetFetch('StackOverflow'))
+        fetch('http://localhost:3001/stack/recent?tag=javascript')
+          .then(res => res.json())
+          .then(values => { dispatch(widgetFetched({ type: 'StackOverflow', values })) })
+          .catch(() => { dispatch(widgetFailed('StackOverflow')) })
       }
     }
 

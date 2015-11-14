@@ -7,7 +7,7 @@ class Weather extends Component {
     const { values } = data
     const { atmosphere, condition } = values
     return (
-      <div className='Widget' style={data.style}>
+      <div className='Widget w-weather' style={data.style}>
         <span className='boris'>
           {condition.text}
         </span>

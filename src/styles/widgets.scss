@@ -1,0 +1,68 @@
+.w-weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.w-stack {
+
+  font-size: 0.75rem;
+
+  .question {
+
+    cursor: pointer;
+
+    > .side {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      width: 5em;
+      padding-right: 1em;
+      flex-shrink: 0;
+      font-size: 0.8rem;
+
+      font-weight: bold;
+
+      > .div {
+        width: 1rem;
+        margin: 5px 0;
+        height: 2px;
+        background: $cb1;
+      }
+
+      > .val i {
+        margin-left: 0.5em;
+      }
+    }
+
+    > .body {
+      flex-grow: 1;
+      background: $clight;
+      padding: 1em;
+
+      > .tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        > .tag {
+          font-size: 0.6rem;
+          margin-top: 0.5em;
+          margin-left: 0.5em;
+          background: $cb1;
+          padding: 2px;
+        }
+      }
+    }
+
+    & + .question {
+      margin-top: 0.5em;
+    }
+
+    &:hover {
+      .body {
+        background: white;
+      }
+    }
+  }
+
+}
