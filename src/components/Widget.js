@@ -2,6 +2,7 @@ import classnames from 'classnames'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 
+import { Loader } from 'components'
 import * as widgetsComponents from 'components/widgets'
 
 @connect(
@@ -46,13 +47,19 @@ class Widget extends Component {
           </div>
         )}
 
-        {loading && (
-          <div>{'loading'}</div>
-        )}
+        <div style={{ ...widget.style, position: 'relative' }}>
 
-        {!loading && (
-          <W data={widget} />
-        )}
+          {loading && (
+            <div className='loading'>
+              <Loader />
+            </div>
+          )}
+
+          {!loading && (
+            <W data={widget} />
+          )}
+
+        </div>
 
       </div>
     )

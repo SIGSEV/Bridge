@@ -1,4 +1,6 @@
 import 'whatwg-fetch'
+
+import classnames from 'classnames'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
@@ -23,25 +25,28 @@ class App extends Component {
   render () {
     const { editMode, layout } = this.props
     const { cols, widgets } = layout
+
     const toggleIcon = (editMode)
       ? 'ion-checkmark'
       : 'ion-gear-b'
 
+    const btnCl = classnames('IconButton', {
+      success: editMode
+    })
+
     return (
       <div className='App'>
 
-        <button className='btn IconButton' onClick={::this._toggleEditMode}>
+        <button className={btnCl} onClick={::this._toggleEditMode}>
           <i className={toggleIcon} />
         </button>
 
-        <div className='layout'>
-          {cols.map((widgetsIds, i) => (
-            <Col key={i}
-              editMode={editMode}
-              widgetsIds={widgetsIds}
-              widgets={widgets} />)
-          )}
-        </div>
+        {cols.map((widgetsIds, i) => (
+          <Col key={i}
+            editMode={editMode}
+            widgetsIds={widgetsIds}
+            widgets={widgets} />)
+        )}
 
       </div>
     )
