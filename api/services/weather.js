@@ -19,11 +19,10 @@ export function getByCity (city) {
         astronomy: data.astronomy,
         atmosphere: data.atmosphere,
         condition: {
-          celsius: data.item.condition.temp,
-          fahrenheit: fahrenheitToCelsius(data.item.condition.temp),
+          celsius: fahrenheitToCelsius(data.item.condition.temp),
+          fahrenheit: data.item.condition.temp,
           text: data.item.condition.text
         },
-        img: data.item.description.replace(/[\s\S]*<img src=\"([^\"]*)[\s\S]*/, '$1'),
         wind: data.wind
       }
     })
