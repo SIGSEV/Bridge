@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 
 import { Loader } from 'components'
 import * as widgetsComponents from 'components/widgets'
+import { removeWidget } from 'actions/widgets'
 
 @connect(
   state => ({
@@ -24,6 +25,11 @@ class Widget extends Component {
     widget.fetch(dispatch)
   }
 
+  removeWidget (type) {
+    this.props.dispatch(removeWidget(type))
+    console.log(type)
+  }
+
   render () {
     const { type, widgets, editMode } = this.props
     const widget = widgets[type]
@@ -41,7 +47,7 @@ class Widget extends Component {
 
         {editMode && (
           <div className='ctx'>
-            <div className='ctx-btn'>
+            <div className='ctx-btn' onClick={this.removeWidget.bind(this, type)}>
               <i className='ion-close' />
             </div>
           </div>

@@ -10,7 +10,7 @@ class StackOverflow extends Component {
     const { data } = this.props
     const { values, style } = data
     const { items } = values
-    console.log(items[0])
+
     return (
       <div className='Widget w-stack' style={style}>
         {items.map((question, i) => (

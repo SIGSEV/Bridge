@@ -113,6 +113,16 @@ export default handleActions({
         }
       }
     }
+  },
+
+  REMOVE_WIDGET: (state, action) => {
+    const type = action.payload
+    const newCols = state.cols
+      .map(widgets => widgets.filter(item => item !== type))
+    return {
+      ...state,
+      cols: newCols
+    }
   }
 
 }, state)
