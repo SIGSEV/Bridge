@@ -10,5 +10,6 @@
     "no-console": [0]
   },
   "globals": {
+    "TimelineMax": false
   }
 }

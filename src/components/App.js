@@ -1,37 +1,44 @@
-import React from 'react'
+import React, { Component } from 'react'
+import ReactTransitionGroup from 'react/lib/ReactTransitionGroup'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 import 'styles/app.scss'
 
 import { Picker } from 'components'
 
-import { openPicker } from 'actions'
+import { togglePicker } from 'actions'
+console.log(togglePicker)
 
 @connect(
   state => ({
     picker: state.ui.picker
-  }),
-  dispatch => bindActionCreators({
-    openPicker
-  }, dispatch)
+  })
 )
-class App extends React.Component {
+class App extends Component {
+
+  _togglePicker () {
+    this.props.dispatch(togglePicker())
+  }
 
   render () {
-    const { picker, openPicker } = this.props
+    const { picker } = this.props
+    const toggleIcon = (picker)
+      ? 'ion-checkmark'
+      : 'ion-grid'
     return (
       <div className='App'>
 
-        {picker && (
-          <Picker />
-        )}
+        <ReactTransitionGroup>
 
-        {!picker && (
-          <div className='btn' onClick={openPicker}>
-            {'open'}
-          </div>
-        )}
+          {picker && (
+            <Picker />
+          )}
+
+        </ReactTransitionGroup>
+
+        <button className='btn IconButton' onClick={::this._togglePicker}>
+          <i className={toggleIcon} />
+        </button>
 
       </div>
     )

@@ -1,25 +1,27 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import React, { Component } from 'react'
 
-import { closePicker } from 'actions'
+class Picker extends Component {
 
-@connect(
-  state => ({
-    picker: state.ui.picker
-  }),
-  dispatch => bindActionCreators({
-    closePicker
-  }, dispatch)
-)
-class Picker extends React.Component {
+  constructor (props) {
+    super(props)
+  }
+
+  componentWillEnter (done) {
+    const drop = React.findDOMNode(this)
+    const { section } = this.refs
+    new TimelineMax()
+      .from(drop, 0.1, { opacity: 0 })
+      .from(section, 0.2, { opacity: 0, scale: 0.9 }, '-=0.05')
+      .addCallback(done)
+  }
 
   render () {
-    const { closePicker } = this.props
+    console.log(this.props)
     return (
-      <div>
-        {'picker'}
-        <div className='btn' onClick={closePicker}>close</div>
+      <div className='Picker'>
+        <section ref='section'>
+          {'Pickers'}
+        </section>
       </div>
     )
   }
