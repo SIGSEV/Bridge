@@ -21,7 +21,7 @@ class App extends Component {
 
   render () {
     const { editMode, layout } = this.props
-    const cols = layout.cols
+    const { cols, widgets } = layout
     const toggleIcon = (editMode)
       ? 'ion-checkmark'
       : 'ion-gear-b'
@@ -34,7 +34,7 @@ class App extends Component {
         </button>
 
         <div className='layout'>
-          {cols.map((widgets, i) => <Col key={i} widgets={widgets} />)}
+          {cols.map((widgetsIds, i) => <Col key={i} widgetsIds={widgetsIds} widgets={widgets} />)}
         </div>
 
       </div>

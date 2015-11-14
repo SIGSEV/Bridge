@@ -11,4 +11,3 @@ export default handleActions({
   SET_VIEW_MODE: () => 'view'
 
 }, state)
-
