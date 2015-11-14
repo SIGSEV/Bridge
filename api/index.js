@@ -8,6 +8,7 @@ const server = express()
 server.use(bodyParser.json())
 server.use('/weather', ressources.weather)
 server.use('/bitcoin', ressources.bitcoin)
+server.use('/stack', ressources.stack)
 
 const port = process.env.PORT || 3001
 
