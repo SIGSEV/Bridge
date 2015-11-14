@@ -11,7 +11,7 @@ const state = {
   cols: [
     ['Weather'],
     [],
-    []
+    ['Github']
   ],
 
   widgets: {
@@ -26,6 +26,20 @@ const state = {
           .then(res => res.json())
           .then(data => { dispatch(widgetFetched({ type: 'Weather', data })) })
           .catch(() => { dispatch(widgetFailed('Weather')) })
+      }
+    },
+    Github: {
+      style: {
+        width: 350,
+        height: 500
+      },
+      loading: true,
+      fetch: dispatch => {
+        dispatch(widgetFetch('Github'))
+        fetch('http://localhost:3001/github/trending?lang=javascript')
+          .then(res => res.json())
+          .then(data => { dispatch(widgetFetched({ type: 'Github', data })) })
+          .catch(() => { dispatch(widgetFailed('Github')) })
       }
     }
   }

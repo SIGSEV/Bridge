@@ -4,6 +4,7 @@ $cb1: rgba(black, 0.1);
 $cb2: rgba(black, 0.2);
 $cb3: rgba(black, 0.3);
 $cb6: rgba(black, 0.6);
+$cb8: rgba(black, 0.8);
 
 $clight: darken(white, 5);
 $cbg: darken(white, 15);
@@ -119,6 +120,13 @@ body {
     text-transform: uppercase;
   }
 
+}
+
+.widget-link {
+  color: $cb6;
+  &:hover {
+    color: $cb8;
+  }
 }
 
 .gallery {

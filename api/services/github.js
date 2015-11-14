@@ -15,12 +15,14 @@ export function getTrending (lang) {
       dom('.repo-list-item')
         .each((i, it) => {
           const item = dom(it)
-          out.push({
+          const push = {
             url: item.find('.repo-list-name a')[0].attribs.href,
-            desc: item.children('.repo-list-description').text(),
+            desc: item.children('.repo-list-description').text().trim(),
             lang: item.find('.repo-list-meta').text().split('•')[0].trim(),
             today: item.find('.repo-list-meta').text().split('•')[1].trim()
-          })
+          }
+          push.name = push.url.replace(/.*\/(.*)$/, '$1')
+          out.push(push)
         })
 
       return out

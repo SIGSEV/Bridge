@@ -6,7 +6,6 @@ class Weather extends Component {
     const { data } = this.props.data
     const { celsius } = data.condition
     const { atmosphere } = data
-    console.log(data)
     return (
       <div className='Widget'>
         <span className='boris'>
