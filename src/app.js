@@ -7,20 +7,22 @@ import 'gsap'
 
 import { App } from 'components'
 import reducer from 'reducers'
+import * as storageService from 'services/storage'
 
-// TODO: get state from app storage
-const state = {}
+storageService.getData((state) => {
 
-const store = applyMiddleware(
-  thunk
-)(createStore)(reducer, state)
+  const store = applyMiddleware(
+    thunk
+  )(createStore)(reducer, state)
 
-const root = (
-  <Provider store={store}>
-    <App />
-  </Provider>
-)
+  const root = (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  )
 
-const rootNode = document.getElementById('root')
+  const rootNode = document.getElementById('root')
 
-render(root, rootNode)
+  render(root, rootNode)
+
+})
