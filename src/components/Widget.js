@@ -34,7 +34,9 @@ class Widget extends Component {
         {loading && (
           <div>{'loading'}</div>
         )}
-        <W data={widget} />
+        {!loading && (
+          <W data={widget} />
+        )}
       </div>
     )
   }

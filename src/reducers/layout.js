@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions'
-import got from 'got'
 
 import {
   widgetFetch,
@@ -17,12 +16,12 @@ const state = {
 
   widgets: {
     Weather: {
-      loading: false,
+      loading: true,
       fetch: (dispatch) => {
         dispatch(widgetFetch('Weather'))
-        got('localhost:3001/weather', { retries: 0 })
-          .then(res => res.body)
-          .then(data => { dispatch(widgetFetched({ id: 'Weather', data })) })
+        fetch('http://localhost:3001/weather')
+          .then(res => res.json())
+          .then(data => { dispatch(widgetFetched({ type: 'Weather', data })) })
           .catch(() => { dispatch(widgetFailed('Weather')) })
       }
     }
@@ -46,14 +45,15 @@ export default handleActions({
   },
 
   WIDGET_FETCHED: (state, action) => {
-    const { type } = action.payload
+    const { type, data } = action.payload
     return {
       ...state,
       widgets: {
         ...state.widgets,
         [type]: {
           ...state.widgets[type],
-          loading: false
+          loading: false,
+          data
         }
       }
     }
@@ -61,7 +61,6 @@ export default handleActions({
 
   WIDGET_FAILED: (state, action) => {
     const type = action.payload
-    console.log(action.payload)
     return {
       ...state,
       widgets: {

@@ -3,11 +3,12 @@ import React, { Component } from 'react'
 class Weather extends Component {
 
   render () {
-    const { data } = this.props
-    console.log(data)
+    const { data } = this.props.data
+    const { celsius } = data.condition
     return (
       <div className='Widget'>
-        {'Weather'}
+        <img src={data.img} />
+        {`temperature = ${celsius}`}
       </div>
     )
   }
