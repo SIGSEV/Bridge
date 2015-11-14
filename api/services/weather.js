@@ -5,7 +5,7 @@ const baseUrl = 'https://query.yahooapis.com/v1/public/yql'
 
 function fahrenheitToCelsius (temp) {
   if (!temp) { return null }
-  return (temp - 32) * (5 / 9)
+  return Math.floor((temp - 32) * (5 / 9))
 }
 
 export function getByCity (city) {
