@@ -5,6 +5,7 @@ $cb2: rgba(black, 0.2);
 $cb3: rgba(black, 0.3);
 $cb6: rgba(black, 0.6);
 
+$clight: darken(white, 5);
 $cbg: darken(white, 15);
 
 @import 'buttons';
@@ -83,4 +84,61 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+.Widget-container {
+  @extend .z;
+  position: relative;
+  border: 1px solid transparent;
+  user-select: none;
+  cursor: default;
+
+  &:hover {
+    border-color: $cb1;
+  }
+}
+
+.Widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  .big-val {
+    font-size: 3rem;
+
+    & + .gallery {
+      margin-top: 2rem;
+    }
+  }
+
+  .boris {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+
+}
+
+.gallery {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.mende {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  > h1 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+  > span {
+    font-size: 1.5rem;
+  }
 }

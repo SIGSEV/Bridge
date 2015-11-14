@@ -16,6 +16,10 @@ const state = {
 
   widgets: {
     Weather: {
+      style: {
+        width: 250,
+        height: 250
+      },
       loading: true,
       fetch: (dispatch) => {
         dispatch(widgetFetch('Weather'))

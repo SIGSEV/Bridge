@@ -5,7 +5,8 @@ import * as widgetsComponents from 'components/widgets'
 
 @connect(
   state => ({
-    widgets: state.layout.widgets
+    widgets: state.layout.widgets,
+    editMode: state.mode === 'edit'
   })
 )
 class Widget extends Component {
@@ -24,19 +25,22 @@ class Widget extends Component {
   render () {
     const { type, widgets } = this.props
     const widget = widgets[type]
-    const { loading } = widget
+    const { loading, style } = widget
 
     const W = widgetsComponents[type]
     if (!W) { throw new Error(`Unknown widget type ${type}`) }
 
     return (
-      <div className='Widget-container'>
+      <div className='Widget-container' style={style}>
+
         {loading && (
           <div>{'loading'}</div>
         )}
+
         {!loading && (
           <W data={widget} />
         )}
+
       </div>
     )
   }
