@@ -83,22 +83,8 @@ body {
 
 }
 
-.IconButton {
-  @extend .btn;
-  @extend .z;
+.btn-def {
   @extend .s;
-  position: fixed;
-  bottom: 4px;
-  left: 4px;
-  height: 4rem;
-  width: 4rem;
-
-  color: $cb6;
-
-  i {
-    font-size: 1rem;
-  }
-
   &:hover {
     background: $cb1;
   }
@@ -106,6 +92,24 @@ body {
   &.success {
     background: #518C3E;
     color: $clight;
+    i { text-shadow: $cb2 0 2px; }
+  }
+}
+
+.IconButton {
+  @extend .btn;
+  @extend .btn-def;
+  @extend .z;
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  height: 4rem;
+  width: 4rem;
+
+  color: $cb6;
+
+  i {
+    font-size: 1rem;
   }
 }
 
@@ -116,7 +120,6 @@ body {
   padding: 1rem;
   margin-bottom: 1rem;
   cursor: default;
-  border-radius: 5px;
 
   &.edit {
     border-color: $cb1;
@@ -151,9 +154,21 @@ body {
 
 .ctx {
   position: absolute;
-  top: 0;
+  top: -1px;
   left: 100%;
-  margin-left: 0.5rem;
+  margin-left: 1px;
+}
+
+.ctx-btn {
+  @extend .btn;
+  @extend .s;
+  @extend .z;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: $cb1;
+  &:hover {
+    background: $cb1;
+  }
 }
 
 .gallery {
@@ -173,17 +188,6 @@ body {
   }
   > span {
     font-size: 1.5rem;
-  }
-}
-
-.ctx-btn {
-  @extend .btn;
-  @extend .s;
-  padding: 0.25rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  &:hover {
-    background: $cb1;
   }
 }
 
