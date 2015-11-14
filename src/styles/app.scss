@@ -54,6 +54,7 @@ body {
   position: relative;
   height: 100%;
   overflow: hidden;
+  padding: 1rem;
 
   background: $cbg;
 }
@@ -78,40 +79,8 @@ body {
   }
 }
 
-.Picker {
+.layout {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 1rem;
-  overflow-y: auto;
-
-  background: $cb1;
-}
-
-.box-container {
-  margin: 1rem;
-  padding: 1rem;
-  background: $cbg;
-  border: 1px dashed $cb3;
-  user-select: none;
-  cursor: move;
-
-  h1 {
-    padding-top: 1rem;
-    font-weight: bold;
-  }
-
-  &:hover {
-  }
-}
-
-.preview {
-  min-width: 250px;
-  min-height: 150px;
-  border: 1px solid $cb1;
+  justify-content: space-around;
 }

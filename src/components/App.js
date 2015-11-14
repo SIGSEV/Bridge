@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
-import ReactTransitionGroup from 'react/lib/ReactTransitionGroup'
 import { connect } from 'react-redux'
 
 import 'styles/app.scss'
+
+import Col from 'components/Col'
 
 import { toggleEditMode } from 'actions/mode'
 
 @connect(
   state => ({
-    editMode: state.mode === 'edit'
+    editMode: state.mode === 'edit',
+    layout: state.layout
   })
 )
 class App extends Component {
@@ -18,19 +20,22 @@ class App extends Component {
   }
 
   render () {
-    const { editMode } = this.props
+    const { editMode, layout } = this.props
+    const cols = layout.cols
     const toggleIcon = (editMode)
       ? 'ion-checkmark'
       : 'ion-gear-b'
+
     return (
       <div className='App'>
-
-        <ReactTransitionGroup>
-        </ReactTransitionGroup>
 
         <button className='btn IconButton' onClick={::this._toggleEditMode}>
           <i className={toggleIcon} />
         </button>
+
+        <div className='layout'>
+          {cols.map((widgets, i) => <Col key={i} widgets={widgets} />)}
+        </div>
 
       </div>
     )
