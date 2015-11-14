@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import ReactTransitionGroup from 'react/lib/ReactTransitionGroup'
 
 import Widget from 'components/Widget'
+import Slider from 'components/Slider'
 
 class Col extends Component {
 
@@ -9,7 +11,14 @@ class Col extends Component {
 
     return (
       <div className='Col'>
-        {widgetsIds.map((w, i) => <Widget key={i} type={w} />)}
+
+        <ReactTransitionGroup>
+          {widgetsIds.map((w, i) => (
+            <Slider key={i}>
+              <Widget type={w} />
+            </Slider>
+          ))}
+        </ReactTransitionGroup>
 
         {editMode && (
           <div className='add-btn' tabIndex={0}>
@@ -17,6 +26,7 @@ class Col extends Component {
             {'Add widget'}
           </div>
         )}
+
       </div>
     )
   }
