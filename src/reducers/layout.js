@@ -5,7 +5,7 @@ const state = {
   cols: [
     [
       {
-        type: 'weather'
+        type: 'Weather'
       }
     ],
     [],
