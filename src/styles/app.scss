@@ -63,6 +63,7 @@ body {
   font-family: monospace;
   color: $cb6;
   padding: 1rem;
+  border: 2px solid $cb1;
   ::selection {
     background-color: rgba(black, 0.25);
     color: rgba(white, 0.3);
@@ -115,7 +116,7 @@ body {
 
 .Widget-container {
   position: relative;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   user-select: none;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -154,9 +155,9 @@ body {
 
 .ctx {
   position: absolute;
-  top: -1px;
+  top: -2px;
   left: 100%;
-  margin-left: 1px;
+  margin-left: 2px;
 }
 
 .ctx-btn {
@@ -198,7 +199,6 @@ body {
   flex-direction: column;
   align-items: center;
   min-width: 350px;
-  margin-bottom: 1rem;
   @media screen and (max-width: $breakpoint) {
     flex-grow: 0;
     flex-basis: auto;
@@ -207,13 +207,12 @@ body {
 
 .add-btn {
   @extend .btn;
+  @extend .btn-def;
   padding: 1rem;
+  margin-bottom: 1rem;
   background: rgba(white, 0.4);
   > i {
     margin-right: 0.5rem;
-  }
-  &:hover {
-    background: rgba(white, 0.7);
   }
 }
 

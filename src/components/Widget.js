@@ -47,7 +47,7 @@ class Widget extends Component {
 
         {editMode && (
           <div className='ctx'>
-            <div className='ctx-btn' onClick={this.removeWidget.bind(this, type)}>
+            <div className='ctx-btn' onClick={this.removeWidget.bind(this, type)} tabIndex={0}>
               <i className='ion-close' />
             </div>
           </div>
