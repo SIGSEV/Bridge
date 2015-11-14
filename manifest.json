@@ -1,16 +1,17 @@
 {
-	"name": "HJ",
-	"description": "",
-	"version": "0.1",
-	"manifest_version": 2,
-	"chrome_url_overrides": {
-		"newtab": "index.html"
-	},
-	"background" : {
-		"scripts": []
-	},
-	"permissions": [
-		"https://github.com/api",
-		"https://stackoverflow.com/api"
-	]
+  "name": "HJ",
+  "description": "",
+  "version": "0.1",
+  "manifest_version": 2,
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "background" : {
+    "scripts": []
+  },
+  "permissions": [
+    "https://github.com/api",
+    "https://stackoverflow.com/api",
+    "storage"
+  ]
 }
