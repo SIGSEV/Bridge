@@ -35,7 +35,12 @@ class App extends Component {
         </button>
 
         <div className='layout'>
-          {cols.map((widgetsIds, i) => <Col key={i} widgetsIds={widgetsIds} widgets={widgets} />)}
+          {cols.map((widgetsIds, i) => (
+            <Col key={i}
+              editMode={editMode}
+              widgetsIds={widgetsIds}
+              widgets={widgets} />)
+          )}
         </div>
 
       </div>

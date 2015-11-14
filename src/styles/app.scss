@@ -57,6 +57,8 @@ body {
   height: 100%;
   overflow: hidden;
   padding: 1rem;
+  display: flex;
+  align-items: center;
 
   background: $cbg;
 }
@@ -73,7 +75,7 @@ body {
   color: $cb6;
 
   i {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   &:hover {
@@ -82,9 +84,10 @@ body {
 }
 
 .layout {
-  display: flex;
+  width: 100%;
   align-items: center;
-  justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .Widget-container {
@@ -92,9 +95,12 @@ body {
   position: relative;
   border: 1px solid transparent;
   user-select: none;
+  padding: 1rem;
+  margin-bottom: 1rem;
   cursor: default;
+  border-radius: 5px;
 
-  &:hover {
+  &.edit {
     border-color: $cb1;
   }
 }
@@ -103,7 +109,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
 
   width: 100%;
 
@@ -129,6 +134,13 @@ body {
   }
 }
 
+.ctx {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 0.5rem;
+}
+
 .gallery {
   width: 100%;
   display: flex;
@@ -146,5 +158,37 @@ body {
   }
   > span {
     font-size: 1.5rem;
+  }
+}
+
+.ctx-btn {
+  @extend .btn;
+  @extend .s;
+  padding: 0.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  &:hover {
+    background: $cb1;
+  }
+}
+
+.Col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 300px;
+  margin-bottom: 1rem;
+}
+
+.add-btn {
+  @extend .btn;
+  padding: 1rem;
+  background: rgba(white, 0.4);
+  > i {
+    margin-right: 0.5rem;
+  }
+  &:hover {
+    background: rgba(white, 0.7);
   }
 }

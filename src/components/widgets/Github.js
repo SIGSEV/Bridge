@@ -10,7 +10,7 @@ class Github extends Component {
       {data.map((repo, i) =>
         <div key={i}>
           <a className='widget-link' href={`https://github.com${repo.url}`} target='_blank'>{repo.name}</a>
-          <span>{' ' + repo.today}</span>
+          <span>{` ${repo.today}`}</span>
         </div>
       )}
       </div>

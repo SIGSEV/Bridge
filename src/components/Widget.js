@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 
@@ -23,15 +24,27 @@ class Widget extends Component {
   }
 
   render () {
-    const { type, widgets } = this.props
+    const { type, widgets, editMode } = this.props
     const widget = widgets[type]
     const { loading, style } = widget
 
     const W = widgetsComponents[type]
     if (!W) { throw new Error(`Unknown widget type ${type}`) }
 
+    const classes = classnames('Widget-container', {
+      edit: editMode
+    })
+
     return (
-      <div className='Widget-container' style={style}>
+      <div className={classes} style={style}>
+
+        {editMode && (
+          <div className='ctx'>
+            <div className='ctx-btn'>
+              <i className='ion-close' />
+            </div>
+          </div>
+        )}
 
         {loading && (
           <div>{'loading'}</div>
