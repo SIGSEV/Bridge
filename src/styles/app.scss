@@ -9,6 +9,18 @@ $cbg-dark: #233336;
 
 @import 'buttons';
 
+::-webkit-scrollbar {
+	width:  5px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: $cb6;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
 // utility
 
 .z {
@@ -51,7 +63,7 @@ body {
   @extend .s;
   position: absolute;
   bottom: 4px;
-  right: 4px;
+  left: 4px;
   height: 4rem;
   width: 4rem;
 
@@ -79,13 +91,27 @@ body {
   overflow-y: auto;
 
   background: $cb1;
+}
 
-  > section {
-    padding: 1rem;
-    min-height: 300px;
-    min-width: 300px;
-    background: $cbg-dark;
-    border: 1px dashed $cb3;
+.box-container {
+  margin: 1rem;
+  padding: 1rem;
+  background: $cbg-dark;
+  border: 1px dashed $cb3;
+  user-select: none;
+  cursor: move;
+
+  h1 {
+    padding-top: 1rem;
+    font-weight: bold;
   }
 
+  &:hover {
+  }
+}
+
+.preview {
+  min-width: 250px;
+  min-height: 150px;
+  border: 1px solid $cb1;
 }
