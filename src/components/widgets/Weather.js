@@ -3,16 +3,16 @@ import React, { Component } from 'react'
 class Weather extends Component {
 
   render () {
-    const { data } = this.props.data
-    const { celsius } = data.condition
-    const { atmosphere } = data
+    const { data } = this.props
+    const { values } = data
+    const { atmosphere, condition } = values
     return (
-      <div className='Widget'>
+      <div className='Widget' style={data.style}>
         <span className='boris'>
-          {data.condition.text}
+          {condition.text}
         </span>
         <h1 className='big-val'>
-          {`${celsius}°`}
+          {`${condition.celsius}°`}
         </h1>
         <section className='gallery'>
 

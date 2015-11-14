@@ -12,15 +12,15 @@ $cbg: darken(white, 15);
 @import 'buttons';
 
 ::-webkit-scrollbar {
-	width:  5px;
+	width:  2px;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: $cb6;
+	background: $cb3;
 }
 
 ::-webkit-scrollbar-track {
-	background: transparent;
+	background: $cb1;
 }
 
 // utility
@@ -58,7 +58,6 @@ body {
   overflow: hidden;
   padding: 1rem;
   display: flex;
-  align-items: center;
 
   background: $cbg;
 }
@@ -85,13 +84,12 @@ body {
 
 .layout {
   width: 100%;
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-wrap: wrap;
 }
 
 .Widget-container {
-  @extend .z;
   position: relative;
   border: 1px solid transparent;
   user-select: none;
@@ -109,6 +107,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto;
 
   width: 100%;
 
@@ -177,7 +176,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 300px;
+  min-width: 350px;
   margin-bottom: 1rem;
 }
 

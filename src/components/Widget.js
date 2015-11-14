@@ -26,7 +26,7 @@ class Widget extends Component {
   render () {
     const { type, widgets, editMode } = this.props
     const widget = widgets[type]
-    const { loading, style } = widget
+    const { loading } = widget
 
     const W = widgetsComponents[type]
     if (!W) { throw new Error(`Unknown widget type ${type}`) }
@@ -36,7 +36,7 @@ class Widget extends Component {
     })
 
     return (
-      <div className={classes} style={style}>
+      <div className={classes}>
 
         {editMode && (
           <div className='ctx'>

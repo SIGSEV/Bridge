@@ -10,38 +10,42 @@ const state = {
 
   cols: [
     ['Weather'],
-    [],
-    ['Github']
+    ['Github'],
+    []
   ],
 
   widgets: {
+
     Weather: {
       style: {
-        width: 250
+        width: 250,
+        height: 194
       },
       loading: true,
       fetch: (dispatch) => {
         dispatch(widgetFetch('Weather'))
         fetch('http://localhost:3001/weather')
           .then(res => res.json())
-          .then(data => { dispatch(widgetFetched({ type: 'Weather', data })) })
+          .then(values => { dispatch(widgetFetched({ type: 'Weather', values })) })
           .catch(() => { dispatch(widgetFailed('Weather')) })
       }
     },
+
     Github: {
       style: {
         width: 350,
-        height: 500
+        height: 300
       },
       loading: true,
       fetch: dispatch => {
         dispatch(widgetFetch('Github'))
         fetch('http://localhost:3001/github/trending?lang=javascript')
           .then(res => res.json())
-          .then(data => { dispatch(widgetFetched({ type: 'Github', data })) })
+          .then(values => { dispatch(widgetFetched({ type: 'Github', values })) })
           .catch(() => { dispatch(widgetFailed('Github')) })
       }
     }
+
   }
 }
 
@@ -62,7 +66,7 @@ export default handleActions({
   },
 
   WIDGET_FETCHED: (state, action) => {
-    const { type, data } = action.payload
+    const { type, values } = action.payload
     return {
       ...state,
       widgets: {
@@ -70,7 +74,7 @@ export default handleActions({
         [type]: {
           ...state.widgets[type],
           loading: false,
-          data
+          values
         }
       }
     }
