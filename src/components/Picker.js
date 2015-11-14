@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { findDOMNode } from 'react-dom'
 
 class Picker extends Component {
 
@@ -7,11 +8,20 @@ class Picker extends Component {
   }
 
   componentWillEnter (done) {
-    const drop = React.findDOMNode(this)
+    const drop = findDOMNode(this)
     const { section } = this.refs
     new TimelineMax()
       .from(drop, 0.1, { opacity: 0 })
       .from(section, 0.2, { opacity: 0, scale: 0.9 }, '-=0.05')
+      .addCallback(done)
+  }
+
+  componentWillLeave (done) {
+    const drop = findDOMNode(this)
+    const { section } = this.refs
+    new TimelineMax()
+      .to(section, 0.2, { opacity: 0, scale: 0.9 }, '-=0.05')
+      .to(drop, 0.1, { opacity: 0 })
       .addCallback(done)
   }
 

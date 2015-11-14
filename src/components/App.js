@@ -5,9 +5,7 @@ import { connect } from 'react-redux'
 import 'styles/app.scss'
 
 import { Picker } from 'components'
-
 import { togglePicker } from 'actions'
-console.log(togglePicker)
 
 @connect(
   state => ({
