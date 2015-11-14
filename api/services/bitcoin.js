@@ -11,7 +11,7 @@ export function getLatest () {
         low: body.low,
         last: body.last,
         volume: body.volume,
-        timestamp: new Date(parseInt(body.timestamp) * 1000)
+        timestamp: new Date(parseInt(body.timestamp, 10) * 1000)
       }
     })
 }

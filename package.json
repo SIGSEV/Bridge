@@ -4,7 +4,7 @@
     "clean": "rm -rf dist",
     "start": "babel-node bin/start",
     "build": "npm run clean && babel-node bin/build",
-    "lint": "eslint src bin webpack",
+    "lint": "eslint src api bin webpack",
     "server": "babel-node api"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "babel-core": "^5.8.33",
     "babel-loader": "^5.3.3",
     "body-parser": "^1.14.1",
+    "cheerio": "^0.19.0",
     "css-loader": "^0.22.0",
     "eslint-plugin-react": "^3.8.0",
     "express": "^4.13.3",

@@ -1,4 +1,4 @@
-import express, { Router } from 'express'
+import express from 'express'
 import bodyParser from 'body-parser'
 
 import * as ressources from './ressources'
@@ -9,6 +9,7 @@ server.use(bodyParser.json())
 server.use('/weather', ressources.weather)
 server.use('/bitcoin', ressources.bitcoin)
 server.use('/stack', ressources.stack)
+server.use('/github', ressources.github)
 
 const port = process.env.PORT || 3001
 
