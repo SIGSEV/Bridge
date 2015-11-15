@@ -6,6 +6,7 @@
   "rules": {
     "react/jsx-max-props-per-line": [2, { maximum: 3 }],
     "arrow-parens": 0,
+    "no-inline-comments": 0,
     "semi": [2, "never"],
     "strict": [2, "never"],
     "no-console": [0]

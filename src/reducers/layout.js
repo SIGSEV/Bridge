@@ -123,6 +123,20 @@ export default handleActions({
       ...state,
       cols: newCols
     }
+  },
+
+  ADD_WIDGET: (state, action) => {
+    const { type, targetCol } = action.payload
+    return {
+      ...state,
+      cols: state.cols.map((widgets, i) => {
+        widgets = widgets.filter(item => item !== type)
+        if (i === targetCol) {
+          widgets.push(type)
+        }
+        return widgets
+      })
+    }
   }
 
 }, state)

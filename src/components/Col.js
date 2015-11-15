@@ -1,29 +1,32 @@
 import React, { Component } from 'react'
-import ReactTransitionGroup from 'react/lib/ReactTransitionGroup'
+import { connect } from 'react-redux'
 
 import Widget from 'components/Widget'
-import Slider from 'components/Slider'
+import { openPicker } from 'actions/picker'
 
+@connect()
 class Col extends Component {
 
+  openPickerForCol (col) {
+    this.props.dispatch(openPicker(col))
+  }
+
   render () {
-    const { widgetsIds, editMode } = this.props
+    const { widgetsIds, editMode, col } = this.props
 
     return (
       <div className='Col'>
 
-        <ReactTransitionGroup>
-          {widgetsIds.map((w, i) => (
-            <Slider key={i}>
-              <Widget type={w} />
-            </Slider>
-          ))}
-        </ReactTransitionGroup>
+        {widgetsIds.map((w, i) => (
+          <Widget key={i} type={w} />
+        ))}
 
         {editMode && (
-          <div className='add-btn' tabIndex={0}>
-            <i className='ion-plus' />
-            {'Add widget'}
+          <div className='add-btn'
+            onClick={this.openPickerForCol.bind(this, col)}
+            tabIndex={0}>
+            <i className='ion-plus-round' />
+            {'Add'}
           </div>
         )}
 
