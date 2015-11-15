@@ -5,6 +5,14 @@ import React, { Component } from 'react'
 import { Loader } from 'components'
 import * as widgetsComponents from 'components/widgets'
 import { removeWidget } from 'actions/widgets'
+import { save } from 'actions/global'
+import checkStatus from 'helpers/check-status'
+
+import {
+  widgetFetch,
+  widgetFetched,
+  widgetFailed
+} from 'actions/widgets'
 
 @connect(
   state => ({
@@ -20,14 +28,20 @@ class Widget extends Component {
 
   componentDidMount () {
     const { dispatch, type, widgets } = this.props
-
     const widget = widgets[type]
-    widget.fetch(dispatch)
+
+    dispatch(widgetFetch(type))
+    fetch(widget.url)
+      .then(checkStatus)
+      .then(res => res.json())
+      .then(values => { dispatch(widgetFetched({ type, values })) })
+      .catch(() => { dispatch(widgetFailed(type)) })
+
   }
 
   removeWidget (type) {
     this.props.dispatch(removeWidget(type))
-    console.log(type)
+    this.props.dispatch(save())
   }
 
   render () {

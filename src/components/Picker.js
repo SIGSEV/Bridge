@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { addWidget } from 'actions/widgets'
 import { closePicker } from 'actions/picker'
+import { save } from 'actions/global'
 
 @connect(
   state => ({
@@ -14,6 +15,7 @@ class Picker extends Component {
   addWidget (type) {
     const { targetCol } = this.props
     this.props.dispatch(addWidget({ targetCol, type }))
+    this.props.dispatch(save())
     this.props.dispatch(closePicker())
   }
 

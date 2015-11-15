@@ -1,23 +1,11 @@
 import { handleActions } from 'redux-actions'
 
-import {
-  widgetFetch,
-  widgetFetched,
-  widgetFailed
-} from 'actions/widgets'
-
 const state = {
 
   cols: [
-    [
-      'Weather'
-    ],
-    [
-      'StackOverflow'
-    ],
-    [
-      'Github'
-    ]
+    [],
+    ['Weather'],
+    []
   ],
 
   widgets: {
@@ -27,14 +15,7 @@ const state = {
         width: 250,
         height: 194
       },
-      fetch: (dispatch) => {
-        dispatch(widgetFetch('Weather'))
-        fetch('http://localhost:3001/weather')
-					.then(checkStatus)
-          .then(res => res.json())
-          .then(values => { dispatch(widgetFetched({ type: 'Weather', values })) })
-          .catch(() => { dispatch(widgetFailed('Weather')) })
-      }
+      url: 'http://localhost:3001/weather'
     },
 
     Github: {
@@ -42,14 +23,7 @@ const state = {
         width: 350,
         height: 300
       },
-      fetch: dispatch => {
-        dispatch(widgetFetch('Github'))
-        fetch('http://localhost:3001/github/trending?lang=javascript')
-					.then(checkStatus)
-          .then(res => res.json())
-          .then(values => { dispatch(widgetFetched({ type: 'Github', values })) })
-          .catch(() => { dispatch(widgetFailed('Github')) })
-      }
+      url: 'http://localhost:3001/github/trending?lang=javascript'
     },
 
     StackOverflow: {
@@ -57,29 +31,9 @@ const state = {
         width: 350,
         height: 500
       },
-      fetch: dispatch => {
-        dispatch(widgetFetch('StackOverflow'))
-        fetch('http://localhost:3001/stack/recent?tag=javascript')
-					.then(checkStatus)
-          .then(res => res.json())
-          .then(values => { dispatch(widgetFetched({ type: 'StackOverflow', values })) })
-          .catch(() => {
-            console.log('PUTE')
-            dispatch(widgetFailed('StackOverflow'))
-          })
-      }
+      url: 'http://localhost:3001/stack/recent?tag=javascript'
     }
-
   }
-}
-
-function checkStatus (response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response
-  }
-  const error = new Error(response.statusText)
-  error.response = response
-  throw error
 }
 
 export default handleActions({
@@ -101,7 +55,7 @@ export default handleActions({
 
   WIDGET_FETCHED: (state, action) => {
     const { type, values } = action.payload
-    console.log('FETCHED')
+
     return {
       ...state,
       widgets: {
@@ -119,7 +73,6 @@ export default handleActions({
   WIDGET_FAILED: (state, action) => {
     const type = action.payload
 
-    console.log('FAILED')
     return {
       ...state,
       widgets: {
