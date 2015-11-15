@@ -27,10 +27,10 @@ const state = {
         width: 250,
         height: 194
       },
-      loading: true,
       fetch: (dispatch) => {
         dispatch(widgetFetch('Weather'))
         fetch('http://localhost:3001/weather')
+					.then(checkStatus)
           .then(res => res.json())
           .then(values => { dispatch(widgetFetched({ type: 'Weather', values })) })
           .catch(() => { dispatch(widgetFailed('Weather')) })
@@ -42,10 +42,10 @@ const state = {
         width: 350,
         height: 300
       },
-      loading: true,
       fetch: dispatch => {
         dispatch(widgetFetch('Github'))
         fetch('http://localhost:3001/github/trending?lang=javascript')
+					.then(checkStatus)
           .then(res => res.json())
           .then(values => { dispatch(widgetFetched({ type: 'Github', values })) })
           .catch(() => { dispatch(widgetFailed('Github')) })
@@ -57,17 +57,29 @@ const state = {
         width: 350,
         height: 500
       },
-      loading: true,
       fetch: dispatch => {
         dispatch(widgetFetch('StackOverflow'))
         fetch('http://localhost:3001/stack/recent?tag=javascript')
+					.then(checkStatus)
           .then(res => res.json())
           .then(values => { dispatch(widgetFetched({ type: 'StackOverflow', values })) })
-          .catch(() => { dispatch(widgetFailed('StackOverflow')) })
+          .catch(() => {
+            console.log('PUTE')
+            dispatch(widgetFailed('StackOverflow'))
+          })
       }
     }
 
   }
+}
+
+function checkStatus (response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response
+  }
+  const error = new Error(response.statusText)
+  error.response = response
+  throw error
 }
 
 export default handleActions({
@@ -80,7 +92,8 @@ export default handleActions({
         ...state.widgets,
         [type]: {
           ...state.widgets[type],
-          loading: true
+          loading: true,
+          loaded: false
         }
       }
     }
@@ -88,6 +101,7 @@ export default handleActions({
 
   WIDGET_FETCHED: (state, action) => {
     const { type, values } = action.payload
+    console.log('FETCHED')
     return {
       ...state,
       widgets: {
@@ -95,6 +109,7 @@ export default handleActions({
         [type]: {
           ...state.widgets[type],
           loading: false,
+          loaded: true,
           values
         }
       }
@@ -103,13 +118,16 @@ export default handleActions({
 
   WIDGET_FAILED: (state, action) => {
     const type = action.payload
+
+    console.log('FAILED')
     return {
       ...state,
       widgets: {
         ...state.widgets,
         [type]: {
           ...state.widgets[type],
-          loading: false
+          loading: false,
+          loaded: false
         }
       }
     }

@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 
-const state = 'edit'
+const state = 'view'
 
 export default handleActions({
 
