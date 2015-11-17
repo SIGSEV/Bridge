@@ -20,19 +20,20 @@ class Picker extends Component {
   }
 
   render () {
-    const { targetCol } = this.props
-    console.log(targetCol)
+    const widgetsNames = [
+      'Weather',
+      'Github',
+      'StackOverflow',
+      'Dribble'
+    ]
     return (
       <div className='Picker'>
-        <div className='btn btn-def item' tabIndex={0} onClick={this.addWidget.bind(this, 'Weather')}>
-          {'Weather'}
-        </div>
-        <div className='btn btn-def item' tabIndex={0} onClick={this.addWidget.bind(this, 'Github')}>
-          {'Github'}
-        </div>
-        <div className='btn btn-def item' tabIndex={0} onClick={this.addWidget.bind(this, 'StackOverflow')}>
-          {'StackOverflow'}
-        </div>
+        {widgetsNames.map((widgetName, i) => (
+          <div key={i} className='btn btn-def item' tabIndex={0}
+            onClick={this.addWidget.bind(this, widgetName)}>
+            {widgetName}
+          </div>
+        ))}
       </div>
     )
   }
