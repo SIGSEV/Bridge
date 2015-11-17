@@ -1,0 +1,23 @@
+{
+  "apps": [{
+
+    "name"  : "Infer API",
+    "script": "bin/api.js",
+
+    "env_production": {
+      NODE_ENV: "production"
+    }
+
+  }],
+
+  "deploy": {
+    "production": {
+      "user"       : "meri",
+      "host"       : "fugitive.link",
+      "ref"        : "origin/develop",
+      "repo"       : "git@github.com:Apercu/infer.git",
+      "path"       : "/var/www/infer",
+      "post-deploy": "npm install && pm2 startOrRestart ecosystem.json --env production"
+    }
+  }
+}

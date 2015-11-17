@@ -20,7 +20,7 @@ server.use('/stack', ressources.stack)
 server.use('/github', ressources.github)
 server.use('/dribbble', ressources.dribbble)
 
-server.listen(config.port, 'localhost', err => {
+server.listen(config.port, config.host, err => {
   if (err) { return console.log(err) }
   console.log(`[Infer API] Listening on port ${config.port}`)
 })
