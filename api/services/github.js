@@ -19,7 +19,7 @@ export function getTrending (lang) {
             url: item.find('.repo-list-name a')[0].attribs.href,
             desc: item.children('.repo-list-description').text().trim(),
             lang: item.find('.repo-list-meta').text().split('•')[0].trim(),
-            today: item.find('.repo-list-meta').text().split('•')[1].trim()
+            today: item.find('.repo-list-meta').text().split('•')[1].trim().split(' ')[0]
           }
           push.name = push.url.replace(/.*\/(.*)$/, '$1')
           out.push(push)

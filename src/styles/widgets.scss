@@ -66,3 +66,20 @@
   }
 
 }
+
+.github-repo {
+  color: $cb6;
+  text-decoration: none;
+  padding: 10px;
+
+  > .github-stars i {
+    margin-right: 5px;
+  }
+  > .github-name {
+    margin-left: auto;
+  }
+
+  &:hover {
+    color: $cb4;
+  }
+}

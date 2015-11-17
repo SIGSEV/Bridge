@@ -8,10 +8,14 @@ class Github extends Component {
     return (
       <div className='Widget' style={style}>
       {values.map((repo, i) =>
-        <div key={i}>
-          <a className='widget-link' href={`https://github.com${repo.url}`} target='_blank'>{repo.name}</a>
-          <span>{` ${repo.today}`}</span>
-        </div>
+        <a className='github-repo za' href={`https://github.com${repo.url}`}
+          key={i} target='_blank'>
+          <div className='github-stars'>
+            <i className='ion-ios-star'/>
+            <span>{repo.today}</span>
+          </div>
+          <span className='github-name'>{repo.name}</span>
+        </a>
       )}
       </div>
     )
