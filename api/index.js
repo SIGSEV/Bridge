@@ -1,6 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 
+import config from '../config'
 import * as ressources from './ressources'
 
 const server = express()
@@ -18,9 +19,7 @@ server.use('/bitcoin', ressources.bitcoin)
 server.use('/stack', ressources.stack)
 server.use('/github', ressources.github)
 
-const port = process.env.PORT || 3001
-
-server.listen(port, 'localhost', err => {
+server.listen(config.port, 'localhost', err => {
   if (err) { return console.log(err) }
-  console.log(`listening at http://localhost:${port}`)
+  console.log(`[Infer API] Listening on port ${config.port}`)
 })
