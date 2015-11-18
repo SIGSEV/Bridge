@@ -50,6 +50,11 @@ export default {
     // extract styles
     new ExtractTextPlugin('styles.css'),
 
+    // optimizations
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({ compressor: { warnings: false } })
+
   ],
 
   progress: true,
