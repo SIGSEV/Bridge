@@ -5,6 +5,7 @@ import config from '../webpack/development'
 
 const port = 3000
 const devConfig = {
+  noInfo: true,
   publicPath: config.output.publicPath,
   hot: true,
   historyApiFallback: true

@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import path from 'path'
 import webpack from 'webpack'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 import config from '../config'
 
@@ -18,8 +19,7 @@ export default {
 
   output: {
     path: path.join(__dirname, '../dist'),
-    filename: 'bundle.js',
-    publicPath: '/dist/'
+    filename: 'bundle.js'
   },
 
   module: {
@@ -35,6 +35,9 @@ export default {
   },
 
   plugins: [
+    new HtmlWebpackPlugin({
+      template: 'templates/index.html'
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({

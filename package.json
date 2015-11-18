@@ -3,12 +3,12 @@
   "scripts": {
     "clean": "rm -rf dist",
     "start": "babel-node bin/start",
-    "build": "npm run clean && babel-node bin/build",
+    "build": "npm run clean && babel-node bin/build && cp templates/manifest.json dist",
     "lint": "eslint src api bin webpack config",
     "server": "node bin/api",
     "pm2:setup": "pm2 deploy ecosystem.json production setup",
     "pm2:deploy": "pm2 deploy ecosystem.json production",
-    "deploy": "npm run lint && npm run build && npm run pm2:deploy"
+    "deploy": "npm run lint && npm run pm2:deploy"
   },
   "dependencies": {
     "autoprefixer-loader": "^3.1.0",
@@ -25,6 +25,7 @@
     "extract-text-webpack-plugin": "^0.9.1",
     "got": "^5.1.0",
     "gsap": "^1.18.0",
+    "html-webpack-plugin": "^1.6.2",
     "lodash": "^3.10.1",
     "node-sass": "^3.4.1",
     "q": "^1.4.1",

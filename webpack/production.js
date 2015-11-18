@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import path from 'path'
 import webpack from 'webpack'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 import config from '../config'
@@ -17,8 +18,7 @@ export default {
 
   output: {
     path: path.join(__dirname, '../dist'),
-    filename: 'bundle.js',
-    publicPath: '/dist/'
+    filename: 'bundle.js'
   },
 
   module: {
@@ -35,6 +35,10 @@ export default {
 
   plugins: [
 
+    new HtmlWebpackPlugin({
+      template: 'templates/index.html'
+    }),
+
     // env variables
     new webpack.DefinePlugin({
       'process.env': {
@@ -45,11 +49,6 @@ export default {
 
     // extract styles
     new ExtractTextPlugin('styles.css'),
-
-    // optimizations
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({ compressor: { warnings: false } })
 
   ],
 

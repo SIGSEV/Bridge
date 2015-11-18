@@ -9,8 +9,6 @@ export function save () {
     copy.mode = 'view'
     copy.picker.open = false
 
-    setData(copy, () => {
-      console.log('saved')
-    })
+    setData(copy, () => {})
   }
 }
