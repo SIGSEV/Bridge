@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 
-const { api } = process.env
+const { api } = process.env.config
 
 const state = {
 
