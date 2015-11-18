@@ -1,6 +1,6 @@
 export default {
 
-  host: 'http://localhost',
+  host: 'localhost',
   api: 'http://localhost:3001'
 
 }
