@@ -1,6 +1,5 @@
 import { handleActions } from 'redux-actions'
-
-const { api } = process.env.config
+import { generate as shortid } from 'shortid'
 
 const state = {
 
@@ -11,68 +10,20 @@ const state = {
   ],
 
   widgets: {
-
-    Weather: {
-      style: {
-        width: 250,
-        height: 194
-      },
-      url: `${api}/weather`
-    },
-
-    Github: {
-      style: {
-        width: 350,
-        height: 300
-      },
-      url: `${api}/github/trending?lang=javascript`
-    },
-
-    StackOverflow: {
-      style: {
-        width: 350,
-        height: 500
-      },
-      url: `${api}/stack/recent?tag=javascript`
-    },
-
-    Dribbble: {
-      style: {
-        width: 250,
-        height: 250
-      },
-      url: `${api}/dribbble`
-    },
-
-    Bitcoin: {
-      style: {
-        width: 200,
-        height: 100
-      },
-      url: `${api}/bitcoin`
-    },
-
-    Rss: {
-      style: {
-        width: 350,
-        height: 300
-      },
-      url: `${api}/rss?feed=https://reflets.info/feed`
-    }
-
   }
+
 }
 
 export default handleActions({
 
   WIDGET_FETCH: (state, action) => {
-    const type = action.payload
+    const id = action.payload
     return {
       ...state,
       widgets: {
         ...state.widgets,
-        [type]: {
-          ...state.widgets[type],
+        [id]: {
+          ...state.widgets[id],
           loading: true,
           loaded: false
         }
@@ -81,14 +32,14 @@ export default handleActions({
   },
 
   WIDGET_FETCHED: (state, action) => {
-    const { type, values } = action.payload
+    const { id, values } = action.payload
 
     return {
       ...state,
       widgets: {
         ...state.widgets,
-        [type]: {
-          ...state.widgets[type],
+        [id]: {
+          ...state.widgets[id],
           loading: false,
           loaded: true,
           values
@@ -98,14 +49,14 @@ export default handleActions({
   },
 
   WIDGET_FAILED: (state, action) => {
-    const type = action.payload
+    const id = action.payload
 
     return {
       ...state,
       widgets: {
         ...state.widgets,
-        [type]: {
-          ...state.widgets[type],
+        [id]: {
+          ...state.widgets[id],
           loading: false,
           loaded: false
         }
@@ -114,9 +65,9 @@ export default handleActions({
   },
 
   REMOVE_WIDGET: (state, action) => {
-    const type = action.payload
+    const id = action.payload
     const newCols = state.cols
-      .map(widgets => widgets.filter(item => item !== type))
+      .map(widgets => widgets.filter(widgetId => widgetId !== id))
     return {
       ...state,
       cols: newCols
@@ -125,15 +76,20 @@ export default handleActions({
 
   ADD_WIDGET: (state, action) => {
     const { type, targetCol } = action.payload
+    const widget = { type }
+    const id = shortid()
     return {
       ...state,
-      cols: state.cols.map((widgets, i) => {
-        widgets = widgets.filter(item => item !== type)
+      cols: state.cols.map((col, i) => {
         if (i === targetCol) {
-          widgets.push(type)
+          col.push(id)
         }
-        return widgets
-      })
+        return col
+      }),
+      widgets: {
+        ...state.widgets,
+        [id]: widget
+      }
     }
   }
 

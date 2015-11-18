@@ -17,8 +17,8 @@ class Col extends Component {
     return (
       <div className='Col'>
 
-        {widgetsIds.map((w, i) => (
-          <Widget key={i} type={w} />
+        {widgetsIds.map((id, i) => (
+          <Widget key={i} id={id} />
         ))}
 
         {editMode && (

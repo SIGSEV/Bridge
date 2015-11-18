@@ -3,13 +3,14 @@ import React, { Component } from 'react'
 class Rss extends Component {
 
   render () {
-    const { style, values } = this.props.data
-
+    const { values } = this.props.data
     return (
-      <div className='Widget w-rss' style={style}>
+      <div className='w-rss'>
+
         <h3 className='rss--main-title'>{values.title}</h3>
+
         {values.entries.map((entry, i) =>
-          <div className='rss--entry'>
+          <div key={i} className='rss--entry'>
             <a href={entry.link} target='_blank' key={i}>
               <div>{entry.title}</div>
             </a>
@@ -19,6 +20,7 @@ class Rss extends Component {
             </div>
           </div>
         )}
+
       </div>
     )
   }

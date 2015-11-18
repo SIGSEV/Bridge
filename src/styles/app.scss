@@ -14,9 +14,6 @@ $clight: darken(white, 5);
 $clight2: darken(white, 2);
 $cbg: darken(white, 15);
 
-@import 'buttons';
-@import 'widgets';
-
 ::-webkit-scrollbar {
 	width:  3px;
   height: 3px;
@@ -60,6 +57,8 @@ $cbg: darken(white, 15);
 html, body { height: 100%; }
 
 body {
+  display: flex;
+  flex-direction: vertical;
   font-size: 14px;
   font-family: monospace;
   color: $cb6;
@@ -69,6 +68,11 @@ body {
     background-color: rgba(black, 0.25);
     color: rgba(white, 0.3);
   }
+}
+
+#root {
+  flex-grow: 1;
+  overflow: auto;
 }
 
 .App {
@@ -123,6 +127,7 @@ body {
 }
 
 .Widget-container {
+  background: $cb05;
   position: relative;
   border: 2px solid transparent;
   user-select: none;
@@ -136,6 +141,8 @@ body {
 }
 
 .Widget {
+  @extend .z;
+  position: relative;
   overflow-y: auto;
   width: 100%;
 
@@ -265,3 +272,6 @@ body {
     padding: 2rem;
   }
 }
+
+@import 'buttons';
+@import 'widgets';

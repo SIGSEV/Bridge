@@ -11,10 +11,10 @@ class Bitcoin extends Component {
   }
 
   render () {
-    const { values, style } = this.props.data
+    const { values } = this.props.data
     const timestamp = new Date(values.timestamp)
     return (
-      <div style={style} className='Widget z w-bitcoin'>
+      <div className='z w-bitcoin'>
         <div className='bitcoin--title'>
           <span>{values.last}</span>
           <i className='ion-social-bitcoin'/>

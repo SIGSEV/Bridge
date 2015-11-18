@@ -7,6 +7,9 @@ import * as widgetsComponents from 'components/widgets'
 import { removeWidget } from 'actions/widgets'
 import { save } from 'actions/global'
 import checkStatus from 'helpers/check-status'
+import widgets from 'widgets'
+
+const { api } = process.env.config
 
 import {
   widgetFetch,
@@ -16,8 +19,15 @@ import {
 
 @connect(
   state => ({
-    widgets: state.layout.widgets,
-    editMode: state.mode === 'edit'
+    editMode: state.mode === 'edit',
+    currentWidgets: state.layout.widgets
+  }),
+  null,
+  (stateProps, dispatchProps, ownProps) => ({
+    ...stateProps,
+    ...dispatchProps,
+    ...ownProps,
+    widget: stateProps.currentWidgets[ownProps.id]
   })
 )
 class Widget extends Component {
@@ -27,27 +37,27 @@ class Widget extends Component {
   }
 
   componentDidMount () {
-    const { dispatch, type, widgets } = this.props
-    const widget = widgets[type]
+    const { dispatch, id, widget } = this.props
+    const { url } = widgets[widget.type]
 
-    dispatch(widgetFetch(type))
-    fetch(widget.url)
+    dispatch(widgetFetch(id))
+    fetch(`${api}${url}`)
       .then(checkStatus)
       .then(res => res.json())
-      .then(values => { dispatch(widgetFetched({ type, values })) })
-      .catch(() => { dispatch(widgetFailed(type)) })
+      .then(values => { dispatch(widgetFetched({ id, values })) })
+      .catch(() => { dispatch(widgetFailed(id)) })
 
   }
 
-  removeWidget (type) {
-    this.props.dispatch(removeWidget(type))
+  removeWidget (id) {
+    this.props.dispatch(removeWidget(id))
     this.props.dispatch(save())
   }
 
   render () {
-    const { type, widgets, editMode } = this.props
-    const widget = widgets[type]
-    const { loading, loaded } = widget
+    const { widget, editMode, id } = this.props
+    const { loading, loaded, type } = widget
+    const { style } = widgets[widget.type]
 
     const W = widgetsComponents[type]
 
@@ -60,13 +70,13 @@ class Widget extends Component {
 
         {editMode && (
           <div className='ctx'>
-            <div className='ctx-btn' onClick={this.removeWidget.bind(this, type)} tabIndex={0}>
+            <div className='ctx-btn' onClick={this.removeWidget.bind(this, id)} tabIndex={0}>
               <i className='ion-close' />
             </div>
           </div>
         )}
 
-        <div style={{ ...widget.style, position: 'relative' }}>
+        <div className='Widget' style={{ ...style }}>
 
           {loading && (
             <div className='loading'>

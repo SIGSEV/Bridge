@@ -7,12 +7,9 @@ class StackOverflow extends Component {
   }
 
   render () {
-    const { data } = this.props
-    const { values, style } = data
-    const { items } = values
-
+    const { items } = this.props.data.values
     return (
-      <div className='Widget w-stack' style={style}>
+      <div className='Widget w-stack'>
         {items.map((question, i) => (
 
           <div className='question za' key={i} onClick={this._navigate.bind(this, question)}>

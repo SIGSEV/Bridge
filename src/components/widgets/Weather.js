@@ -3,11 +3,9 @@ import React, { Component } from 'react'
 class Weather extends Component {
 
   render () {
-    const { data } = this.props
-    const { values } = data
-    const { atmosphere, condition } = values
+    const { atmosphere, condition } = this.props.data.values
     return (
-      <div className='Widget w-weather' style={data.style}>
+      <div className='w-weather'>
         <span className='boris'>
           {condition.text}
         </span>

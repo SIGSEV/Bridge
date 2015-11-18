@@ -3,20 +3,26 @@ import React, { Component } from 'react'
 class Dribbble extends Component {
 
   render () {
-    const { data } = this.props
-    const { values, style } = data
+    const { usr, usrUrl, img, imgUrl, title } = this.props.data.values
     return (
-      <div className='Widget w-dribbble'>
-        <img width={style.width}
-          src={values.images.normal || values.images.teaser}/>
+      <div className='w-dribbble'
+        style={{ backgroundImage: `url(${img})` }}>
+
         <div className='z dribbble-overlay'>
-          <a href={values.html_url} target='_blank'>
-            {values.title}
+
+          <a href={imgUrl} target='_blank'>
+            {title}
           </a>
-          <div>
-            by <a href={values.user.html_url} target='_blank'>{values.user.name}</a>
+
+          <div className='usr'>
+            {'by '}
+            <a href={usrUrl} target='_blank'>
+              {usr}
+            </a>
           </div>
+
         </div>
+
       </div>
     )
   }
