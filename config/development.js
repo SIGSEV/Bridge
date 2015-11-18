@@ -1,5 +1,6 @@
 export default {
 
-  host: 'localhost'
+  host: 'localhost',
+  api: 'localhost:3001'
 
 }

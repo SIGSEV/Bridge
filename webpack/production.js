@@ -1,6 +1,9 @@
+import _ from 'lodash'
 import path from 'path'
 import webpack from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
+
+import config from '../config'
 
 export default {
 
@@ -35,7 +38,8 @@ export default {
     // env variables
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production')
+        NODE_ENV: JSON.stringify('production'),
+        config: JSON.stringify(_.pick(config, ['api']))
       }
     }),
 

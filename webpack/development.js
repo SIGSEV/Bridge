@@ -1,5 +1,8 @@
+import _ from 'lodash'
 import path from 'path'
 import webpack from 'webpack'
+
+import config from '../config'
 
 export default {
 
@@ -36,7 +39,8 @@ export default {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development')
+        NODE_ENV: JSON.stringify('development'),
+        config: JSON.stringify(_.pick(config, ['api']))
       }
     })
   ],

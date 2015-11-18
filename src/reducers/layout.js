@@ -1,5 +1,7 @@
 import { handleActions } from 'redux-actions'
 
+const { api } = process.env
+
 const state = {
 
   cols: [
@@ -15,7 +17,7 @@ const state = {
         width: 250,
         height: 194
       },
-      url: 'http://localhost:3001/weather'
+      url: `${api}/weather`
     },
 
     Github: {
@@ -23,7 +25,7 @@ const state = {
         width: 350,
         height: 300
       },
-      url: 'http://localhost:3001/github/trending?lang=javascript'
+      url: `${api}/github/trending?lang=javascript`
     },
 
     StackOverflow: {
@@ -31,7 +33,7 @@ const state = {
         width: 350,
         height: 500
       },
-      url: 'http://localhost:3001/stack/recent?tag=javascript'
+      url: `${api}/stack/recent?tag=javascript`
     },
 
     Dribbble: {
@@ -39,7 +41,7 @@ const state = {
         width: 250,
         height: 250
       },
-      url: 'http://localhost:3001/dribbble'
+      url: `${api}/dribbble`
     }
 
   }
