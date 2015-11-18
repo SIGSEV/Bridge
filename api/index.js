@@ -18,6 +18,7 @@ server.use('/weather', ressources.weather)
 server.use('/bitcoin', ressources.bitcoin)
 server.use('/stack', ressources.stack)
 server.use('/github', ressources.github)
+server.use('/dribbble', ressources.dribbble)
 
 server.listen(config.port, 'localhost', err => {
   if (err) { return console.log(err) }

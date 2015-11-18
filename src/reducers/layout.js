@@ -3,9 +3,9 @@ import { handleActions } from 'redux-actions'
 const state = {
 
   cols: [
-    [],
-    ['Weather'],
-    []
+    ['Github'],
+    ['Weather', 'Dribbble'],
+    ['StackOverflow']
   ],
 
   widgets: {
@@ -32,7 +32,16 @@ const state = {
         height: 500
       },
       url: 'http://localhost:3001/stack/recent?tag=javascript'
+    },
+
+    Dribbble: {
+      style: {
+        width: 250,
+        height: 250
+      },
+      url: 'http://localhost:3001/dribbble'
     }
+
   }
 }
 

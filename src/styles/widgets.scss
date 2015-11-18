@@ -83,3 +83,41 @@
     color: $cb4;
   }
 }
+
+.w-dribbble {
+  position: relative;
+
+  .dribbble-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+    background-color: rgba(white, 0.6);
+    color: $cb6;
+    opacity: 0;
+    transition: opacity 250ms ease-in;
+    flex-direction: column;
+    > a {
+      font-size: 1.5em;
+      text-decoration: none;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 90%;
+      text-align: center;
+    }
+    a {
+      color: $cb8;
+      &:hover {
+        color: $cb6;
+      }
+    }
+  }
+
+  &:hover {
+		.dribbble-overlay {
+      opacity: 1;
+		}
+  }
+}
