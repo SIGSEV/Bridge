@@ -142,6 +142,7 @@ body {
 
 .Widget {
   @extend .z;
+  align-items: flex-start;
   position: relative;
   overflow-y: auto;
   width: 100%;
