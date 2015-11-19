@@ -2,6 +2,7 @@
 
 $breakpoint: 1300px;
 
+$cb025: rgba(black, 0.025);
 $cb05: rgba(black, 0.05);
 $cb1: rgba(black, 0.1);
 $cb2: rgba(black, 0.2);
@@ -127,7 +128,7 @@ body {
 }
 
 .Widget-container {
-  background: $cb05;
+  background: $cb025;
   position: relative;
   border: 2px solid transparent;
   user-select: none;

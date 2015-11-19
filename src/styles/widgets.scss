@@ -67,20 +67,31 @@
 
 }
 
-.github-repo {
-  color: $cb6;
-  text-decoration: none;
-  padding: 10px;
+.w-github {
+  width: 100%;
+  .github-repo {
 
-  > .github-stars i {
-    margin-right: 5px;
-  }
-  > .github-name {
-    margin-left: auto;
-  }
+    &:nth-child(odd) {
+      background: $cb05;
+    }
 
-  &:hover {
-    color: $cb4;
+    display: flex;
+    color: $cb6;
+    text-decoration: none;
+    padding: 0.5rem;
+
+    > .github-stars {
+      i {
+        margin-left: 0.5rem;
+      }
+    }
+    > .github-name {
+      flex: auto;
+    }
+
+    &:hover {
+      color: $cb4;
+    }
   }
 }
 

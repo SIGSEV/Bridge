@@ -5,19 +5,19 @@ class Github extends Component {
   render () {
     const { values } = this.props.data
     return (
-      <div>
+      <div className='w-github'>
         {values.map((repo, i) =>
 
           <a key={i}
             className='github-repo za' href={`https://github.com${repo.url}`}
             target='_blank'>
 
-            <div className='github-stars'>
-              <i className='ion-ios-star'/>
-              <span>{repo.today}</span>
-            </div>
-
             <span className='github-name'>{repo.name}</span>
+
+            <div className='github-stars'>
+              <span>{repo.today}</span>
+              <i className='ion-ios-star'/>
+            </div>
 
           </a>
         )}
