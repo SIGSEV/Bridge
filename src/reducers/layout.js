@@ -5,9 +5,9 @@ const { api } = process.env.config
 const state = {
 
   cols: [
-    ['Github'],
-    ['Weather', 'Dribbble'],
-    ['StackOverflow']
+    [],
+    [],
+    []
   ],
 
   widgets: {
