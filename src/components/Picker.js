@@ -24,7 +24,8 @@ class Picker extends Component {
       'Weather',
       'Github',
       'StackOverflow',
-      'Dribbble'
+      'Dribbble',
+      'Bitcoin'
     ]
     return (
       <div className='Picker'>

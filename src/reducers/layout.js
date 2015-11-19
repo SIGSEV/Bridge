@@ -8,7 +8,7 @@ const state = {
     [],
     [],
     []
-  ],
+  ,
 
   widgets: {
 
@@ -42,6 +42,14 @@ const state = {
         height: 250
       },
       url: `${api}/dribbble`
+    },
+
+    Bitcoin: {
+      style: {
+        width: 200,
+        height: 100
+      },
+      url: `${api}/bitcoin`
     }
 
   }
