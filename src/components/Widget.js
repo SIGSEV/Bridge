@@ -34,6 +34,10 @@ class Widget extends Component {
 
   constructor (props) {
     super(props)
+
+    this.state = {
+      edit: false
+    }
   }
 
   componentDidMount () {
@@ -49,32 +53,39 @@ class Widget extends Component {
 
   }
 
+  setEditMode (edit) {
+    this.setState({ edit })
+  }
+
   removeWidget (id) {
     this.props.dispatch(removeWidget(id))
     this.props.dispatch(save())
   }
 
   render () {
-    const { widget, editMode, id } = this.props
+    const { edit } = this.state
+    const { widget, id } = this.props
     const { loading, loaded, type } = widget
     const { style } = widgets[widget.type]
 
     const W = widgetsComponents[type]
 
     const classes = classnames('Widget-container', {
-      edit: editMode
+      edit
     })
 
     return (
-      <div className={classes}>
+      <div className={classes}
+        onMouseEnter={this.setEditMode.bind(this, true)}
+        onMouseLeave={this.setEditMode.bind(this, false)}>
 
-        {editMode && (
-          <div className='ctx'>
+        <div className='ctx'>
+          {edit && (
             <div className='ctx-btn' onClick={this.removeWidget.bind(this, id)} tabIndex={0}>
               <i className='ion-close' />
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         <div className='Widget' style={{ ...style }}>
 

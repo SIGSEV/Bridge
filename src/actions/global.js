@@ -3,11 +3,12 @@ import { setData } from 'services/storage'
 
 export function save () {
   return (dispatch, getState) => {
-    const copy = cloneDeep(getState())
+    const copy = cloneDeep(pick(getState(), [
+      'layout'
+    ]))
 
     // reset global state
     copy.mode = 'view'
-    copy.picker.open = false
 
     // reset widgets state
     copy.layout.widgets = mapValues(
