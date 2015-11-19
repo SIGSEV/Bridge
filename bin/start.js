@@ -13,6 +13,6 @@ const devConfig = {
 
 new WebpackDevServer(webpack(config), devConfig)
   .listen(port, 'localhost', err => {
-    if (err) { console.log(err) }
-    console.log('Listening at localhost:3000')
+    if (err) { console.log(err) } // eslint-disable-line no-console
+    console.log('Listening at localhost:3000') // eslint-disable-line no-console
   })

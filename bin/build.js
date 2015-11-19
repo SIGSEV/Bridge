@@ -14,6 +14,6 @@ const progressPlugin = new ProgressPlugin((percentage, info) => {
 bundler.apply(progressPlugin)
 
 bundler.run((err, stats) => {
-  if (err) { return console.log(err) }
-  console.log(stats.toString(webpackConfig.stats))
+  if (err) { return console.log(err) } // eslint-disable-line no-console
+  console.log(stats.toString(webpackConfig.stats)) // eslint-disable-line no-console
 })

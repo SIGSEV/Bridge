@@ -9,8 +9,7 @@
     "no-inline-comments": 0,
     "semi": [2, "never"],
     "strict": [2, "never"],
-    "no-undefined": 0,
-    "no-console": [0]
+    "no-undefined": 0
   },
   "globals": {
     "TimelineMax": false,
