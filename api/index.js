@@ -19,6 +19,7 @@ server.use('/bitcoin', ressources.bitcoin)
 server.use('/stack', ressources.stack)
 server.use('/github', ressources.github)
 server.use('/dribbble', ressources.dribbble)
+server.use('/rss', ressources.rss)
 
 server.listen(config.port, config.host, err => {
   if (err) { return console.log(err) }

@@ -144,3 +144,27 @@
     }
   }
 }
+
+.w-rss {
+  .rss--main-title {
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .rss--meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
+  .rss--entry {
+    a {
+      color: $cb8;
+      text-decoration: none;
+      &:hover {
+        color: $cb6;
+      }
+    }
+    & + .rss--entry {
+      margin-top: 10px;
+    }
+  }
+}

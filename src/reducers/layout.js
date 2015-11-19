@@ -8,7 +8,7 @@ const state = {
     [],
     [],
     []
-  ,
+  ],
 
   widgets: {
 
@@ -50,6 +50,14 @@ const state = {
         height: 100
       },
       url: `${api}/bitcoin`
+    },
+
+    Rss: {
+      style: {
+        width: 350,
+        height: 300
+      },
+      url: `${api}/rss?feed=https://reflets.info/feed`
     }
 
   }

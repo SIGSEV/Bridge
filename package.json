@@ -27,6 +27,7 @@
     "gsap": "^1.18.0",
     "html-webpack-plugin": "^1.6.2",
     "lodash": "^3.10.1",
+    "moment": "^2.10.6",
     "node-sass": "^3.4.1",
     "q": "^1.4.1",
     "react": "^0.14.0",
