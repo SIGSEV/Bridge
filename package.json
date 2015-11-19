@@ -3,7 +3,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "start": "babel-node bin/start",
-    "build": "npm run clean && babel-node bin/build && cp templates/manifest.json dist",
+    "build": "npm run clean && NODE_ENV=production babel-node bin/build && cp templates/manifest.json dist",
     "lint": "eslint src api bin webpack config",
     "server": "node bin/api",
     "pm2:setup": "pm2 deploy ecosystem.json production setup",
@@ -12,9 +12,8 @@
   },
   "dependencies": {
     "autoprefixer-loader": "^3.1.0",
-    "babel": "^6.1.18",
-    "babel-core": "^6.2.0",
-    "babel-loader": "^6.2.0",
+    "babel": "^5.8.34",
+    "babel-loader": "^5.4.0",
     "body-parser": "^1.14.1",
     "cheerio": "^0.19.0",
     "classnames": "^2.2.0",

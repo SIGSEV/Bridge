@@ -1,5 +1,5 @@
 export default {
 
-  api: 'fugitive.link:3001'
+  api: 'http://fugitive.link:3001'
 
 }
