@@ -1,3 +1,4 @@
+import { once } from 'lodash'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
@@ -38,6 +39,8 @@ class Widget extends Component {
     this.state = {
       edit: false
     }
+
+    this.setEditModeOnce = once(::this.setEditMode)
   }
 
   componentDidMount () {
@@ -76,6 +79,7 @@ class Widget extends Component {
 
     return (
       <div className={classes}
+        onMouseOver={this.setEditModeOnce.bind(this, true)}
         onMouseEnter={this.setEditMode.bind(this, true)}
         onMouseLeave={this.setEditMode.bind(this, false)}>
 
