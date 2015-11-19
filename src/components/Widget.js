@@ -44,16 +44,34 @@ class Widget extends Component {
   }
 
   componentDidMount () {
+    const { lastFetch, type } = this.props.widget
+    const { timeToRefresh } = widgets[type]
+
+    if (!lastFetch || Date.now() - lastFetch > timeToRefresh) {
+      this.fetchData()
+    }
+  }
+
+  componentWillUnmount () {
+    if (this._fetchInterval) {
+      clearTimeout(this._fetchInterval)
+    }
+  }
+
+  fetchData () {
     const { dispatch, id, widget } = this.props
     const { url } = widgets[widget.type]
 
     dispatch(widgetFetch(id))
+
     fetch(`${api}${url}`)
       .then(checkStatus)
       .then(res => res.json())
-      .then(values => { dispatch(widgetFetched({ id, values })) })
+      .then(values => {
+        dispatch(widgetFetched({ id, values }))
+        dispatch(save())
+      })
       .catch(() => { dispatch(widgetFailed(id)) })
-
   }
 
   setEditMode (edit) {

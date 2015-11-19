@@ -11,9 +11,16 @@ export function save () {
     copy.mode = 'view'
 
     // reset widgets state
+    const widgetKeys = [
+      'type',
+      'lastFetch',
+      'values',
+      'loaded'
+    ]
+
     copy.layout.widgets = mapValues(
       copy.layout.widgets,
-      (widget) => { return pick(widget, ['type']) }
+      (widget) => { return pick(widget, widgetKeys) }
     )
 
     setData(copy, () => {})

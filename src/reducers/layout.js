@@ -42,6 +42,7 @@ export default handleActions({
           ...state.widgets[id],
           loading: false,
           loaded: true,
+          lastFetch: Date.now(),
           values
         }
       }

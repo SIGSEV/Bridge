@@ -5,7 +5,8 @@ export default {
       width: 250,
       height: 194
     },
-    url: '/weather'
+    url: '/weather',
+    timeToRefresh: 5e3
   },
 
   Github: {
@@ -13,7 +14,8 @@ export default {
       width: 350,
       height: 300
     },
-    url: '/github/trending?lang=javascript'
+    url: '/github/trending?lang=javascript',
+    timeToRefresh: 5e3
   },
 
   StackOverflow: {
@@ -21,7 +23,8 @@ export default {
       width: 350,
       height: 500
     },
-    url: '/stack/recent?tag=javascript'
+    url: '/stack/recent?tag=javascript',
+    timeToRefresh: 5e3
   },
 
   Dribbble: {
@@ -29,7 +32,8 @@ export default {
       width: 250,
       height: 250
     },
-    url: '/dribbble'
+    url: '/dribbble',
+    timeToRefresh: 5e3
   },
 
   Bitcoin: {
@@ -37,7 +41,8 @@ export default {
       width: 200,
       height: 100
     },
-    url: '/bitcoin'
+    url: '/bitcoin',
+    timeToRefresh: 5e3
   },
 
   Rss: {
@@ -45,7 +50,8 @@ export default {
       width: 350,
       height: 300
     },
-    url: '/rss?feed=https://reflets.info/feed'
+    url: '/rss?feed=https://reflets.info/feed',
+    timeToRefresh: 5e3
   }
 
 }
