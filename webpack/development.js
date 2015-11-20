@@ -1,26 +1,18 @@
-import _ from 'lodash'
-import path from 'path'
 import webpack from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-import config from '../config'
+import webpackConfig from './config'
 
 export default {
 
-  resolve: {
-    modulesDirectories: ['node_modules', 'src'],
-  },
+  ...webpackConfig,
+
+  devtool: 'sourcemap',
 
   entry: [
+    ...webpackConfig.entry,
     'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    './src/app'
+    'webpack/hot/only-dev-server'
   ],
-
-  output: {
-    path: path.join(__dirname, '../dist'),
-    filename: 'bundle.js'
-  },
 
   module: {
     loaders: [{
@@ -35,19 +27,9 @@ export default {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'templates/index.html'
-    }),
+    ...webpackConfig.plugins,
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development'),
-        config: JSON.stringify(_.pick(config, ['api']))
-      }
-    })
-  ],
-
-  devtool: 'sourcemap'
+    new webpack.NoErrorsPlugin()
+  ]
 
 }
