@@ -1,3 +1,4 @@
+import { omit } from 'lodash'
 import { handleActions } from 'redux-actions'
 import { generate as shortid } from 'shortid'
 
@@ -71,6 +72,7 @@ export default handleActions({
       .map(widgets => widgets.filter(widgetId => widgetId !== id))
     return {
       ...state,
+      widgets: omit(state.widgets, id),
       cols: newCols
     }
   },
