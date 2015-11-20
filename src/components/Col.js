@@ -12,7 +12,7 @@ class Col extends Component {
   }
 
   render () {
-    const { widgetsIds, editMode, col } = this.props
+    const { hasWidgets, widgetsIds, col } = this.props
 
     return (
       <div className='Col'>
@@ -21,11 +21,9 @@ class Col extends Component {
           <Widget key={i} id={id} />
         ))}
 
-        {editMode && (
-          <div className='add-btn'
-            onClick={this.openPickerForCol.bind(this, col)}
-            tabIndex={0}>
-            <i className='ion-plus-round' />
+        {hasWidgets && (
+          <div className='add-btn' tabIndex={0} onClick={this.openPickerForCol.bind(this, col)}>
+            <i className='ion-android-add' />
             {'Add'}
           </div>
         )}

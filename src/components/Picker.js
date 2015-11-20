@@ -13,7 +13,8 @@ import { save } from 'actions/global'
 class Picker extends Component {
 
   addWidget (type) {
-    this.props.dispatch(addWidget({ targetCol: 0, type }))
+    const { targetCol } = this.props
+    this.props.dispatch(addWidget({ targetCol, type }))
     this.props.dispatch(save())
     this.props.dispatch(closePicker())
   }

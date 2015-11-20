@@ -71,10 +71,7 @@
   width: 100%;
   .github-repo {
 
-    &:nth-child(odd) {
-      background: $cb05;
-    }
-
+    border-bottom: 1px solid $cb05;
     display: flex;
     color: $cb6;
     text-decoration: none;
