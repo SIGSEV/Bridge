@@ -8,8 +8,7 @@ export default {
     config: {
       city: 'paris'
     },
-    url: '/weather',
-    timeToRefresh: 5e3
+    url: '/weather'
   },
 
   Github: {
@@ -20,8 +19,7 @@ export default {
     config: {
       language: null
     },
-    url: '/github/trending',
-    timeToRefresh: 5e3
+    url: '/github/trending'
   },
 
   StackOverflow: {
@@ -33,8 +31,7 @@ export default {
       site: 'stackoverflow',
       tag: 'javascript'
     },
-    url: '/stack/recent',
-    timeToRefresh: 5e3
+    url: '/stack/recent'
   },
 
   Dribbble: {
@@ -42,8 +39,7 @@ export default {
       width: 250,
       height: 250
     },
-    url: '/dribbble',
-    timeToRefresh: 5e3
+    url: '/dribbble'
   },
 
   Bitcoin: {
@@ -51,8 +47,7 @@ export default {
       width: 200,
       height: 100
     },
-    url: '/bitcoin',
-    timeToRefresh: 5e3
+    url: '/bitcoin'
   },
 
   Rss: {
@@ -63,8 +58,7 @@ export default {
     config: {
       feed: 'https://reflets.info/feed'
     },
-    url: '/rss',
-    timeToRefresh: 5e3
+    url: '/rss'
   }
 
 }

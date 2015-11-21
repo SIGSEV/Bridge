@@ -32,18 +32,7 @@ class Widget extends Component {
   }
 
   componentDidMount () {
-    const { lastFetch, type } = this.props.widget
-    const { timeToRefresh } = widgets[type]
-
-    if (!lastFetch || Date.now() - lastFetch > timeToRefresh) {
-      this.fetchData()
-    }
-  }
-
-  componentWillUnmount () {
-    if (this._fetchInterval) {
-      clearTimeout(this._fetchInterval)
-    }
+    this.fetchData()
   }
 
   fetchData () {

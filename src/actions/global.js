@@ -13,9 +13,6 @@ export function save () {
     // reset widgets state
     const widgetKeys = [
       'type',
-      'lastFetch',
-      'values',
-      'loaded',
       'config'
     ]
 
