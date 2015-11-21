@@ -5,7 +5,7 @@ class Loader extends Component {
   render () {
     return (
       <div className='Loader'>
-        <i className='ion-loop' />
+        <i className='ion-radio-waves' />
       </div>
     )
   }

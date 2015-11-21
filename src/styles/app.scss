@@ -272,9 +272,17 @@ body {
 }
 
 .Loader {
-  font-size: 1.5rem;
+  @extend .z;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 2.5rem;
   color: $cb2;
-  animation: spin 3s infinite;
+  animation: spin 1s linear infinite;
+  i {
+    @extend .z;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 }
 
 @keyframes spin {
