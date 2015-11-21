@@ -1,4 +1,3 @@
-import { once } from 'lodash'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
@@ -35,12 +34,6 @@ class Widget extends Component {
 
   constructor (props) {
     super(props)
-
-    this.state = {
-      edit: false
-    }
-
-    this.setEditModeOnce = once(::this.setEditMode)
   }
 
   componentDidMount () {
@@ -74,35 +67,27 @@ class Widget extends Component {
       .catch(() => { dispatch(widgetFailed(id)) })
   }
 
-  setEditMode (edit) {
-    this.setState({ edit })
-  }
-
   removeWidget (id) {
     this.props.dispatch(removeWidget(id))
     this.props.dispatch(save())
   }
 
   render () {
-    const { edit } = this.state
-    const { widget, id } = this.props
+    const { widget, id, editMode } = this.props
     const { loading, loaded, type } = widget
     const { style } = widgets[widget.type]
 
     const W = widgetsComponents[type]
 
     const classes = classnames('Widget-container', {
-      edit
+      edit: editMode
     })
 
     return (
-      <div className={classes}
-        onMouseOver={this.setEditModeOnce.bind(this, true)}
-        onMouseEnter={this.setEditMode.bind(this, true)}
-        onMouseLeave={this.setEditMode.bind(this, false)}>
+      <div className={classes}>
 
         <div className='ctx'>
-          {edit && (
+          {editMode && (
             <div className='ctx-btn' onClick={this.removeWidget.bind(this, id)} tabIndex={0}>
               <i className='ion-close' />
             </div>

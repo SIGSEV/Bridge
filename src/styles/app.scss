@@ -161,7 +161,7 @@ body {
   margin-bottom: 1rem;
   cursor: default;
 
-  &:hover {
+  &.edit {
     border-color: $cb1;
   }
 }

@@ -9,16 +9,32 @@ import 'styles/app.scss'
 import Col from 'components/Col'
 import Picker from 'components/Picker'
 import { openPicker, closePicker } from 'actions/picker'
+import { toggleEditMode } from 'actions/mode'
 
 @connect(
   state => ({
-    editMode: state.mode === 'edit',
     picker: state.picker,
     layout: state.layout,
     hasWidgets: !!(Array.prototype.concat.apply([], state.layout.cols).length)
-  })
+  }),
 )
 class App extends Component {
+
+  componentDidMount () {
+    this.handleKey = ::this.handleKey
+    window.addEventListener('keydown', this.handleKey)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('keydown', this.handleKey)
+  }
+
+  handleKey (e) {
+    if (e.which === 69) {
+      const { dispatch } = this.props
+      dispatch(toggleEditMode())
+    }
+  }
 
   handleAddFirstWidget () {
     const { dispatch } = this.props

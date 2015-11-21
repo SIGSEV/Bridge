@@ -4,7 +4,11 @@ import { connect } from 'react-redux'
 import Widget from 'components/Widget'
 import { openPicker } from 'actions/picker'
 
-@connect()
+@connect(
+  state => ({
+    editMode: state.mode === 'edit'
+  })
+)
 class Col extends Component {
 
   openPickerForCol (col) {
@@ -12,7 +16,7 @@ class Col extends Component {
   }
 
   render () {
-    const { hasWidgets, widgetsIds, col } = this.props
+    const { hasWidgets, widgetsIds, col, editMode } = this.props
 
     return (
       <div className='Col'>
@@ -21,7 +25,7 @@ class Col extends Component {
           <Widget key={i} id={id} />
         ))}
 
-        {hasWidgets && (
+        {hasWidgets && editMode && (
           <div className='add-btn' tabIndex={0} onClick={this.openPickerForCol.bind(this, col)}>
             <i className='ion-android-add' />
             {'Add'}
