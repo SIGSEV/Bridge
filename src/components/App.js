@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import 'styles/app.scss'
+import 'react-select/dist/react-select.min.css'
 
 import Col from 'components/Col'
 import Picker from 'components/Picker'

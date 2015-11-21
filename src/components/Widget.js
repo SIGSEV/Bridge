@@ -5,17 +5,11 @@ import React, { Component } from 'react'
 import { Loader } from 'components'
 import * as widgetsComponents from 'components/widgets'
 import { removeWidget } from 'actions/widgets'
+import { configWidget } from 'actions/widgets'
 import { save } from 'actions/global'
-import checkStatus from 'helpers/check-status'
 import widgets from 'widgets'
 
-const { api } = process.env.config
-
-import {
-  widgetFetch,
-  widgetFetched,
-  widgetFailed
-} from 'actions/widgets'
+import { fetchWidget } from 'actions/widgets'
 
 @connect(
   state => ({
@@ -34,6 +28,7 @@ class Widget extends Component {
 
   constructor (props) {
     super(props)
+    this.state = { edit: false }
   }
 
   componentDidMount () {
@@ -52,19 +47,12 @@ class Widget extends Component {
   }
 
   fetchData () {
-    const { dispatch, id, widget } = this.props
-    const { url } = widgets[widget.type]
+    const { dispatch, id } = this.props
+    dispatch(fetchWidget(id))
+  }
 
-    dispatch(widgetFetch(id))
-
-    fetch(`${api}${url}`)
-      .then(checkStatus)
-      .then(res => res.json())
-      .then(values => {
-        dispatch(widgetFetched({ id, values }))
-        dispatch(save())
-      })
-      .catch(() => { dispatch(widgetFailed(id)) })
+  toggleEditMode () {
+    this.setState({ edit: !this.state.edit })
   }
 
   removeWidget (id) {
@@ -72,24 +60,34 @@ class Widget extends Component {
     this.props.dispatch(save())
   }
 
+  configureWidget (config, shouldClose) {
+    const { id, dispatch } = this.props
+    dispatch(configWidget({ id, config }))
+    if (shouldClose) { this.setState({ edit: false }) }
+  }
+
   render () {
     const { widget, id, editMode } = this.props
+    const { edit } = this.state
     const { loading, loaded, type } = widget
     const { style } = widgets[widget.type]
 
     const W = widgetsComponents[type]
 
-    const classes = classnames('Widget-container', {
-      edit: editMode
-    })
+    const classes = classnames('Widget-container', { edit: editMode })
 
     return (
       <div className={classes}>
 
         <div className='ctx'>
           {editMode && (
-            <div className='ctx-btn' onClick={this.removeWidget.bind(this, id)} tabIndex={0}>
-              <i className='ion-close' />
+            <div>
+              <div className='ctx-btn' onClick={this.removeWidget.bind(this, id)} tabIndex={0}>
+                <i className='ion-close' />
+              </div>
+              <div className='ctx-btn' onClick={::this.toggleEditMode} tabIndex={1}>
+                <i className='ion-edit' />
+              </div>
             </div>
           )}
         </div>
@@ -109,7 +107,7 @@ class Widget extends Component {
           )}
 
           {!loading && loaded && (
-            <W data={widget} />
+            <W onSave={::this.configureWidget} edit={edit} data={widget} />
           )}
 
         </div>

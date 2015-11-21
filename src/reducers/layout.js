@@ -2,6 +2,8 @@ import { omit } from 'lodash'
 import { handleActions } from 'redux-actions'
 import { generate as shortid } from 'shortid'
 
+import widgets from 'widgets'
+
 const state = {
 
   cols: [
@@ -79,7 +81,8 @@ export default handleActions({
 
   ADD_WIDGET: (state, action) => {
     const { type, targetCol } = action.payload
-    const widget = { type }
+    const { config } = widgets[type]
+    const widget = { type, config }
     const id = shortid()
     return {
       ...state,
@@ -92,6 +95,20 @@ export default handleActions({
       widgets: {
         ...state.widgets,
         [id]: widget
+      }
+    }
+  },
+
+  WIDGET_CONFIG: (state, action) => {
+    const { id, config } = action.payload
+    return {
+      ...state,
+      widgets: {
+        ...state.widgets,
+        [id]: {
+          ...state.widgets[id],
+          config
+        }
       }
     }
   }

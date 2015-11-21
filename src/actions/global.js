@@ -15,7 +15,8 @@ export function save () {
       'type',
       'lastFetch',
       'values',
-      'loaded'
+      'loaded',
+      'config'
     ]
 
     copy.layout.widgets = mapValues(

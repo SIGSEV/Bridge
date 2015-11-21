@@ -5,6 +5,9 @@ export default {
       width: 250,
       height: 194
     },
+    config: {
+      city: 'paris'
+    },
     url: '/weather',
     timeToRefresh: 5e3
   },
@@ -14,7 +17,10 @@ export default {
       width: 350,
       height: 300
     },
-    url: '/github/trending?lang=javascript',
+    config: {
+      language: null
+    },
+    url: '/github/trending',
     timeToRefresh: 5e3
   },
 
@@ -23,7 +29,11 @@ export default {
       width: 350,
       height: 500
     },
-    url: '/stack/recent?tag=javascript',
+    config: {
+      site: 'stackoverflow',
+      tag: 'javascript'
+    },
+    url: '/stack/recent',
     timeToRefresh: 5e3
   },
 
@@ -50,7 +60,10 @@ export default {
       width: 350,
       height: 300
     },
-    url: '/rss?feed=https://reflets.info/feed',
+    config: {
+      feed: 'https://reflets.info/feed'
+    },
+    url: '/rss',
     timeToRefresh: 5e3
   }
 

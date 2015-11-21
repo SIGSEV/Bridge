@@ -23,6 +23,9 @@ export default {
       test: /\.scss$/,
       loaders: ['style', 'css', 'autoprefixer', 'sass'],
       exclude: /node_modules/
+    }, {
+      test: /\.css$/,
+      loaders: ['style', 'css']
     }]
   },
 

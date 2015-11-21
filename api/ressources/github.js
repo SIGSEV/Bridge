@@ -5,7 +5,7 @@ import { githubService } from '../services'
 const router = Router()
 
 router.get('/trending', (req, res) => {
-  githubService.getTrending(req.query.lang)
+  githubService.getTrending(req.query.language)
     .then(data => {
       res.status(200).send(data)
     })
