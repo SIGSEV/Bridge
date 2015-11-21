@@ -1,4 +1,5 @@
 import got from 'got'
+import _ from 'lodash'
 import cheerio from 'cheerio'
 
 export function getTrending (lang) {
@@ -10,8 +11,8 @@ export function getTrending (lang) {
     .then(response => {
 
       const out = []
-
       const dom = cheerio.load(response.body)
+
       dom('.repo-list-item')
         .each((i, it) => {
           const item = dom(it)
@@ -25,6 +26,6 @@ export function getTrending (lang) {
           out.push(push)
         })
 
-      return out
+      return _.take(out, 15)
     })
 }
