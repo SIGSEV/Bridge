@@ -16,12 +16,14 @@ export function getTrending (lang) {
       dom('.repo-list-item')
         .each((i, it) => {
           const item = dom(it)
+          const meta = item.find('.repo-list-meta').text().split('•')
           const push = {
             url: item.find('.repo-list-name a')[0].attribs.href,
             desc: item.children('.repo-list-description').text().trim(),
-            lang: item.find('.repo-list-meta').text().split('•')[0].trim(),
-            today: item.find('.repo-list-meta').text().split('•')[1].trim().split(' ')[0]
+            lang: meta.length !== 3 ? 'None' : meta[0],
+            today: meta.length !== 3 ? meta[0] : meta[1]
           }
+          push.today = push.today.trim().split(' ')[0]
           push.name = push.url.replace(/.*\/(.*)$/, '$1')
           out.push(push)
         })
