@@ -1,7 +1,7 @@
 {
   "apps": [{
 
-    "name"  : "Infer API",
+    "name"  : "Bridge API",
     "script": "bin/api.js",
 
     "env_production": {
@@ -12,11 +12,11 @@
 
   "deploy": {
     "production": {
-      "user"       : "meri",
+      "user"       : "pm2",
       "host"       : "fugitive.link",
       "ref"        : "origin/develop",
-      "repo"       : "git@github.com:Apercu/infer.git",
-      "path"       : "/var/www/infer",
+      "repo"       : "git@github.com:Sigsev/Bridge.git",
+      "path"       : "/var/www/bridge",
       "post-deploy": "npm install && pm2 startOrRestart ecosystem.json --env production"
     }
   }
