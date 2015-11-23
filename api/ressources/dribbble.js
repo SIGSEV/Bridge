@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
         title: data.title,
         usr: data.user.name,
         usrUrl: data.user.html_url,
-        img: data.images.normal || data.images.teaser,
+        img: data.images.hidpi || data.images.normal || data.images.teaser,
         imgUrl: data.html_url
       })
     })
