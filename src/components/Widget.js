@@ -30,12 +30,13 @@ class Widget extends Component {
     super(props)
     const { config, requires } = this.props.widget
 
-    this.state = { edit: false }
+    const state = { edit: false }
     if (requires) {
       requires.forEach(dep => {
-        if (!config[dep]) { this.state.edit = true }
+        if (!config[dep]) { state.edit = true }
       })
     }
+    this.state = state
   }
 
   componentDidMount () {
