@@ -28,10 +28,18 @@ class Widget extends Component {
 
   constructor (props) {
     super(props)
+    const { config, requires } = this.props.widget
+
     this.state = { edit: false }
+    if (requires) {
+      requires.forEach(dep => {
+        if (!config[dep]) { this.state.edit = true }
+      })
+    }
   }
 
   componentDidMount () {
+    if (this.state.edit) { return }
     this.fetchData()
   }
 
@@ -89,13 +97,13 @@ class Widget extends Component {
             </div>
           )}
 
-          {(!loading && !loaded) && (
+          {(!edit && !loading && !loaded) && (
             <div className='loading'>
               {'Loading problem'}
             </div>
           )}
 
-          {!loading && loaded && (
+          {(edit || !loading && loaded) && (
             <W onSave={::this.configureWidget} edit={edit} data={widget} />
           )}
 

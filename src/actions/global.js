@@ -13,7 +13,8 @@ export function save () {
     // reset widgets state
     const widgetKeys = [
       'type',
-      'config'
+      'config',
+      'requires'
     ]
 
     copy.layout.widgets = mapValues(

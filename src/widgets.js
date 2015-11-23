@@ -56,8 +56,9 @@ export default {
       height: 300
     },
     config: {
-      feed: 'https://reflets.info/feed'
+      feed: null
     },
+    requires: ['feed'],
     url: '/rss'
   }
 

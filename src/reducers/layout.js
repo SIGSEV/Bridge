@@ -81,8 +81,8 @@ export default handleActions({
 
   ADD_WIDGET: (state, action) => {
     const { type, targetCol } = action.payload
-    const { config } = widgets[type]
-    const widget = { type, config }
+    const { config, requires } = widgets[type]
+    const widget = { type, config, requires }
     const id = shortid()
     return {
       ...state,

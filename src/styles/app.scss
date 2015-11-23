@@ -130,9 +130,13 @@ body {
 }
 
 .btn-oe {
+  cursor: pointer;
   padding: 0.5em 1em;
   i {
     margin-right: 0.5em;
+  }
+  &:hover {
+    color: $cb6;
   }
 }
 
@@ -319,3 +323,4 @@ body {
 
 @import 'buttons';
 @import 'widgets';
+@import 'inputs';
