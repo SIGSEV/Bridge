@@ -8,7 +8,9 @@ dotenv.load()
 export default {
   env,
   port: 3001,
-  ...config,
 
-  dribbbleToken: process.env.DRIBBBLE
+  dribbbleToken: process.env.DRIBBBLE,
+  weatherToken: process.env.WEATHER,
+
+  ...config
 }

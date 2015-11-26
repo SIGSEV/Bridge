@@ -21,11 +21,13 @@ export default {
       exclude: /node_modules/
     }, {
       test: /\.scss$/,
-      loaders: ['style', 'css', 'autoprefixer', 'sass'],
-      exclude: /node_modules/
+      loaders: ['style', 'css', 'autoprefixer', 'sass']
     }, {
       test: /\.css$/,
       loaders: ['style', 'css']
+    }, {
+      test: /\.(woff|woff2|eot|svg|ttf)$/,
+      loader: 'url?limit=100000'
     }]
   },
 

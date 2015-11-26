@@ -5,9 +5,6 @@ export default {
       width: 250,
       height: 194
     },
-    config: {
-      city: 'paris'
-    },
     url: '/weather'
   },
 

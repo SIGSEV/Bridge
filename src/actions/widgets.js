@@ -21,17 +21,31 @@ export function fetchWidget (id) {
 
     const state = getState()
     const widget = state.layout.widgets[id]
-    const { url } = widgets[widget.type]
-    const { config } = widget
+    const { config, type } = widget
+    const { url } = widgets[type]
 
-    fetch(`${api}${url}?${serialize(config)}`)
-      .then(checkStatus)
-      .then(res => res.json())
-      .then(values => {
-        dispatch(widgetFetched({ id, values }))
-        dispatch(save())
+    function doFetch (newConfig) {
+      return fetch(`${api}${url}?${serialize(newConfig || config)}`)
+        .then(checkStatus)
+        .then(res => res.json())
+        .then(values => {
+          dispatch(widgetFetched({ id, values }))
+          dispatch(save())
+        })
+        .catch(() => { dispatch(widgetFailed(id)) })
+    }
+
+    if (type === 'Weather') {
+      return navigator.geolocation.getCurrentPosition(pos => {
+        const { latitude, longitude } = pos.coords
+        doFetch({ latitude, longitude })
+      }, () => {
+        dispatch(widgetFailed(id))
       })
-      .catch(() => { dispatch(widgetFailed(id)) })
+    }
+
+    doFetch()
+
   }
 }
 

@@ -29,6 +29,7 @@
     "eslint-plugin-react": "^3.8.0",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^0.9.1",
+    "file-loader": "^0.8.5",
     "got": "^5.1.0",
     "gsap": "^1.18.0",
     "html-webpack-plugin": "^1.6.2",
@@ -47,6 +48,8 @@
     "sass-loader": "^3.1.1",
     "shortid": "^2.2.4",
     "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "weather-icons-tmp": "0.0.1",
     "webpack": "^1.9.6",
     "whatwg-fetch": "^0.10.1"
   },

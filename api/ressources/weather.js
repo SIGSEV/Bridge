@@ -5,7 +5,7 @@ import { weatherService } from '../services'
 const router = Router()
 
 router.get('/', (req, res) => {
-  weatherService.getByCity('paris')
+  weatherService.getByCoords(req.query.latitude, req.query.longitude)
     .then(data => {
       res.status(200).send(data)
     })

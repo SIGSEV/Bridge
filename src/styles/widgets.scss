@@ -3,6 +3,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  .big-val i {
+    margin-right: 10px;
+  }
 }
 
 .w-stack {
