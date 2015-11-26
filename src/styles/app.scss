@@ -104,6 +104,10 @@ body {
 
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .btn-def {
   @extend .s;
   &:hover {
@@ -294,6 +298,19 @@ body {
   to   { transform:rotate(360deg); }
 }
 
+.BHC {
+  max-width: 500px;
+  h1 {
+    font-size: 2em;
+  }
+  h1 + div {
+    margin-top: 10px;
+  }
+  div:before {
+    content: '- ';
+  }
+}
+
 .Modal {
   @extend .z;
   position: fixed;
@@ -302,6 +319,12 @@ body {
   right: 0;
   top: 0;
   background: $cb2;
+}
+
+.HelpModal {
+  @extend .Modal;
+  background: $cb8;
+  color: white;
 }
 
 .PseudoModal {

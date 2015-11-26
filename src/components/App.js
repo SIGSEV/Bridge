@@ -22,6 +22,11 @@ import { toggleEditMode } from 'actions/mode'
 )
 class App extends Component {
 
+  constructor (props) {
+    super(props)
+    this.state = { shouldHelp: false }
+  }
+
   componentDidMount () {
     this.handleKey = ::this.handleKey
     window.addEventListener('keydown', this.handleKey)
@@ -48,8 +53,13 @@ class App extends Component {
     dispatch(closePicker())
   }
 
+  showHelp () {
+    this.setState({ shouldHelp: true })
+  }
+
   render () {
     const { layout, picker, hasWidgets } = this.props
+    const { shouldHelp } = this.state
     const { cols, widgets } = layout
 
     return (
@@ -77,6 +87,17 @@ class App extends Component {
           </PseudoModal>
         </Portal>
 
+        {/* helper */}
+        <Portal className='HelpModal' isOpened={shouldHelp}
+          closeOnOutsideClick closeOnEsc>
+          <div className='BHC'>
+            <h1>BHC (Bridge Help Center)</h1>
+            <div>Press Esc to close modals, like this one.</div>
+            <div>Press E to toggle the Edit mode.</div>
+            <div>Edit mode will allow you to configure widgets when available and change your layout.</div>
+          </div>
+        </Portal>
+
         {/* blank state */}
 
         {!hasWidgets && (
@@ -87,6 +108,12 @@ class App extends Component {
               <i className='ion-plus-circled' />
               {'Maybe try adding one?'}
             </div>
+          </div>
+        )}
+
+        {hasWidgets && (
+          <div className='pointer' onClick={::this.showHelp}>
+            <i className='ion-help'/>
           </div>
         )}
 
