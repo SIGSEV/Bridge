@@ -23,5 +23,5 @@ server.use('/rss', ressources.rss)
 
 server.listen(config.port, config.host, err => {
   if (err) { return console.log(err) } // eslint-disable-line no-console
-  console.log(`[Infer API] Listening on port ${config.port}`) // eslint-disable-line no-console
+  console.log(`[Bridge API] Listening on port ${config.port}`) // eslint-disable-line no-console
 })
