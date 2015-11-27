@@ -57,6 +57,10 @@ class App extends Component {
     this.setState({ shouldHelp: true })
   }
 
+  closeHelp () {
+    this.setState({ shouldHelp: false })
+  }
+
   render () {
     const { layout, picker, hasWidgets } = this.props
     const { shouldHelp } = this.state
@@ -88,8 +92,11 @@ class App extends Component {
         </Portal>
 
         {/* helper */}
-        <Portal className='HelpModal' isOpened={shouldHelp}
-          closeOnOutsideClick closeOnEsc>
+        <Portal className='HelpModal'
+          isOpened={shouldHelp}
+          closeOnOutsideClick
+          onClose={::this.closeHelp}
+          closeOnEsc>
           <div className='BHC'>
             <h1>BHC (Bridge Help Center)</h1>
             <div>Press Esc to close modals, like this one.</div>
