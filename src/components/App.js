@@ -119,7 +119,7 @@ class App extends Component {
         )}
 
         {hasWidgets && (
-          <div className='pointer' onClick={::this.showHelp}>
+          <div className='IconButton' onClick={::this.showHelp} tabIndex={0}>
             <i className='ion-help'/>
           </div>
         )}

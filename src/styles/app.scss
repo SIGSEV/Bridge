@@ -104,10 +104,6 @@ body {
 
 }
 
-.pointer {
-  cursor: pointer;
-}
-
 .btn-def {
   @extend .s;
   &:hover {
@@ -149,10 +145,10 @@ body {
   @extend .btn-def;
   @extend .z;
   position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-  height: 4rem;
-  width: 4rem;
+  top: 1rem;
+  right: 1rem;
+  height: 2rem;
+  width: 2rem;
 
   color: $cb6;
 
@@ -302,12 +298,14 @@ body {
   max-width: 500px;
   h1 {
     font-size: 2em;
+    margin-bottom: 1em;
   }
-  h1 + div {
-    margin-top: 10px;
-  }
-  div:before {
-    content: '- ';
+  div {
+    font-size: 1.2em;
+    line-height: 1.5em;
+    &:before {
+      content: '- ';
+    }
   }
 }
 
