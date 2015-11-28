@@ -68,7 +68,7 @@ class Widget extends Component {
     const { widget, id, editMode } = this.props
     const { edit } = this.state
     const { loading, loaded, type } = widget
-    const { style } = widgets[widget.type]
+    const { style, config } = widgets[widget.type]
 
     const W = widgetsComponents[type]
 
@@ -83,9 +83,11 @@ class Widget extends Component {
               <div className='ctx-btn' onClick={this.removeWidget.bind(this, id)} tabIndex={0}>
                 <i className='ion-close' />
               </div>
-              <div className='ctx-btn' onClick={::this.toggleEditMode} tabIndex={1}>
-                <i className='ion-edit' />
-              </div>
+              {!!config && (
+                <div className='ctx-btn' onClick={::this.toggleEditMode} tabIndex={1}>
+                  <i className='ion-edit' />
+                </div>
+              )}
             </div>
           )}
         </div>
