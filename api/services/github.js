@@ -1,8 +1,13 @@
-import got from 'got'
 import _ from 'lodash'
+import q from 'q'
+import got from 'got'
+import cache from 'memory-cache'
 import cheerio from 'cheerio'
 
 export function getTrending (lang) {
+
+  const cached = cache.get(`github-${lang}`)
+  if (cached) { return q(cached) }
 
   let url = 'https://github.com/trending'
   if (lang) { url += `?l=${lang}` }
@@ -29,5 +34,9 @@ export function getTrending (lang) {
         })
 
       return _.take(out, 15)
+    })
+    .then(data => {
+      cache.put(`github-${lang}`, data, 30e3 * 60)
+      return data
     })
 }

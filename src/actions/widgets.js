@@ -38,7 +38,9 @@ export function fetchWidget (id) {
     if (type === 'Weather') {
       return navigator.geolocation.getCurrentPosition(pos => {
         const { latitude, longitude } = pos.coords
-        doFetch({ latitude, longitude })
+        const lat = latitude.toFixed(3)
+        const lng = longitude.toFixed(3)
+        doFetch({ lat, lng })
       }, () => {
         dispatch(widgetFailed(id))
       })

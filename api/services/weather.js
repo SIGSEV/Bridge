@@ -1,4 +1,6 @@
+import q from 'q'
 import got from 'got'
+import cache from 'memory-cache'
 
 import config from '../../config'
 import icons from '../../src/data/weather'
@@ -6,6 +8,9 @@ import icons from '../../src/data/weather'
 const baseUrl = 'api.openweathermap.org/data/2.5/weather'
 
 export function getByCoords (lat, lng) {
+  const cached = cache.get(`weather-${lat}:${lng}`)
+  if (cached) { return q(cached) }
+
   return got(`${baseUrl}?lat=${lat}&lon=${lng}&units=metric&APPID=${config.weatherToken}`, { json: true })
     .then(response => response.body)
     .then(body => {
@@ -24,11 +29,12 @@ export function getByCoords (lat, lng) {
       return {
         desc: weather.description,
         icon: `wi wi-${icon}`,
-        temp,
-        pressure,
-        wind,
-        clouds
+        temp, pressure, wind, clouds
       }
 
+    })
+    .then(data => {
+      cache.put(`weather-${lat}:${lng}`, data, 10e3 * 60)
+      return data
     })
 }
