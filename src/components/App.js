@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   handleKey (e) {
-    if (e.which === 69) {
+    if (e.ctrlKey && e.which === 69) {
       const { dispatch } = this.props
       dispatch(toggleEditMode())
     }
@@ -100,7 +100,7 @@ class App extends Component {
           <div className='BHC'>
             <h1>BHC (Bridge Help Center)</h1>
             <div>Press Esc to close modals, like this one.</div>
-            <div>Press E to toggle the Edit mode.</div>
+            <div>Press CTRL+E to toggle the Edit mode.</div>
             <div>Edit mode will allow you to configure widgets when available and change your layout.</div>
           </div>
         </Portal>
