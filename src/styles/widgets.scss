@@ -226,3 +226,44 @@
     }
   }
 }
+
+.w-bookmarks {
+
+  .bookmark-list {
+    margin-bottom: 1rem;
+  }
+
+  h3 + * {
+    margin-top: 1.5rem;
+  }
+
+  input + button {
+    margin-top: 1rem;
+  }
+
+  .bookmark-list {
+    a {
+      font-size: 1.1rem;
+      color: $blue;
+      text-decoration: none;
+      &:hover {
+        color: rgba($blue, .8);
+      }
+    }
+    a + a {
+      margin-left: 1rem;
+    }
+  }
+
+  .bookmark-edit-list {
+    input {
+      width: 46%;
+    }
+    .ion-ios-trash-outline {
+      cursor: pointer;
+      font-size: 1.5rem;
+      margin-left: auto;
+    }
+  }
+
+}

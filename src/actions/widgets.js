@@ -24,6 +24,11 @@ export function fetchWidget (id) {
     const { config, type } = widget
     const { url } = widgets[type]
 
+    if (!url) {
+      dispatch(widgetFetched({ id }))
+      return dispatch(save())
+    }
+
     function doFetch (newConfig) {
       return fetch(`${api}${url}?${serialize(newConfig || config)}`)
         .then(checkStatus)

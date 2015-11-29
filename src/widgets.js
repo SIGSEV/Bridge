@@ -57,6 +57,16 @@ export default {
     },
     requires: ['feed'],
     url: '/rss'
+  },
+
+  Bookmarks: {
+    style: {
+      width: 350,
+      minHeight: 50
+    },
+    config: {
+      books: []
+    }
   }
 
 }

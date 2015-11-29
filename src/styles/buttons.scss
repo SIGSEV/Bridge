@@ -6,6 +6,26 @@
   user-select: none;
 }
 
+.btn-advanced {
+
+  @extend .btn;
+
+  padding: 3px 4px;
+  border: 2px solid rgba(black, .1);
+  background: none;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: rgba(black, .6);
+    background-color: rgba(black, .6);
+    color: white;
+  }
+
+}
+
 .btn-def {
   @extend .s;
   &:hover {

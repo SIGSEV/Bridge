@@ -17,6 +17,8 @@ $clight: darken(white, 5);
 $clight2: darken(white, 2);
 $cbg: darken(white, 15);
 
+$blue: #268bd2;
+
 ::-webkit-scrollbar {
 	width:  3px;
   height: 3px;
@@ -136,6 +138,10 @@ body {
   &:hover {
     background: $cb1;
   }
+}
+
+.subtitle {
+  text-transform: uppercase;
 }
 
 .gallery {
