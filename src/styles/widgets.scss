@@ -1,3 +1,32 @@
+.Widget {
+  @extend .z;
+  align-items: flex-start;
+  position: relative;
+  overflow-y: auto;
+  width: 100%;
+
+  .big-val {
+    font-size: 3rem;
+    margin: 1em 0;
+  }
+
+  .boris {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+
+}
+
+.widget-link {
+  color: $cb6;
+  &:hover {
+    color: $cb8;
+  }
+}
+
 .w-weather {
   width: 100%;
   display: flex;

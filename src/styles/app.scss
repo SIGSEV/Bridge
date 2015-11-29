@@ -104,59 +104,6 @@ body {
 
 }
 
-.btn-def {
-  @extend .s;
-  &:hover {
-    background: $cb1;
-  }
-
-  &.success {
-    background: #518C3E;
-    color: $clight;
-    i { text-shadow: $cb2 0 2px; }
-  }
-}
-
-.btn-ui {
-  @extend .btn;
-  @extend .btn-def;
-  padding: 1em;
-  background-color: $cb1;
-  border-color: $cb1;
-  border-width: 1px;
-  i {
-    margin-right: 0.5rem;
-  }
-}
-
-.btn-oe {
-  cursor: pointer;
-  padding: 0.5em 1em;
-  i {
-    margin-right: 0.5em;
-  }
-  &:hover {
-    color: $cb6;
-  }
-}
-
-.IconButton {
-  @extend .btn;
-  @extend .btn-def;
-  @extend .z;
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  height: 2rem;
-  width: 2rem;
-
-  color: $cb6;
-
-  i {
-    font-size: 1rem;
-  }
-}
-
 .Widget-container {
   position: relative;
   border: 2px solid transparent;
@@ -167,35 +114,6 @@ body {
 
   &.edit {
     border-color: $cb1;
-  }
-}
-
-.Widget {
-  @extend .z;
-  align-items: flex-start;
-  position: relative;
-  overflow-y: auto;
-  width: 100%;
-
-  .big-val {
-    font-size: 3rem;
-    margin: 1em 0;
-  }
-
-  .boris {
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-  }
-
-}
-
-.widget-link {
-  color: $cb6;
-  &:hover {
-    color: $cb8;
   }
 }
 
@@ -251,17 +169,6 @@ body {
   @media screen and (max-width: $breakpoint) {
     flex-grow: 0;
     flex-basis: auto;
-  }
-}
-
-.add-btn {
-  @extend .btn;
-  @extend .btn-def;
-  padding: 0.5rem 1rem;
-  color: $cb5;
-  background: rgba(white, 0.4);
-  > i {
-    margin-right: 0.5rem;
   }
 }
 
