@@ -1,5 +1,5 @@
 export default {
 
-  api: 'http://fugitive.link:3001'
+  api: 'http://192.99.2.67/:3001'
 
 }
