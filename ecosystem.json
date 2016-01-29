@@ -13,7 +13,7 @@
   "deploy": {
     "production": {
       "user"       : "pm2",
-      "host"       : "fugitive.link",
+      "host"       : "192.99.2.67",
       "ref"        : "origin/develop",
       "repo"       : "git@github.com:Sigsev/Bridge.git",
       "path"       : "/var/www/bridge",
