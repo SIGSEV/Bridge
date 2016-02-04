@@ -69,8 +69,6 @@ class App extends Component {
     return (
       <div className='App'>
 
-        {/* columns */}
-
         {cols.map((widgetsIds, i) => (
           <Col key={i}
             hasWidgets={hasWidgets}
@@ -78,8 +76,6 @@ class App extends Component {
             widgetsIds={widgetsIds}
             widgets={widgets} />)
         )}
-
-        {/* picker */}
 
         <Portal className='Modal'
           isOpened={picker.open}
@@ -91,7 +87,6 @@ class App extends Component {
           </PseudoModal>
         </Portal>
 
-        {/* helper */}
         <Portal className='HelpModal'
           isOpened={shouldHelp}
           closeOnOutsideClick
@@ -104,8 +99,6 @@ class App extends Component {
             <div>Edit mode will allow you to configure widgets when available and change your layout.</div>
           </div>
         </Portal>
-
-        {/* blank state */}
 
         {!hasWidgets && (
           <div className='BlankState'>
