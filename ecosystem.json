@@ -14,7 +14,7 @@
     "production": {
       "user"       : "pm2",
       "host"       : "192.99.2.67",
-      "ref"        : "origin/develop",
+      "ref"        : "origin/master",
       "repo"       : "git@github.com:Sigsev/Bridge.git",
       "path"       : "/var/www/bridge",
       "post-deploy": "npm install && pm2 startOrRestart ecosystem.json --env production"
