@@ -12,5 +12,7 @@ export default {
   dribbbleToken: process.env.DRIBBBLE,
   weatherToken: process.env.WEATHER,
 
+  bannedRepositories: (process.env.BANNED_REPOSITORIES || '').split(','),
+
   ...config
 }

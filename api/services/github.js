@@ -4,6 +4,8 @@ import got from 'got'
 import cache from 'memory-cache'
 import cheerio from 'cheerio'
 
+import config from '../../config'
+
 export function getTrending (lang) {
 
   const cached = cache.get(`github-${lang}`)
@@ -30,6 +32,8 @@ export function getTrending (lang) {
           }
           push.today = push.today.trim().split(' ')[0]
           push.name = push.url.replace(/.*\/(.*)$/, '$1')
+
+          if (_.includes(config.bannedRepositories, push.name)) { return }
           out.push(push)
         })
 
