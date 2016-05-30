@@ -2,16 +2,44 @@ import React, { Component } from 'react'
 
 class StackOverflow extends Component {
 
+  constructor (props) {
+    super(props)
+    const { tag } = this.props.data.config
+    this.state = { tag }
+  }
+
   _navigate (question) {
     window.open(question.link, '_blank')
   }
 
+  updateTag ({ target: { value: tag } }) {
+    this.setState({ tag })
+  }
+
+  saveTag () {
+    const { onSave, config } = this.props
+    const { tag } = this.state
+    onSave({ ...config, tag }, true)
+  }
+
   render () {
-    const { items } = this.props.data.values
+    const { edit, data: { values: { items } } } = this.props
+    const { tag } = this.state
+
     return (
       <div className='w-stack'>
-        {items.map((question, i) => (
 
+        {edit && (
+          <div>
+            <input onChange={::this.updateTag} type='text' value={tag}
+              placeholder={'Tag'} />
+            <button onClick={::this.saveTag} className='btn btn-icon'>
+              <i className='ion-checkmark-circled' />
+            </button>
+          </div>
+        )}
+
+        {!edit && items.map((question, i) => (
           <div className='question za' key={i} onClick={this._navigate.bind(this, question)}>
 
             <div className='side'>
@@ -38,6 +66,7 @@ class StackOverflow extends Component {
 
           </div>
         ))}
+
       </div>
     )
   }
