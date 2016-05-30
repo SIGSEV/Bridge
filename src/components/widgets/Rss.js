@@ -8,13 +8,12 @@ class Rss extends Component {
     this.state = { feed }
   }
 
-  updateFeed (e) {
-    this.setState({ feed: e.target.value })
+  updateFeed ({ target: { value: feed } }) {
+    this.setState({ feed })
   }
 
   saveFeed () {
-    const { onSave } = this.props
-    const { config } = this.props.data
+    const { onSave, data: { config } } = this.props
     const { feed } = this.state
     onSave({ ...config, feed }, true)
   }
@@ -26,17 +25,17 @@ class Rss extends Component {
     return (
       <div className='w-rss'>
 
-        {edit && (
+        {(edit || !config.feed) && (
           <div>
             <h3 className='rss--main-title'>RSS</h3>
             <input value={config.feed} type='text'
-              onChange={this.updateFeed.bind(this)}
+              onChange={::this.updateFeed}
               placeholder='Feed url' />
-            <button onClick={this.saveFeed.bind(this)} className='btn-oe'>Save</button>
+            <button onClick={::this.saveFeed} className='btn-oe'>Save</button>
           </div>
         )}
 
-        {!edit && (
+        {(!edit && config.feed) && (
           <div>
             <h3 className='rss--main-title'>{values.title}</h3>
 
