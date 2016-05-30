@@ -1,62 +1,57 @@
 import React, { Component } from 'react'
 
+import getDomain from 'helpers/get-domain'
+
 class Bookmarks extends Component {
 
   constructor (props) {
     super(props)
-
-    this.state = {
-      href: '',
-      label: ''
-    }
+    this.state = { href: '' }
   }
 
-  handleHrefChange (index, e) {
-    const href = e.target.value
-    const { config } = this.props.data
-    const { onSave } = this.props
-    config.books[index].href = href
-    onSave(config)
+  handleHrefChange (index, { target: { value: href } }) {
+    const { onSave, data: { config } } = this.props
+    const domain = getDomain(href)
+    const item = { ...config.books[index], href, domain }
+
+    onSave({
+      ...config,
+      books: [
+        ...config.books.slice(0, index),
+        item,
+        ...config.books.slice(index + 1),
+      ]
+    })
   }
 
-  handleLabelChange (index, e) {
-    const label = e.target.value
-    const { config } = this.props.data
-    const { onSave } = this.props
-    config.books[index].label = label
-    onSave(config)
-  }
-
-  handleNewHref (e) {
-    const href = e.target.value
+  handleNewHref ({ target: { value: href } }) {
     this.setState({ href })
   }
 
-  handleNewLabel (e) {
-    const label = e.target.value
-    this.setState({ label })
-  }
-
   removeBookmark (index) {
-    const { onSave } = this.props
-    const { config } = this.props.data
-    config.books.splice(index, 1)
-    onSave(config)
+    const { onSave, data: { config } } = this.props
+
+    onSave({
+      books: [
+        ...config.books.slice(0, index),
+        ...config.books.slice(index + 1)
+      ]
+    })
   }
 
   createBookmark () {
-    const { onSave } = this.props
-    const { href, label } = this.state
-    const { config } = this.props.data
-    config.books.push({ href, label })
-    this.setState({ href: '', label: '' })
-    onSave(config)
+    const { onSave, data: { config } } = this.props
+    const { href: value } = this.state
+    const href = value.indexOf('//') === -1 ? `http://${value}` : value
+    const domain = getDomain(href)
+
+    this.setState({ href: '' })
+    onSave({ ...config, books: [...config.books, { href, domain }] })
   }
 
   render () {
-    const { edit } = this.props
-    const { books } = this.props.data.config
-    const { href, label } = this.state
+    const { edit, data: { config: { books } } } = this.props
+    const { href } = this.state
     const empty = !books.length
     const emptyHref = !href.length
 
@@ -71,20 +66,20 @@ class Bookmarks extends Component {
                   <div className='z' key={i}>
                     <input value={book.href} onChange={this.handleHrefChange.bind(this, i)}
                       placeholder='Link URL' type='text'/>
-                    <input value={book.label} onChange={this.handleLabelChange.bind(this, i)}
-                      placeholder='Label (optional)' type='text'/>
-                    <i onClick={this.removeBookmark.bind(this, i)} className='ion-ios-trash-outline'/>
+                    <button onClick={this.removeBookmark.bind(this, i)} className='btn btn-icon'>
+                      <i className='ion-ios-trash-outline'/>
+                    </button>
                   </div>
                 )}
               </div>
             )}
-            <div>
+            <div className='bookmark-new'>
               <h3 className='subtitle'>{'Add a new one'}</h3>
               <input value={href} onChange={::this.handleNewHref} type='text'
-                placeholder='Link URL'/>
-              <input value={label} onChange={::this.handleNewLabel} type='text'
-                placeholder='Label (optional)'/>
-              <button onClick={::this.createBookmark} disabled={emptyHref} className='btn-advanced'>{'Create'}</button>
+                placeholder='Url' />
+              <button onClick={::this.createBookmark} disabled={emptyHref} className='btn btn-icon'>
+                <i className='ion-plus-circled' />
+              </button>
             </div>
           </div>
         )}
@@ -92,14 +87,9 @@ class Bookmarks extends Component {
         {!empty && !edit && (
           <div className='bookmark-list'>
             {books.map((book, i) =>
-              <div className='z' key={i}>
-                <a href={book.href}>
-                  {book.label || book.href}
-                </a>
-                <a href={book.href} target='_blank'>
-                  <i className='ion-android-open'/>
-                </a>
-              </div>
+              <a href={book.href} key={i}>
+                <img src={`http://www.google.com/s2/favicons?domain=${book.domain}`} alt={book.href} title={book.href} />
+              </a>
             )}
           </div>
         )}

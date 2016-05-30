@@ -229,16 +229,13 @@
 
 .w-bookmarks {
 
-  .bookmark-list {
+  .bookmark-list, .bookmark-new {
     margin-bottom: 1rem;
   }
 
-  h3 + * {
+  h3 {
     margin-top: 1.5rem;
-  }
-
-  input + button {
-    margin-top: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .bookmark-list {
@@ -256,13 +253,8 @@
   }
 
   .bookmark-edit-list {
-    input {
-      width: 46%;
-    }
     .ion-ios-trash-outline {
-      cursor: pointer;
       font-size: 1.5rem;
-      margin-left: auto;
     }
   }
 
