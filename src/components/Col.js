@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import Widget from 'components/Widget'
 import { openPicker } from 'actions/picker'
+import DragZone from 'components/DragZone'
 
 @connect(
   state => ({
@@ -21,8 +22,12 @@ class Col extends Component {
     return (
       <div className='Col'>
 
-        {widgetsIds.map((id, i) => (
-          <Widget key={i} id={id} />
+        {widgetsIds.length === 0 ? (
+          <div style={{ width: '70%' }}>
+            <DragZone />
+          </div>
+        ) : widgetsIds.map((id, i) => (
+          <Widget key={i} id={id} indexInCol={i} />
         ))}
 
         {hasWidgets && editMode && (

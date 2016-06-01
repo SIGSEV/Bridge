@@ -66,3 +66,5 @@ export function configWidget (payload) {
     dispatch(fetchWidget(id))
   }
 }
+
+export const moveWidget = createAction('MOVE_WIDGET')

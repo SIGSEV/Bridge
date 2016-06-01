@@ -3,6 +3,8 @@ import 'whatwg-fetch'
 import Portal from 'react-portal'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 import 'styles/app.scss'
 import 'weather-icons-tmp/css/weather-icons.min.css'
@@ -20,6 +22,7 @@ import { toggleEditMode } from 'actions/mode'
     hasWidgets: !!(Array.prototype.concat.apply([], state.layout.cols).length)
   }),
 )
+@DragDropContext(HTML5Backend)
 class App extends Component {
 
   constructor (props) {
@@ -108,12 +111,6 @@ class App extends Component {
               <i className='ion-plus-circled' />
               {'Maybe try adding one?'}
             </div>
-          </div>
-        )}
-
-        {hasWidgets && (
-          <div className='IconButton' onClick={::this.showHelp} tabIndex={0}>
-            <i className='ion-help'/>
           </div>
         )}
 

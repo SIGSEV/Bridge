@@ -95,6 +95,7 @@ body {
   flex: 1;
   position: relative;
   height: 100%;
+  padding-top: 40px; // lol
   overflow: hidden;
   align-items: flex-start;
   display: flex;
@@ -171,7 +172,6 @@ body {
   flex-direction: column;
   align-items: center;
   min-width: 350px;
-  margin-bottom: 1rem;
   @media screen and (max-width: $breakpoint) {
     flex-grow: 0;
     flex-basis: auto;
@@ -253,6 +253,38 @@ body {
   @extend .z;
   @extend .f;
   flex-direction: column;
+}
+
+.DragButton { cursor: grab !important; }
+.DragButton:active { cursor: grabbing !important; }
+
+.DragOverlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(white, 0.8);
+  opacity: 0;
+  z-index: 0;
+  transition: 150ms linear opacity;
+  &.active {
+    opacity: 1;
+    z-index: 2;
+  }
+}
+
+.DragZone {
+  width: 100%;
+  height: 4px;
+  margin: 0 0 20px 0;
+  background: transparent;
+  transition: 80ms ease-out all;
+  position: relative;
+
+  &.top { margin-top: -24px; }
+  &.visible { background-color: rgba(black, 0.1); }
+  &.active {
+    background-color: cyan;
+    z-index: 2;
+  }
 }
 
 @import 'buttons';

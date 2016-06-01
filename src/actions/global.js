@@ -1,4 +1,5 @@
 import { cloneDeep, mapValues, pick } from 'lodash'
+import { createAction } from 'redux-actions'
 import { setData } from 'services/storage'
 
 export function save () {
@@ -25,3 +26,6 @@ export function save () {
     setData(copy, () => {})
   }
 }
+
+export const startDrag = createAction('START_DRAG')
+export const stopDrag = createAction('STOP_DRAG')

@@ -111,6 +111,68 @@ export default handleActions({
         }
       }
     }
+  },
+
+  MOVE_WIDGET: (state, { payload }) => {
+    const {
+      siblingId,
+      widgetId,
+      direction,
+    } = payload
+
+    if (siblingId === widgetId) { return state }
+
+    const sourceCol = state.cols.find(col => col.indexOf(widgetId) > -1)
+    const targetCol = state.cols.find(col => col.indexOf(siblingId) > -1)
+
+    if (sourceCol === targetCol) {
+
+      // handle case we drop in the same column
+
+      const colIndex = state.cols.indexOf(sourceCol)
+      const newCol = sourceCol.slice(0)
+      const sourceIndex = newCol.indexOf(widgetId)
+      newCol.splice(sourceIndex, 1)
+      const targetIndex = newCol.indexOf(siblingId)
+      const newIndex = direction === 'top'
+        ? targetIndex
+        : targetIndex + 1
+      newCol.splice(newIndex, 0, widgetId)
+      const newCols = state.cols.slice(0)
+      newCols[colIndex] = newCol
+      return {
+        ...state,
+        cols: newCols
+      }
+    }
+
+    const sourceColIndex = state.cols.indexOf(sourceCol)
+    const targetColIndex = state.cols.indexOf(targetCol)
+
+    const newSourceCol = sourceCol.slice(0)
+    const newTargetCol = targetCol.slice(0)
+
+    const sourceIndex = sourceCol.indexOf(widgetId)
+    const targetIndex = targetCol.indexOf(siblingId)
+
+    newSourceCol.splice(sourceIndex, 1)
+
+    const newIndex = direction === 'top'
+      ? targetIndex
+      : targetIndex + 1
+
+    newTargetCol.splice(newIndex, 0, widgetId)
+
+    const newCols = state.cols.slice(0)
+
+    newCols[sourceColIndex] = newSourceCol
+    newCols[targetColIndex] = newTargetCol
+
+    return {
+      ...state,
+      cols: newCols
+    }
+
   }
 
 }, state)
