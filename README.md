@@ -7,7 +7,7 @@ using widgets with multiple purposes.
 
 It uses React along with Redux and multiple API from all over the world.
 
-![demo](http://media.bangular.io/bridge.gif)
+![demo](http://media.sigsev.io/bridge.gif)
 
 Want an awesome facebook widget? Create a PR. Other ideas can be expressed by an issue.
 
