@@ -11,7 +11,7 @@ const publicConfigKeys = ['api']
 export default {
 
   resolve: {
-    modulesDirectories: ['node_modules', 'src'],
+    modulesDirectories: ['node_modules', 'src']
   },
 
   entry: [
@@ -36,6 +36,6 @@ export default {
       }
     })
 
-  ],
+  ]
 
 }

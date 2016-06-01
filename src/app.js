@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
+import { compose, createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import 'gsap'
@@ -11,9 +11,10 @@ import * as storageService from 'services/storage'
 
 storageService.getData((state) => {
 
-  const store = applyMiddleware(
-    thunk
-  )(createStore)(reducer, state)
+  const store = createStore(reducer, state, compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  ))
 
   const root = (
     <Provider store={store}>

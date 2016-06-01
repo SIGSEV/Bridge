@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux'
 
+import layout from './layout'
+import mode from './mode'
+import picker from './picker'
+
 export default combineReducers({
-  layout: require('./layout'),
-  mode: require('./mode'),
-  picker: require('./picker')
+  layout,
+  mode,
+  picker
 })
