@@ -42,6 +42,8 @@ class Bookmarks extends Component {
   createBookmark () {
     const { onSave, data: { config } } = this.props
     const { href: value } = this.state
+
+    // Add basic http prefix if no url-like pattern is found
     const href = value.indexOf('//') === -1 ? `http://${value}` : value
     const domain = getDomain(href)
 

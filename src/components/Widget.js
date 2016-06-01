@@ -92,7 +92,7 @@ class Widget extends Component {
           )}
         </div>
 
-        <div className='Widget' style={{ ...style }}>
+        <div className={`Widget ${type}`} style={{ ...style }}>
 
           {loading && (
             <div className='loading'>

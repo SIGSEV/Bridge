@@ -5,6 +5,10 @@
   overflow-y: auto;
   width: 100%;
 
+  &.Bookmarks {
+    align-items: center !important;
+  }
+
   .big-val {
     font-size: 3rem;
     margin: 1em 0;
@@ -239,16 +243,16 @@
   }
 
   .bookmark-list {
+    display: flex;
+    flex-wrap: wrap;
     a {
       font-size: 1.1rem;
       color: $blue;
       text-decoration: none;
+      padding: 1rem;
       &:hover {
         color: rgba($blue, .8);
       }
-    }
-    a + a {
-      margin-left: 1rem;
     }
   }
 
