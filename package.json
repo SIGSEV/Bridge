@@ -48,7 +48,6 @@
     "sass-loader": "^3.1.1",
     "shortid": "^2.2.4",
     "style-loader": "^0.13.0",
-    "url-loader": "^0.5.7",
     "weather-icons-tmp": "0.0.1",
     "webpack": "^1.9.6",
     "whatwg-fetch": "^0.10.1"
