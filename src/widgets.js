@@ -61,8 +61,7 @@ export default {
 
   Bookmarks: {
     style: {
-      width: 350,
-      minHeight: 50
+      width: 350
     },
     config: {
       books: []

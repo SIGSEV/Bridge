@@ -2,40 +2,35 @@ import React, { Component } from 'react'
 
 class Rss extends Component {
 
-  constructor (props) {
-    super(props)
-    const { feed } = this.props.data.config
-    this.state = { feed }
-  }
-
-  updateFeed ({ target: { value: feed } }) {
-    this.setState({ feed })
-  }
-
-  saveFeed () {
+  saveFeed (e) {
     const { onSave, data: { config } } = this.props
-    const { feed } = this.state
+    const feed = this.refs.text.value
+
+    e.preventDefault()
     onSave({ ...config, feed }, true)
   }
 
   render () {
     const { edit } = this.props
-    const { values, config } = this.props.data
+    const { values, config: { feed } } = this.props.data
 
     return (
       <div className='w-rss'>
 
-        {(edit || !config.feed) && (
-          <div>
+        {(edit || !feed) && (
+          <form onSubmit={::this.saveFeed}>
             <h3 className='rss--main-title'>RSS</h3>
-            <input value={config.feed} type='text'
-              onChange={::this.updateFeed}
+            <input
+              defaultValue={feed}
+              type='text'
+              ref='text'
+              required
               placeholder='Feed url' />
-            <button onClick={::this.saveFeed} className='btn-oe'>Save</button>
-          </div>
+            <button className='btn-oe'>Save</button>
+          </form>
         )}
 
-        {(!edit && config.feed) && (
+        {(!edit && feed) && (
           <div>
             <h3 className='rss--main-title'>{values.title}</h3>
 

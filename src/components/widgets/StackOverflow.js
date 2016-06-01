@@ -2,41 +2,36 @@ import React, { Component } from 'react'
 
 class StackOverflow extends Component {
 
-  constructor (props) {
-    super(props)
-    const { tag } = this.props.data.config
-    this.state = { tag }
-  }
-
   _navigate (question) {
     window.open(question.link, '_blank')
   }
 
-  updateTag ({ target: { value: tag } }) {
-    this.setState({ tag })
-  }
-
-  saveTag () {
+  saveTag (e) {
     const { onSave, config } = this.props
-    const { tag } = this.state
+    const tag = this.refs.text.value
+
+    e.preventDefault()
     onSave({ ...config, tag }, true)
   }
 
   render () {
-    const { edit, data: { values: { items } } } = this.props
-    const { tag } = this.state
+    const { edit, data: { config: { tag }, values: { items } } } = this.props
 
     return (
       <div className='w-stack'>
 
         {edit && (
-          <div>
-            <input onChange={::this.updateTag} type='text' value={tag}
-              placeholder={'Tag'} />
-            <button onClick={::this.saveTag} className='btn btn-icon'>
+          <form onSubmit={::this.saveTag}>
+            <input
+              defaultValue={tag}
+              type='text'
+              ref='text'
+              placeholder='Tag'
+              required />
+            <button className='btn btn-icon'>
               <i className='ion-checkmark-circled' />
             </button>
-          </div>
+          </form>
         )}
 
         {!edit && items.map((question, i) => (
