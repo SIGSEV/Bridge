@@ -27,7 +27,7 @@ class Col extends Component {
             <DragZone />
           </div>
         ) : widgetsIds.map((id, i) => (
-          <Widget key={i} id={id} indexInCol={i} />
+          <Widget key={id} id={id} indexInCol={i} />
         ))}
 
         {hasWidgets && editMode && (
