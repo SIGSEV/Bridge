@@ -39,6 +39,7 @@
         2,
         "never"
       ],
+      "comma-dangle": 0,
       "no-undefined": 0
     },
     "globals": {

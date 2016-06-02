@@ -128,8 +128,7 @@ class Widget extends Component {
       connectDragSource,
       connectDragPreview,
       connectDropTarget,
-      isDragging,
-      isOver,
+      isOver
     } = this.props
     const { edit, dropDirection } = this.state
     const { loading, loaded, type } = widget
