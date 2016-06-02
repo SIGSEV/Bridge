@@ -4,6 +4,10 @@
   overflow-y: auto;
   width: 100%;
 
+  > div {
+    width: 100%;
+  }
+
   &.Bookmarks {
     align-items: center !important;
   }
@@ -41,7 +45,6 @@
 }
 
 .w-weather {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,9 +54,6 @@
 }
 
 .w-stack {
-
-  width: 100%;
-  font-size: 0.75rem;
 
   .question {
 
@@ -115,7 +115,6 @@
 }
 
 .w-github {
-  width: 100%;
   .github-repo {
 
     border-bottom: 1px solid $cb05;
@@ -140,7 +139,9 @@
 }
 
 .w-bitcoin {
+
   flex-direction: column;
+
   .bitcoin--title {
     span {
       font-size: 2.3em;
@@ -163,9 +164,9 @@
 }
 
 .w-dribbble {
+
   flex: 1;
   height: 100%;
-
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
@@ -214,8 +215,6 @@
 
 .w-rss {
 
-  width: 100%;
-
   .rss--meta {
     display: flex;
     justify-content: space-between;
@@ -236,8 +235,6 @@
 }
 
 .w-bookmarks {
-
-  width: 100%;
 
   .bookmark-list {
     display: flex;
