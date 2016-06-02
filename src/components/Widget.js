@@ -148,8 +148,6 @@ class Widget extends Component {
     const widgetElement = connectDragPreview(
       <div className={classes}>
 
-        <div className={classnames('DragOverlay', { active: isDragging })} />
-
         <div className='ctx'>
           {editMode && (
             <div>
