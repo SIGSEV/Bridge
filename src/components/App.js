@@ -25,11 +25,6 @@ import { toggleEditMode } from 'actions/mode'
 @DragDropContext(HTML5Backend)
 class App extends Component {
 
-  constructor (props) {
-    super(props)
-    this.state = { shouldHelp: false }
-  }
-
   componentDidMount () {
     this.handleKey = ::this.handleKey
     window.addEventListener('keydown', this.handleKey)
@@ -56,17 +51,8 @@ class App extends Component {
     dispatch(closePicker())
   }
 
-  showHelp () {
-    this.setState({ shouldHelp: true })
-  }
-
-  closeHelp () {
-    this.setState({ shouldHelp: false })
-  }
-
   render () {
     const { layout, picker, hasWidgets } = this.props
-    const { shouldHelp } = this.state
     const { cols, widgets } = layout
 
     return (
@@ -88,19 +74,6 @@ class App extends Component {
           <PseudoModal>
             <Picker />
           </PseudoModal>
-        </Portal>
-
-        <Portal className='HelpModal'
-          isOpened={shouldHelp}
-          closeOnOutsideClick
-          onClose={::this.closeHelp}
-          closeOnEsc>
-          <div className='BHC'>
-            <h1>BHC (Bridge Help Center)</h1>
-            <div>Press Esc to close modals, like this one.</div>
-            <div>Press CTRL+E to toggle the Edit mode.</div>
-            <div>Edit mode will allow you to configure widgets when available and change your layout.</div>
-          </div>
         </Portal>
 
         {!hasWidgets && (

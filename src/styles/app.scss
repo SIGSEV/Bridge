@@ -206,21 +206,6 @@ body {
   to   { transform:rotate(360deg); }
 }
 
-.BHC {
-  max-width: 500px;
-  h1 {
-    font-size: 2em;
-    margin-bottom: 1em;
-  }
-  div {
-    font-size: 1.2em;
-    line-height: 1.5em;
-    &:before {
-      content: '- ';
-    }
-  }
-}
-
 .Modal {
   @extend .z;
   position: fixed;
@@ -229,12 +214,6 @@ body {
   right: 0;
   top: 0;
   background: $cb2;
-}
-
-.HelpModal {
-  @extend .Modal;
-  background: $cb8;
-  color: white;
 }
 
 .PseudoModal {
