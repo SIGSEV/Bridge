@@ -26,7 +26,9 @@ class Rss extends Component {
               ref='text'
               required
               placeholder='Feed url' />
-            <button className='btn-oe'>Save</button>
+            <button className='btn btn-icon'>
+              <i className='ion-checkmark-circled' />
+            </button>
           </form>
         )}
 
