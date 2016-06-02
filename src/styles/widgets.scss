@@ -239,6 +239,7 @@
   .bookmark-list {
     display: flex;
     flex-wrap: wrap;
+    min-height: 59px;
     a {
       font-size: 1.1rem;
       color: $blue;

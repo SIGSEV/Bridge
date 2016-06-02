@@ -2,6 +2,7 @@ import classnames from 'classnames'
 import { findDOMNode } from 'react-dom'
 import { DragSource, DropTarget } from 'react-dnd'
 import { connect } from 'react-redux'
+import { isArray } from 'lodash'
 import React, { Component } from 'react'
 
 import { Loader } from 'components'
@@ -88,11 +89,14 @@ class Widget extends Component {
       edit: false,
       dropDirection: null
     }
+
     if (requires) {
       requires.forEach(dep => {
         if (!config[dep]) { state.edit = true }
+        if (isArray(config[dep]) && !config[dep].length) { state.edit = true }
       })
     }
+
     this.state = state
   }
 

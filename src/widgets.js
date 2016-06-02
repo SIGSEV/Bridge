@@ -65,7 +65,8 @@ export default {
     },
     config: {
       books: []
-    }
+    },
+    requires: ['books']
   }
 
 }

@@ -48,7 +48,7 @@ class Bookmarks extends Component {
 
     return (
       <div className='w-bookmarks'>
-        {(empty || edit) && (
+        {edit && (
           <div>
             {!empty && (
               <div className='bookmark-edit-list'>
@@ -81,7 +81,7 @@ class Bookmarks extends Component {
           </div>
         )}
 
-        {!empty && !edit && (
+        {!edit && (
           <div className='bookmark-list'>
             {books.map((book, i) =>
               <a href={book.href} key={i}>
