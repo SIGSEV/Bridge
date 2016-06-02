@@ -15,6 +15,20 @@ class Bookmarks extends Component {
     })
   }
 
+  changeBookmark (index, { target: { value: href } }) {
+    const { onSave, data: { config } } = this.props
+    const domain = getDomain(href)
+
+    const item = { href, domain }
+    onSave({
+      books: [
+        ...config.books.slice(0, index),
+        item,
+        ...config.books.slice(index + 1)
+      ]
+    })
+  }
+
   createBookmark (e) {
     const { onSave, data: { config } } = this.props
     const { value } = this.refs.text
@@ -40,8 +54,11 @@ class Bookmarks extends Component {
                 <h3 className='subtitle'>My bookmarks</h3>
                 {books.map((book, i) =>
                   <div className='z' key={i}>
-                    <input value={book.href}
-                      placeholder='Link URL' type='text'/>
+                    <input
+                      value={book.href}
+                      onChange={this.changeBookmark.bind(this, i)}
+                      placeholder='Link URL'
+                      type='text' />
                     <button onClick={this.removeBookmark.bind(this, i)} className='btn btn-icon'>
                       <i className='ion-ios-trash-outline'/>
                     </button>
@@ -54,8 +71,8 @@ class Bookmarks extends Component {
               <input
                 ref='text'
                 type='text'
-                required
-                placeholder='Url' />
+                placeholder='Url'
+                required />
               <button className='btn btn-icon'>
                 <i className='ion-plus-circled' />
               </button>
