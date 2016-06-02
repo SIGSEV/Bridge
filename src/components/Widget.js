@@ -85,7 +85,7 @@ class Widget extends Component {
 
     const state = {
       edit: false,
-      dropDirection: null,
+      dropDirection: null
     }
     if (requires) {
       requires.forEach(dep => {

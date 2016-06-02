@@ -4,9 +4,7 @@ import { setData } from 'services/storage'
 
 export function save () {
   return (dispatch, getState) => {
-    const copy = cloneDeep(pick(getState(), [
-      'layout'
-    ]))
+    const copy = cloneDeep(pick(getState(), ['layout']))
 
     // reset global state
     copy.mode = 'view'
@@ -20,7 +18,7 @@ export function save () {
 
     copy.layout.widgets = mapValues(
       copy.layout.widgets,
-      (widget) => { return pick(widget, widgetKeys) }
+      widget => pick(widget, widgetKeys)
     )
 
     setData(copy, () => {})

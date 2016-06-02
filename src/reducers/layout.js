@@ -72,6 +72,7 @@ export default handleActions({
     const id = action.payload
     const newCols = state.cols
       .map(widgets => widgets.filter(widgetId => widgetId !== id))
+
     return {
       ...state,
       widgets: omit(state.widgets, id),
@@ -84,6 +85,7 @@ export default handleActions({
     const { config, requires } = widgets[type]
     const widget = { type, config, requires }
     const id = shortid()
+
     return {
       ...state,
       cols: state.cols.map((col, i) => {
@@ -99,19 +101,16 @@ export default handleActions({
     }
   },
 
-  WIDGET_CONFIG: (state, action) => {
-    const { id, config } = action.payload
-    return {
-      ...state,
-      widgets: {
-        ...state.widgets,
-        [id]: {
-          ...state.widgets[id],
-          config
-        }
+  WIDGET_CONFIG: (state, { payload: { id, config } }) => ({
+    ...state,
+    widgets: {
+      ...state.widgets,
+      [id]: {
+        ...state.widgets[id],
+        config
       }
     }
-  },
+  }),
 
   MOVE_WIDGET: (state, { payload }) => {
     const {
