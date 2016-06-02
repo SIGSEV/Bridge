@@ -38,6 +38,7 @@ class Bookmarks extends Component {
     const domain = getDomain(href)
 
     e.preventDefault()
+    this.refs.text.value = ''
     onSave({ ...config, books: [...config.books, { href, domain }] })
   }
 
@@ -51,9 +52,9 @@ class Bookmarks extends Component {
           <div>
             {!empty && (
               <div className='bookmark-edit-list'>
-                <h3 className='subtitle'>My bookmarks</h3>
+                <h3>{'My bookmarks'}</h3>
                 {books.map((book, i) =>
-                  <div className='z' key={i}>
+                  <div className='fac' key={i}>
                     <input
                       value={book.href}
                       onChange={this.changeBookmark.bind(this, i)}
@@ -67,7 +68,7 @@ class Bookmarks extends Component {
               </div>
             )}
             <form onSubmit={::this.createBookmark} className='bookmark-new'>
-              <h3 className='subtitle'>{'Add a new one'}</h3>
+              <h3>{'Add a new one'}</h3>
               <input
                 ref='text'
                 type='text'

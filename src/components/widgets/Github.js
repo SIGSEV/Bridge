@@ -25,6 +25,7 @@ class Github extends Component {
 
         {edit && (
           <div>
+            <h3>{'Edit your language'}</h3>
             <Select value={config.language} options={languages}
               onChange={this.saveLanguage.bind(this)} ref='select'/>
           </div>

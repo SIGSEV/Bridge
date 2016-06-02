@@ -22,15 +22,18 @@ class StackOverflow extends Component {
 
         {edit && (
           <form onSubmit={::this.saveTag}>
-            <input
-              defaultValue={tag}
-              type='text'
-              ref='text'
-              placeholder='Tag'
-              required />
-            <button className='btn btn-icon'>
-              <i className='ion-checkmark-circled' />
-            </button>
+            <h3>{'Edit your tag'}</h3>
+            <div>
+              <input
+                defaultValue={tag}
+                type='text'
+                ref='text'
+                placeholder='Tag'
+                required />
+              <button className='btn btn-icon'>
+                <i className='ion-checkmark-circled' />
+              </button>
+            </div>
           </form>
         )}
 

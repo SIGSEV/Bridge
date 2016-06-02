@@ -21,6 +21,16 @@
     text-transform: uppercase;
   }
 
+  h3 {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-bottom: 0.7rem;
+  }
+
+  input[type=text] {
+    width: 90%;
+  }
+
 }
 
 .widget-link {
@@ -42,6 +52,7 @@
 
 .w-stack {
 
+  width: 100%;
   font-size: 0.75rem;
 
   .question {
@@ -202,10 +213,9 @@
 }
 
 .w-rss {
-  .rss--main-title {
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
+
+  width: 100%;
+
   .rss--meta {
     display: flex;
     justify-content: space-between;
@@ -227,10 +237,7 @@
 
 .w-bookmarks {
 
-  h3 {
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
+  width: 100%;
 
   .bookmark-list {
     display: flex;
@@ -249,11 +256,8 @@
     }
   }
 
-  .bookmark-new {
-    margin-bottom: 1rem;
-  }
-
   .bookmark-edit-list {
+    margin-bottom: 1rem;
     .ion-ios-trash-outline {
       font-size: 1.5rem;
     }

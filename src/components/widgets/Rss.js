@@ -19,22 +19,24 @@ class Rss extends Component {
 
         {(edit || !feed) && (
           <form onSubmit={::this.saveFeed}>
-            <h3 className='rss--main-title'>RSS</h3>
-            <input
-              defaultValue={feed}
-              type='text'
-              ref='text'
-              required
-              placeholder='Feed url' />
-            <button className='btn btn-icon'>
-              <i className='ion-checkmark-circled' />
-            </button>
+            <h3>{'RSS'}</h3>
+            <div>
+              <input
+                defaultValue={feed}
+                type='text'
+                ref='text'
+                required
+                placeholder='Feed url' />
+              <button className='btn btn-icon'>
+                <i className='ion-checkmark-circled' />
+              </button>
+            </div>
           </form>
         )}
 
         {(!edit && feed) && (
           <div>
-            <h3 className='rss--main-title'>{values.title}</h3>
+            <h3>{values.title}</h3>
 
             {values.entries.map((entry, i) =>
               <div key={i} className='rss--entry'>
