@@ -116,53 +116,53 @@ export default handleActions({
     const {
       siblingId,
       widgetId,
+      colId,
       direction,
     } = payload
 
     if (siblingId === widgetId) { return state }
 
     const sourceCol = state.cols.find(col => col.indexOf(widgetId) > -1)
-    const targetCol = state.cols.find(col => col.indexOf(siblingId) > -1)
+    const sourceColIndex = state.cols.indexOf(sourceCol)
+    const newSourceCol = sourceCol.slice(0)
+    const sourceIndex = sourceCol.indexOf(widgetId)
+
+    newSourceCol.splice(sourceIndex, 1)
+
+    const newCols = state.cols.slice(0)
+
+    const targetCol = colId !== undefined
+      ? state.cols[colId]
+      : state.cols.find(col => col.indexOf(siblingId) > -1)
 
     if (sourceCol === targetCol) {
 
       // handle case we drop in the same column
 
-      const colIndex = state.cols.indexOf(sourceCol)
-      const newCol = sourceCol.slice(0)
-      const sourceIndex = newCol.indexOf(widgetId)
-      newCol.splice(sourceIndex, 1)
-      const targetIndex = newCol.indexOf(siblingId)
+      const targetIndex = newSourceCol.indexOf(siblingId)
       const newIndex = direction === 'top'
         ? targetIndex
         : targetIndex + 1
-      newCol.splice(newIndex, 0, widgetId)
-      const newCols = state.cols.slice(0)
-      newCols[colIndex] = newCol
+      newSourceCol.splice(newIndex, 0, widgetId)
+      newCols[sourceColIndex] = newSourceCol
+
       return {
         ...state,
         cols: newCols
       }
     }
 
-    const sourceColIndex = state.cols.indexOf(sourceCol)
-    const targetColIndex = state.cols.indexOf(targetCol)
+    // handle case of different columns
 
-    const newSourceCol = sourceCol.slice(0)
+    const targetColIndex = colId || state.cols.indexOf(targetCol)
     const newTargetCol = targetCol.slice(0)
-
-    const sourceIndex = sourceCol.indexOf(widgetId)
     const targetIndex = targetCol.indexOf(siblingId)
-
-    newSourceCol.splice(sourceIndex, 1)
 
     const newIndex = direction === 'top'
       ? targetIndex
       : targetIndex + 1
 
     newTargetCol.splice(newIndex, 0, widgetId)
-
-    const newCols = state.cols.slice(0)
 
     newCols[sourceColIndex] = newSourceCol
     newCols[targetColIndex] = newTargetCol

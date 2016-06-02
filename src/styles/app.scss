@@ -102,7 +102,7 @@ body {
   height: 100%;
   padding-top: 40px; // lol
   overflow: hidden;
-  align-items: flex-start;
+  align-items: stretch;
   display: flex;
   overflow-y: auto;
   @media screen and (max-width: $breakpoint) {

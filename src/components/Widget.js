@@ -67,6 +67,7 @@ let lastDirection = null
       const res = monitor.getDropResult()
       props.dispatch(moveWidget({
         siblingId: res.id,
+        colId: res.col,
         widgetId: props.id,
         direction: lastDirection,
       }))
