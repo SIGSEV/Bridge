@@ -67,4 +67,9 @@ export function configWidget (payload) {
   }
 }
 
-export const moveWidget = createAction('MOVE_WIDGET')
+const widgetMoved = createAction('MOVE_WIDGET')
+
+export const moveWidget = payload => dispatch => {
+  dispatch(widgetMoved(payload))
+  dispatch(save())
+}
