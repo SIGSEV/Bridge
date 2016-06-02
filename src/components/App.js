@@ -78,12 +78,12 @@ class App extends Component {
 
         {!hasWidgets && (
           <div className='BlankState'>
-            {'You have no widgets.'}
-            <br/>
+            <span>{'You have no widgets.'}</span>
             <div className='btn-ui' tabIndex={0} onClick={::this.handleAddFirstWidget}>
               <i className='ion-plus-circled' />
               {'Maybe try adding one?'}
             </div>
+            <span className='hint'>{'Remember to press Ctrl+E for toggling edit mode anytime.'}</span>
           </div>
         )}
 

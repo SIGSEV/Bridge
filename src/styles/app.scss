@@ -236,6 +236,14 @@ body {
   @extend .z;
   @extend .f;
   flex-direction: column;
+
+  .hint {
+    font-size: 10px;
+  }
+
+  * + * { // rouuuuh rouh
+    margin-top: 10px;
+  }
 }
 
 .DragButton { cursor: grab !important; }
