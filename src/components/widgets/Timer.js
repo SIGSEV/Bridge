@@ -26,7 +26,7 @@ class Timer extends Component {
     const mins = Math.floor(counter / 60) + 1
     if (mins >= 100) { return }
 
-    this.setState({ counter: counter + 10, timing: true })
+    this.setState({ counter: counter + 60, timing: true })
     if (counter === 0) {
       this._id = setInterval(::this.decrease, 1e3)
     }
