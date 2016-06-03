@@ -113,65 +113,24 @@ export default handleActions({
   }),
 
   MOVE_WIDGET: (state, { payload }) => {
-    const {
-      siblingId,
-      widgetId,
-      colId,
-      direction,
-    } = payload
+    const { targetColIndex, sourceColIndex, widgetId, indexInCol, hoveredIndex } = payload
 
-    if (siblingId === widgetId) { return state }
+    const cols = state.cols.slice(0)
+    const newSourceCol = state.cols[sourceColIndex].slice(0)
+    newSourceCol.splice(indexInCol, 1)
 
-    const sourceCol = state.cols.find(col => col.indexOf(widgetId) > -1)
-    const sourceColIndex = state.cols.indexOf(sourceCol)
-    const newSourceCol = sourceCol.slice(0)
-    const sourceIndex = sourceCol.indexOf(widgetId)
-
-    newSourceCol.splice(sourceIndex, 1)
-
-    const newCols = state.cols.slice(0)
-
-    const targetCol = colId !== undefined
-      ? state.cols[colId]
-      : state.cols.find(col => col.indexOf(siblingId) > -1)
-
-    if (sourceCol === targetCol) {
-
-      // handle case we drop in the same column
-
-      const targetIndex = newSourceCol.indexOf(siblingId)
-      const newIndex = direction === 'top'
-        ? targetIndex
-        : targetIndex + 1
-      newSourceCol.splice(newIndex, 0, widgetId)
-      newCols[sourceColIndex] = newSourceCol
-
-      return {
-        ...state,
-        cols: newCols
-      }
+    // Check if same column or no
+    if (targetColIndex === sourceColIndex) {
+      newSourceCol.splice(hoveredIndex, 0, widgetId)
+    } else {
+      const newTargetCol = state.cols[targetColIndex].slice(0)
+      newTargetCol.splice(hoveredIndex, 0, widgetId)
+      cols[targetColIndex] = newTargetCol
     }
 
-    // handle case of different columns
+    cols[sourceColIndex] = newSourceCol
 
-    const targetColIndex = colId || state.cols.indexOf(targetCol)
-    const newTargetCol = targetCol.slice(0)
-    const targetIndex = targetCol.indexOf(siblingId)
-
-    const newIndex = direction === 'top'
-      ? targetIndex
-      : targetIndex + 1
-
-    newTargetCol.splice(newIndex, 0, widgetId)
-
-    newCols[sourceColIndex] = newSourceCol
-    newCols[targetColIndex] = newTargetCol
-
-    return {
-      ...state,
-      cols: newCols
-    }
-
+    return { ...state, cols }
   }
 
 }, state)

@@ -1,29 +1,17 @@
 import classnames from 'classnames'
-import { findDOMNode } from 'react-dom'
-import { DragSource, DropTarget } from 'react-dnd'
+import { DragSource } from 'react-dnd'
 import { connect } from 'react-redux'
 import { isArray } from 'lodash'
 import React, { Component } from 'react'
 
 import { Loader } from 'components'
 import * as widgetsComponents from 'components/widgets'
-import DragZone from 'components/DragZone'
 import { removeWidget, moveWidget } from 'actions/widgets'
 import { configWidget } from 'actions/widgets'
 import { save, startDrag, stopDrag } from 'actions/global'
 import widgets from 'widgets'
 
 import { fetchWidget } from 'actions/widgets'
-
-const getDropDirection = (monitor, component) => {
-  const clientOffset = monitor.getClientOffset()
-  const componentRect = findDOMNode(component).getBoundingClientRect()
-  const middleLimit = (componentRect.height / 2) + componentRect.top
-  return clientOffset.y > middleLimit ? 'bot' : 'top'
-}
-
-// lolo, TODO: find better
-let lastDirection = null
 
 @connect(
   (state) => {
@@ -40,21 +28,6 @@ let lastDirection = null
     widget: stateProps.currentWidgets[ownProps.id]
   })
 )
-@DropTarget('widget', {
-  canDrop: () => true,
-  hover: (props, monitor, component) => {
-    const dropDirection = getDropDirection(monitor, component)
-    component.decoratedComponentInstance.setState({ dropDirection })
-    lastDirection = dropDirection
-  },
-  drop: (props) => ({
-    id: props.id,
-  })
-}, (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  canDrop: monitor.canDrop(),
-}))
 @DragSource('widget', {
   beginDrag: props => {
     props.dispatch(startDrag(props.id))
@@ -64,15 +37,24 @@ let lastDirection = null
   },
   endDrag: (props, monitor) => {
     props.dispatch(stopDrag())
-    if (monitor.didDrop()) {
-      const res = monitor.getDropResult()
-      props.dispatch(moveWidget({
-        siblingId: res.id,
-        colId: res.col,
-        widgetId: props.id,
-        direction: lastDirection,
-      }))
-    }
+    if (!monitor.didDrop()) { return }
+
+    const { col: targetColIndex, hoveredIndex } = monitor.getDropResult()
+    const { col: sourceColIndex, indexInCol, id: widgetId } = props
+
+    const sameCol = targetColIndex === sourceColIndex
+    const samePos = (hoveredIndex === indexInCol || hoveredIndex === indexInCol + 1)
+
+    // do not dispatch the action if we haven't changed position
+    if (sameCol && samePos) { return }
+
+    props.dispatch(moveWidget({
+      targetColIndex,
+      sourceColIndex,
+      hoveredIndex,
+      indexInCol,
+      widgetId
+    }))
   }
 }, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
@@ -85,10 +67,7 @@ class Widget extends Component {
     super(props)
     const { config, requires } = this.props.widget
 
-    const state = {
-      edit: false,
-      dropDirection: null
-    }
+    const state = { edit: false }
 
     if (requires) {
       requires.forEach(dep => {
@@ -131,11 +110,9 @@ class Widget extends Component {
       id,
       editMode,
       connectDragSource,
-      connectDragPreview,
-      connectDropTarget,
-      isOver
+      connectDragPreview
     } = this.props
-    const { edit, dropDirection } = this.state
+    const { edit } = this.state
     const { loading, loaded, type } = widget
     const { style, config } = widgets[widget.type]
 
@@ -149,7 +126,7 @@ class Widget extends Component {
       </div>
     )
 
-    const widgetElement = connectDragPreview(
+    return connectDragPreview(
       <div className={classes}>
 
         <div className='ctx'>
@@ -188,14 +165,6 @@ class Widget extends Component {
 
         </div>
 
-      </div>
-    )
-
-    return connectDropTarget(
-      <div>
-        <DragZone top active={isOver && dropDirection === 'top'} />
-        {widgetElement}
-        <DragZone active={isOver && dropDirection === 'bot'} />
       </div>
     )
   }

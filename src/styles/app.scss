@@ -81,7 +81,7 @@ body {
   font-size: 14px;
   font-family: monospace;
   color: $cb6;
-  padding: 1rem;
+  padding: 10px;
   border: 2px solid $cb1;
   ::selection {
     background-color: rgba(black, 0.25);
@@ -100,7 +100,6 @@ body {
   flex: 1;
   position: relative;
   height: 100%;
-  padding-top: 40px; // lol
   overflow: hidden;
   align-items: stretch;
   display: flex;
@@ -116,7 +115,6 @@ body {
   border: 2px solid transparent;
   user-select: none;
   padding: 0.5rem;
-  margin-bottom: 1rem;
   cursor: default;
 
   &.edit {
@@ -174,7 +172,6 @@ body {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
   min-width: 350px;
   @media screen and (max-width: $breakpoint) {
     flex-grow: 0;
@@ -246,32 +243,33 @@ body {
   }
 }
 
+.DropWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.WidgetWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .DragButton { cursor: grab !important; }
 .DragButton:active { cursor: grabbing !important; }
 
-.DragOverlay {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(white, 0.8);
-  opacity: 0;
-  z-index: 0;
-  transition: 150ms linear opacity;
-  &.active {
-    opacity: 1;
-    z-index: 2;
-  }
-}
-
 .DragZone {
-  width: 100%;
   height: 4px;
-  margin: 0 0 20px 0;
   background: transparent;
   transition: 80ms ease-out all;
   position: relative;
+  margin: 10px 150px;
 
   &.top { margin-top: -24px; }
-  &.visible { background-color: rgba(black, 0.1); }
+  &.visible {
+    background-color: rgba(black, 0.1);
+    margin: 20px 150px;
+  }
   &.active {
     background-color: cyan;
     z-index: 2;
