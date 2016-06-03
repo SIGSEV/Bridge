@@ -277,6 +277,14 @@ body {
   }
 }
 
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.blink {
+  animation: blink 1s step-start 0s infinite;
+}
+
 @import 'buttons';
 @import 'widgets';
 @import 'inputs';

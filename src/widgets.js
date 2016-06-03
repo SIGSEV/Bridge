@@ -67,6 +67,9 @@ export default {
       books: []
     },
     requires: ['books']
+  },
+
+  Clock: {
   }
 
 }

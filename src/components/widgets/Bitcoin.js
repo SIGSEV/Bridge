@@ -13,6 +13,7 @@ class Bitcoin extends Component {
   render () {
     const { values } = this.props.data
     const timestamp = new Date(values.timestamp)
+
     return (
       <div className='z w-bitcoin'>
         <div className='bitcoin--title'>

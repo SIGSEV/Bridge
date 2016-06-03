@@ -6,9 +6,7 @@ import { closePicker } from 'actions/picker'
 import { save } from 'actions/global'
 
 @connect(
-  state => ({
-    targetCol: state.picker.targetCol
-  })
+  ({ picker: { targetCol } }) => ({ targetCol })
 )
 class Picker extends Component {
 
@@ -20,6 +18,7 @@ class Picker extends Component {
   }
 
   render () {
+
     const widgetsNames = [
       'Weather',
       'Github',
@@ -27,8 +26,10 @@ class Picker extends Component {
       'Dribbble',
       'Bitcoin',
       'Rss',
-      'Bookmarks'
+      'Bookmarks',
+      'Clock'
     ]
+
     return (
       <div className='Picker'>
         {widgetsNames.map((widgetName, i) => (
