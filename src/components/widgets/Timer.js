@@ -2,18 +2,19 @@ import React, { Component } from 'react'
 
 class Timer extends Component {
 
-  state = { counter: 0 }
+  state = { counter: 0, timing: false }
 
   componentWillMount () {
     Notification.requestPermission()
   }
 
   componentDidUpdate () {
-    const { counter } = this.state
-    if (counter === 0) {
+    const { counter, timing } = this.state
+    if (counter === 0 && timing) {
       const notif = new Notification('Timer finished.')
       clearInterval(this._id)
       setTimeout(() => notif.close(), 5e3)
+      this.setState({ timing: false })
     }
   }
 
@@ -22,7 +23,7 @@ class Timer extends Component {
     const mins = Math.floor(counter / 60) + 1
     if (mins >= 100) { return }
 
-    this.setState({ counter: counter + 60 })
+    this.setState({ counter: counter + 60, timing: true })
     if (counter === 0) {
       this._id = setInterval(::this.decrease, 1e3)
     }
