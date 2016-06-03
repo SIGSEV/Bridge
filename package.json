@@ -50,7 +50,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "start": "babel-node bin/start",
-    "build": "npm run clean && NODE_ENV=production babel-node bin/build && cp templates/manifest.json dist",
+    "build": "npm run clean && NODE_ENV=production babel-node bin/build && cp templates/manifest.json dist && zip -r dist.zip dist/",
     "lint": "eslint src api bin webpack config",
     "server": "node bin/api",
     "pm2:setup": "pm2 deploy ecosystem.json production setup",
