@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import TextInput from 'components/TextInput'
+
 class StackOverflow extends Component {
 
   _navigate (question) {
@@ -8,7 +10,7 @@ class StackOverflow extends Component {
 
   saveTag (e) {
     const { onSave, config } = this.props
-    const tag = this.refs.text.value
+    const tag = this.refs.text.getWrappedInstance().getText()
 
     e.preventDefault()
     onSave({ ...config, tag }, true)
@@ -24,12 +26,7 @@ class StackOverflow extends Component {
           <form onSubmit={::this.saveTag}>
             <h3>{'Edit your tag'}</h3>
             <div>
-              <input
-                defaultValue={tag}
-                type='text'
-                ref='text'
-                placeholder='Tag'
-                required />
+              <TextInput defaultValue={tag} ref='text' placeholder='Tag' />
               <button className='btn btn-icon'>
                 <i className='ion-checkmark-circled' />
               </button>

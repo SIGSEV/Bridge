@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import TextInput from 'components/TextInput'
 import getDomain from 'helpers/get-domain'
 
 class Bookmarks extends Component {
@@ -31,7 +32,7 @@ class Bookmarks extends Component {
 
   createBookmark (e) {
     const { onSave, data: { config } } = this.props
-    const { value } = this.refs.text
+    const value = this.refs.text.getWrappedInstance().getText()
 
     // Add basic http prefix if no url-like pattern is found
     const href = value.indexOf('//') === -1 ? `http://${value}` : value
@@ -55,11 +56,7 @@ class Bookmarks extends Component {
                 <h3>{'My bookmarks'}</h3>
                 {books.map((book, i) =>
                   <div className='fac' key={i}>
-                    <input
-                      value={book.href}
-                      onChange={this.changeBookmark.bind(this, i)}
-                      placeholder='Link URL'
-                      type='text' />
+                    <TextInput value={book.href} onChange={this.changeBookmark.bind(this, i)} placeholder='Link URL' />
                     <button onClick={this.removeBookmark.bind(this, i)} className='btn btn-icon'>
                       <i className='ion-ios-trash-outline'/>
                     </button>
@@ -69,11 +66,7 @@ class Bookmarks extends Component {
             )}
             <form onSubmit={::this.createBookmark} className='bookmark-new'>
               <h3>{'Add a new one'}</h3>
-              <input
-                ref='text'
-                type='text'
-                placeholder='Url'
-                required />
+              <TextInput ref='text' placeholder='Url' />
               <button className='btn btn-icon'>
                 <i className='ion-plus-circled' />
               </button>

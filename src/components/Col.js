@@ -10,7 +10,7 @@ import DragZone from 'components/DragZone'
 
 @connect(
   state => ({
-    editMode: state.mode === 'edit'
+    editMode: state.mode.status === 'edit'
   })
 )
 @DropTarget('widget', {

@@ -1,19 +1,25 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Select from 'react-select'
 
+import { toggleLock } from 'actions/mode'
 import languages from 'data/languages'
 
+@connect()
 class Github extends Component {
-
-  componentDidUpdate () {
-    const { select } = this.refs
-    if (select) { select.focus() }
-  }
 
   saveLanguage (language) {
     const { onSave } = this.props
     const { config } = this.props.data
     onSave({ ...config, language }, true)
+  }
+
+  blur () {
+    this.props.dispatch(toggleLock(false))
+  }
+
+  focus () {
+    this.props.dispatch(toggleLock(true))
   }
 
   render () {
@@ -26,8 +32,13 @@ class Github extends Component {
         {edit && (
           <div>
             <h3>{'Edit your language'}</h3>
-            <Select value={config.language} options={languages}
-              onChange={this.saveLanguage.bind(this)} ref='select'/>
+            <Select
+              value={config.language}
+              options={languages}
+              onChange={::this.saveLanguage}
+              onBlur={::this.blur}
+              onFocus={::this.focus}
+              ref='select' />
           </div>
         )}
 

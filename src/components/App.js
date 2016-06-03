@@ -35,7 +35,7 @@ class App extends Component {
   }
 
   handleKey (e) {
-    if (e.ctrlKey && e.which === 69) {
+    if (e.which === 69) {
       const { dispatch } = this.props
       dispatch(toggleEditMode())
     }
@@ -83,7 +83,7 @@ class App extends Component {
               <i className='ion-plus-circled' />
               {'Maybe try adding one?'}
             </div>
-            <span className='hint'>{'Remember to press Ctrl+E for toggling edit mode anytime.'}</span>
+            <span className='hint'>{'Remember to press E for toggling edit mode anytime.'}</span>
           </div>
         )}
 

@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 
+import TextInput from 'components/TextInput'
+
 class Rss extends Component {
 
   saveFeed (e) {
     const { onSave, data: { config } } = this.props
-    const feed = this.refs.text.value
+    const feed = this.refs.text.getWrappedInstance().getText()
 
     e.preventDefault()
     onSave({ ...config, feed }, true)
@@ -21,12 +23,7 @@ class Rss extends Component {
           <form onSubmit={::this.saveFeed}>
             <h3>{'RSS'}</h3>
             <div>
-              <input
-                defaultValue={feed}
-                type='text'
-                ref='text'
-                required
-                placeholder='Feed url' />
+              <TextInput ref='text' defaultValue={feed} placeholder='Feed url' />
               <button className='btn btn-icon'>
                 <i className='ion-checkmark-circled' />
               </button>
@@ -34,7 +31,7 @@ class Rss extends Component {
           </form>
         )}
 
-        {(!edit && feed) && (
+        {(!edit && feed && values) && (
           <div>
             <h3>{values.title}</h3>
 

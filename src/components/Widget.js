@@ -16,7 +16,7 @@ import { fetchWidget } from 'actions/widgets'
 @connect(
   (state) => {
     return {
-      editMode: state.mode === 'edit',
+      editMode: state.mode.status === 'edit',
       currentWidgets: state.layout.widgets,
     }
   },

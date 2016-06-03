@@ -1,15 +1,13 @@
 import { createAction } from 'redux-actions'
 
-export const setMode = createAction('SET_MODE', mode => mode)
+export const setStatus = createAction('SET_STATUS', status => status)
 
-export function toggleEditMode () {
-  return (dispatch, getState) => {
-    const { mode } = getState()
+export const toggleEditMode = () => (dispatch, getState) => {
+  const { mode: { status, locked } } = getState()
 
-    if (mode === 'edit') {
-      dispatch(setMode('view'))
-    } else {
-      dispatch(setMode('edit'))
-    }
-  }
+  if (locked) { return }
+
+  dispatch(setStatus(status === 'edit' ? 'view' : 'edit'))
 }
+
+export const toggleLock = createAction('TOGGLE_LOCK', lock => lock)
