@@ -224,6 +224,10 @@ body {
 }
 
 .Picker {
+  display: flex;
+  flex-wrap: wrap;
+  width: 700px;
+  justify-content: space-around;
   .item {
     padding: 2rem;
   }
