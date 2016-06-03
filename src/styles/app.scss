@@ -263,12 +263,13 @@ body {
   background: transparent;
   transition: 80ms ease-out all;
   position: relative;
-  margin: 10px 150px;
+  margin: 10px auto;
+  width: 150px;
 
   &.top { margin-top: -24px; }
   &.visible {
     background-color: rgba(black, 0.1);
-    margin: 20px 150px;
+    margin: 20px auto;
   }
   &.active {
     background-color: cyan;
