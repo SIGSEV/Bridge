@@ -11,7 +11,10 @@ class Timer extends Component {
   componentDidUpdate () {
     const { counter, timing } = this.state
     if (counter === 0 && timing) {
-      const notif = new Notification('Timer finished.')
+      const notif = new Notification('Bridge', {
+        body: 'Timer finished.',
+        icon: 'https://avatars2.githubusercontent.com/u/11440121?v=3&s=200'
+      })
       clearInterval(this._id)
       setTimeout(() => notif.close(), 5e3)
       this.setState({ timing: false })
@@ -23,7 +26,7 @@ class Timer extends Component {
     const mins = Math.floor(counter / 60) + 1
     if (mins >= 100) { return }
 
-    this.setState({ counter: counter + 60, timing: true })
+    this.setState({ counter: counter + 10, timing: true })
     if (counter === 0) {
       this._id = setInterval(::this.decrease, 1e3)
     }
