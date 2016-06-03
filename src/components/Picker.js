@@ -27,7 +27,8 @@ class Picker extends Component {
       'Bitcoin',
       'Rss',
       'Bookmarks',
-      'Clock'
+      'Clock',
+      'Timer'
     ]
 
     return (

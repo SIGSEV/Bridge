@@ -69,7 +69,7 @@ export default {
     requires: ['books']
   },
 
-  Clock: {
-  }
+  Clock: {},
+  Timer: {}
 
 }
