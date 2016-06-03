@@ -84,6 +84,7 @@
       flex-grow: 1;
       background: $clight;
       padding: 1em;
+      overflow: hidden;
 
       > .tags {
         display: flex;
