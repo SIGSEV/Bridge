@@ -29,7 +29,8 @@ export function getByCoords (lat, lng) {
       return {
         desc: weather.description,
         icon: `wi wi-${icon}`,
-        temp, pressure, wind, clouds
+        temp: temp.toFixed(0),
+        pressure, wind, clouds
       }
 
     })
