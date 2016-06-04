@@ -18,13 +18,14 @@ class Clock extends Component {
   render () {
 
     const { date } = this.state
+    const mins = date.getMinutes()
 
     return (
       <div className='w-clock'>
         <div className='time'>
           {date.getHours()}
           <span className='blink'>{':'}</span>
-          {date.getMinutes()}
+          {mins < 10 ? `0${mins}` : mins}
         </div>
         <div className='date'>
           {Clock.days[date.getDay()]}
