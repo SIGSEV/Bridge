@@ -7,7 +7,7 @@ import icons from '../../src/data/weather'
 
 const baseUrl = 'api.openweathermap.org/data/2.5/weather'
 
-export function getByCoords (lat, lng) {
+export const getByCoords = (lat, lng) => {
   const cached = cache.get(`weather-${lat}:${lng}`)
   if (cached) { return q(cached) }
 

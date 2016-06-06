@@ -37,7 +37,7 @@ export function fetchWidget (id) {
           dispatch(widgetFetched({ id, values }))
           dispatch(save())
         })
-        .catch(() => { dispatch(widgetFailed(id)) })
+        .catch(() => dispatch(widgetFailed(id)))
     }
 
     if (type === 'Weather') {
@@ -51,7 +51,13 @@ export function fetchWidget (id) {
       })
     }
 
-    doFetch()
+    const conf = {}
+
+    if (type === 'Motivation') {
+      conf.hour = new Date().getHours()
+    }
+
+    doFetch(conf)
 
   }
 }

@@ -4,7 +4,7 @@ import got from 'got'
 
 const baseUrl = 'https://ajax.googleapis.com/ajax/services/feed/load?v=2.0&q='
 
-export function fetch (feedUrl) {
+export const fetch = feedUrl => {
   return got(`${baseUrl}${feedUrl}`, { json: true })
     .then(response => response.body)
     .then(body => {

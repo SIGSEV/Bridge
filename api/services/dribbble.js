@@ -6,7 +6,7 @@ import config from '../../config'
 
 const baseUrl = 'https://api.dribbble.com/v1'
 
-export function getRandom () {
+export const getRandom = () => {
   const cached = cache.get('dribbble')
   if (cached) { return q(cached[Math.floor(Math.random() * 12)]) }
 

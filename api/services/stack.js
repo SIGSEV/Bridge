@@ -5,7 +5,7 @@ import cache from 'memory-cache'
 
 const baseUrl = 'https://api.stackexchange.com/2.2'
 
-export function getRecentByTag (tag, site = 'stackoverflow') {
+export const getRecentByTag = (tag, site = 'stackoverflow') => {
 
   if (!tag) { return q.reject(new Error('No tag given.')) }
   const cached = cache.get(`se-${tag}:${site}`)

@@ -6,7 +6,7 @@ import cheerio from 'cheerio'
 
 import config from '../../config'
 
-export function getTrending (lang) {
+export const getTrending = lang => {
 
   const cached = cache.get(`github-${lang}`)
   if (cached) { return q(cached) }

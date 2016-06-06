@@ -4,7 +4,7 @@ import cache from 'memory-cache'
 
 const baseUrl = 'https://www.bitstamp.net/api'
 
-export function getLatest () {
+export const getLatest = () => {
   const cached = cache.get('bitcoin')
   if (cached) { return q(cached) }
 
