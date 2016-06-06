@@ -57,7 +57,7 @@ export function fetchWidget (id) {
       conf.hour = new Date().getHours()
     }
 
-    doFetch(conf)
+    doFetch(type === 'Motivation' ? conf : null)
 
   }
 }
