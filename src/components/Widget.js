@@ -45,13 +45,16 @@ import { fetchWidget } from 'actions/widgets'
     const sameCol = targetColIndex === sourceColIndex
     const samePos = (hoveredIndex === indexInCol || hoveredIndex === indexInCol + 1)
 
-    // do not dispatch the action if we haven't changed position
+    // Decrement index if we drop after in same column
+    const newIndex = (sameCol && hoveredIndex > indexInCol) ? hoveredIndex - 1 : hoveredIndex
+
+    // Do not dispatch the action if we haven't changed position
     if (sameCol && samePos) { return }
 
     props.dispatch(moveWidget({
       targetColIndex,
       sourceColIndex,
-      hoveredIndex,
+      newIndex,
       indexInCol,
       widgetId
     }))

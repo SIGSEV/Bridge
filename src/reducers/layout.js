@@ -113,7 +113,7 @@ export default handleActions({
   }),
 
   MOVE_WIDGET: (state, { payload }) => {
-    const { targetColIndex, sourceColIndex, widgetId, indexInCol, hoveredIndex } = payload
+    const { targetColIndex, sourceColIndex, widgetId, indexInCol, newIndex } = payload
 
     const cols = state.cols.slice(0)
     const newSourceCol = state.cols[sourceColIndex].slice(0)
@@ -121,10 +121,10 @@ export default handleActions({
 
     // Check if same column or no
     if (targetColIndex === sourceColIndex) {
-      newSourceCol.splice(hoveredIndex, 0, widgetId)
+      newSourceCol.splice(newIndex, 0, widgetId)
     } else {
       const newTargetCol = state.cols[targetColIndex].slice(0)
-      newTargetCol.splice(hoveredIndex, 0, widgetId)
+      newTargetCol.splice(newIndex, 0, widgetId)
       cols[targetColIndex] = newTargetCol
     }
 
