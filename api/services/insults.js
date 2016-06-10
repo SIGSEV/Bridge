@@ -6,7 +6,6 @@ import q from 'q'
  */
 const responses = {
   morning: [
-    'Today will be shit, I guarantee it.',
     'Get the fuck up you lazy piece of shit.',
     'Out of bed fucking worm!',
     'This should have not happen if you didn\'t spent all night watching GoT.',
@@ -21,7 +20,7 @@ const responses = {
     'You\'ve commited less lines of code today than the number of coffee cups you drank.',
   ],
   night: [
-    'Remember to brush your teeth before going to bed kid',
+    'Remember to brush your teeth before going to bed.',
     'You have work to do tomorrow, go to sleep, now!',
     'Get off Reddit.',
     'Someone will spoil you the latest GoT anyway',
@@ -37,7 +36,7 @@ const responses = {
 }
 
 export const getOne = hour => {
-  const time = hour <= 11 ? 'morning' : hour > 18 ? 'night' : 'afternoon'
+  const time = hour >= 6 && hour <= 11 ? 'morning' : hour <= 18 ? 'afternoon' : 'night'
   const sentences = responses[time].concat(responses.whatever)
   return q(sentences[Math.floor(Math.random() * sentences.length)])
 }
