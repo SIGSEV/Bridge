@@ -7,7 +7,7 @@ import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
 import 'styles/app.scss'
-import 'weather-icons-tmp/css/weather-icons.min.css'
+import 'weathericons/css/weather-icons.min.css'
 import 'react-select/dist/react-select.min.css'
 
 import Col from 'components/Col'
