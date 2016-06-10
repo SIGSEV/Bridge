@@ -23,6 +23,14 @@ export default {
     filename: 'bundle.js'
   },
 
+  loaders: [{
+    test: /\.css$/,
+    loaders: ['style', 'css']
+  }, {
+    test: /\.(woff)$/,
+    loader: 'file'
+  }],
+
   plugins: [
 
     new HtmlWebpackPlugin({

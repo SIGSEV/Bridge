@@ -16,13 +16,7 @@ export default {
       test: /\.scss$/,
       loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!sass'),
       exclude: /node_modules/
-    }, {
-      test: /\.css$/,
-      loaders: ['style', 'css']
-    }, {
-      test: /\.(woff|woff2|eot|svg|ttf)$/,
-      loader: 'file'
-    }]
+    }, ...webpackConfig.loaders]
   },
 
   plugins: [

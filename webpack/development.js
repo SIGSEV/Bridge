@@ -22,13 +22,7 @@ export default {
     }, {
       test: /\.scss$/,
       loaders: ['style', 'css', 'autoprefixer', 'sass']
-    }, {
-      test: /\.css$/,
-      loaders: ['style', 'css']
-    }, {
-      test: /\.(woff|woff2|eot|svg|ttf)$/,
-      loader: 'file'
-    }]
+    }, ...webpackConfig.loaders]
   },
 
   plugins: [
