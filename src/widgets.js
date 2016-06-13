@@ -69,10 +69,6 @@ export default {
     requires: ['books']
   },
 
-  Motivation: {
-    url: '/insults'
-  },
-
   Clock: {},
   Timer: {},
 
