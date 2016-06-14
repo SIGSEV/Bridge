@@ -22,15 +22,15 @@ export function fetchWidget (id) {
     const state = getState()
     const widget = state.layout.widgets[id]
     const { config, type } = widget
-    const { url } = widgets[type]
+    const component = widgets[type]
 
-    if (!url) {
+    if (!component || !component.url) {
       dispatch(widgetFetched({ id }))
       return dispatch(save())
     }
 
     function doFetch (newConfig) {
-      return fetch(`${api}${url}?${serialize(newConfig || config)}`)
+      return fetch(`${api}${component.url}?${serialize(newConfig || config)}`)
         .then(checkStatus)
         .then(res => res.json())
         .then(values => {

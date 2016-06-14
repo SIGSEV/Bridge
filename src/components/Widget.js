@@ -117,7 +117,7 @@ class Widget extends Component {
     } = this.props
     const { edit } = this.state
     const { loading, loaded, type } = widget
-    const { style, config } = widgets[widget.type]
+    const component = widgets[widget.type]
 
     const W = widgetsComponents[type]
 
@@ -139,7 +139,7 @@ class Widget extends Component {
                 <i className='ion-close' />
               </div>
               {moveButton}
-              {!!config && (
+              {component && !!component.config && (
                 <div className='ctx-btn' onClick={::this.toggleEditMode} tabIndex={2}>
                   <i className='ion-edit' />
                 </div>
@@ -148,25 +148,29 @@ class Widget extends Component {
           )}
         </div>
 
-        <div className={`Widget ${type}`} style={{ ...style }}>
+        {component && (
+          <div className={`Widget ${type}`} style={{ ...component.style }}>
 
-          {loading && (
-            <div className='loading'>
-              <Loader />
-            </div>
-          )}
+            {loading && (
+              <div className='loading'>
+                <Loader />
+              </div>
+            )}
 
-          {(!edit && !loading && !loaded) && (
-            <div className='loading'>
-              {'Loading problem'}
-            </div>
-          )}
+            {(!edit && !loading && !loaded) && (
+              <div className='loading'>
+                {'Loading problem'}
+              </div>
+            )}
 
-          {(edit || !loading && loaded) && (
-            <W onSave={::this.configureWidget} edit={edit && editMode} data={widget} />
-          )}
+            {(edit || !loading && loaded) && (
+              <W onSave={::this.configureWidget} edit={edit && editMode} data={widget} />
+            )}
 
-        </div>
+          </div>
+        )}
+
+        {!component && <div>{'Unknown component.'}</div>}
 
       </div>
     )
