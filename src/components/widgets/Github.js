@@ -11,6 +11,7 @@ class Github extends Component {
   saveLanguage (language) {
     const { onSave } = this.props
     const { config } = this.props.data
+    this.props.dispatch(toggleLock(false))
     onSave({ ...config, language }, true)
   }
 
