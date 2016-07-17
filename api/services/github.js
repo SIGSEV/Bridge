@@ -23,17 +23,22 @@ export const getTrending = lang => {
       dom('.repo-list-item')
         .each((i, it) => {
           const item = dom(it)
-          const meta = item.find('.repo-list-meta').text().split('•')
-          const push = {
-            url: item.find('.repo-list-name a')[0].attribs.href,
-            desc: item.children('.repo-list-description').text().trim(),
-            lang: meta.length !== 3 ? 'None' : meta[0],
-            today: meta.length !== 3 ? meta[0] : meta[1]
-          }
-          push.today = push.today.trim().split(' ')[0]
-          push.name = push.url.replace(/.*\/(.*)$/, '$1')
+          const url = item.find('.repo-list-name a')[0].attribs.href
+          const name = url.replace(/.*\/(.*)$/, '$1')
 
-          if (_.includes(config.bannedRepositories, push.name)) { return }
+          if (_.includes(config.bannedRepositories, name)) { return }
+
+          const desc = item.children('.repo-list-description').text().trim()
+          const meta = item.find('.repo-list-meta').text().split('•')
+
+          const push = {
+            url,
+            name,
+            desc,
+            lang: meta[0].trim(),
+            today: meta.length !== 3 ? 0 : meta[1].trim().split(' ')[0]
+          }
+
           out.push(push)
         })
 
