@@ -8,9 +8,10 @@ import languages from 'data/languages'
 @connect()
 class Github extends Component {
 
-  saveLanguage (language) {
+  saveLanguage (data) {
     const { onSave } = this.props
     const { config } = this.props.data
+    const language = data && data.value
     this.props.dispatch(toggleLock(false))
     onSave({ ...config, language }, true)
   }
