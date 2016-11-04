@@ -31,7 +31,7 @@ export const getTrending = lang => {
 
           const desc = item.children('.py-1').text().trim()
           const lang = item.find('[itemprop=programmingLanguage]').text().trim()
-          const today = item.find('.octicon-star').text().trim().split(' ')[0]
+          const today = item.find('span.float-right').text().trim().split(' ')[0]
 
           const push = { url, name, desc, lang, today }
           out.push(push)
