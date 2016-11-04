@@ -20,26 +20,22 @@ export const getTrending = lang => {
       const out = []
       const dom = cheerio.load(response.body)
 
-      dom('.repo-list-item')
+      dom('.repo-list > li')
         .each((i, it) => {
+
           const item = dom(it)
-          const url = item.find('.repo-list-name a')[0].attribs.href
+          const url = item.find('h3 a')[0].attribs.href
           const name = url.replace(/.*\/(.*)$/, '$1')
 
           if (_.includes(config.bannedRepositories, name)) { return }
 
-          const desc = item.children('.repo-list-description').text().trim()
-          const meta = item.find('.repo-list-meta').text().split('•')
+          const desc = item.children('.py-1').text().trim()
+          const lang = item.find('[itemprop=programmingLanguage]').text().trim()
+          const today = item.find('[aria-label=Stargazers]').text().trim()
 
-          const push = {
-            url,
-            name,
-            desc,
-            lang: meta[0].trim(),
-            today: meta.length !== 3 ? 0 : meta[1].trim().split(' ')[0]
-          }
-
+          const push = { url, name, desc, lang, today }
           out.push(push)
+
         })
 
       return _.take(out, 15)
