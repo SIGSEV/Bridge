@@ -7,7 +7,7 @@ using widgets with multiple purposes.
 
 It uses React along with Redux and multiple API from all over the world.
 
-![demo](http://media.sigsev.io/bridge.gif)
+![demo](https://lh3.googleusercontent.com/HWzC_CHHyDtFn2T1xQzLtJ-TwogGt4sI8CL3lmEno0zEcvIHSpLo53qrgwMUA3ew43ahDH6T=s1280-h800-e365-rw)
 
 Want an awesome facebook widget? Create a PR. Other ideas can be expressed by an issue.
 
