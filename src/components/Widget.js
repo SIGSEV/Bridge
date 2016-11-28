@@ -159,7 +159,7 @@ class Widget extends Component {
 
             {(!edit && !loading && !loaded) && (
               <div className='loading'>
-                {'Loading problem'}
+                {'Loading issue'}
               </div>
             )}
 
