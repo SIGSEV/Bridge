@@ -59,21 +59,24 @@ class App extends Component {
       <div className='App'>
 
         {cols.map((widgetsIds, i) => (
-          <Col key={i}
-            hasWidgets={hasWidgets}
+          <Col
+            key={i}
             col={i}
+            hasWidgets={hasWidgets}
             widgetsIds={widgetsIds}
             widgets={widgets} />)
         )}
 
-        <Portal className='Modal'
-          isOpened={picker.open}
-          onClose={::this.closePicker}
+        <Portal
           closeOnEsc
-          closeOnOutsideClick>
-          <PseudoModal>
-            <Picker />
-          </PseudoModal>
+          closeOnOutsideClick
+          isOpened={picker.open}
+          onClose={::this.closePicker}>
+          <div className='Modal'>
+            <PseudoModal>
+              <Picker />
+            </PseudoModal>
+          </div>
         </Portal>
 
         {!hasWidgets && (
