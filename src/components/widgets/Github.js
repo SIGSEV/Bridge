@@ -46,9 +46,7 @@ class Github extends Component {
 
         {!edit && values.map((repo, i) =>
 
-          <a key={i}
-            className='github-repo za' href={`https://github.com${repo.url}`}
-            target='_blank'>
+          <a key={i} className='github-repo za' href={`https://github.com${repo.url}`}>
 
             <span className='github-name'>{repo.name}</span>
 

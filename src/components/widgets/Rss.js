@@ -37,7 +37,7 @@ class Rss extends Component {
 
             {values.entries.map((entry, i) =>
               <div key={i} className='rss--entry'>
-                <a href={entry.link} target='_blank' key={i}>
+                <a href={entry.link} key={i}>
                   <div>{entry.title}</div>
                 </a>
                 <div className='rss--meta'>
