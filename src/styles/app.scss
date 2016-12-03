@@ -104,9 +104,10 @@ body {
   align-items: stretch;
   display: flex;
   overflow-y: auto;
+  flex-wrap: wrap;
   @media screen and (max-width: $breakpoint) {
-    flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: center;
   }
 }
 
@@ -176,6 +177,10 @@ body {
   @media screen and (max-width: $breakpoint) {
     flex-grow: 0;
     flex-basis: auto;
+  }
+
+  & + .Col {
+    margin-left: 2rem;
   }
 }
 
