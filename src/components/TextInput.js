@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { omit } from 'lodash'
 import { connect } from 'react-redux'
 
 import { toggleLock } from 'actions/mode'
@@ -28,7 +29,7 @@ class TextInput extends Component {
         ref='me'
         onFocus={::this.focus}
         onBlur={::this.blur}
-        {...this.props}
+        {...omit(this.props, ['dispatch'])}
         required />
     )
   }
