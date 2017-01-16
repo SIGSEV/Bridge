@@ -73,7 +73,7 @@ class App extends Component {
           isOpened={picker.open}
           onClose={::this.closePicker}>
           <div className='Modal'>
-            <PseudoModal>
+            <PseudoModal closePortal={::this.closePicker}>
               <Picker />
             </PseudoModal>
           </div>
