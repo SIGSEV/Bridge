@@ -42,7 +42,7 @@ class Rss extends Component {
                 </a>
                 <div className='rss--meta'>
                   <span>{entry.author}</span>
-                  <span>{entry.publishedDate}</span>
+                  <span>{entry.pubDate}</span>
                 </div>
               </div>
             )}
