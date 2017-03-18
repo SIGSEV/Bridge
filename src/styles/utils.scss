@@ -1,0 +1,42 @@
+.f {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.fac {
+  display: flex;
+  align-items: center;
+}
+
+.z {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.za {
+  display: flex;
+  align-items: center;
+}
+
+.s {
+  border: 2px solid transparent;
+  &:active {
+    border-color: $cb15;
+    &:focus { border-color: $cb1; }
+  }
+  &:focus {
+    border-color: $cb2;
+  }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.blink {
+  animation: blink 1s step-start 0s infinite;
+}

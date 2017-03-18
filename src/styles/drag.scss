@@ -1,0 +1,26 @@
+.DropWrapper {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.DragButton { cursor: grab !important; }
+.DragButton:active { cursor: grabbing !important; }
+
+.DragZone {
+  height: 4px;
+  background: transparent;
+  transition: 80ms ease-out all;
+  position: relative;
+  margin: 10px auto;
+  width: 150px;
+
+  &.top { margin-top: -24px; }
+  &.visible {
+    background-color: rgba(black, 0.1);
+    margin: 20px auto;
+  }
+  &.active {
+    background-color: cyan;
+    z-index: 2;
+  }
+}

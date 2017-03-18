@@ -22,12 +22,7 @@ class Rss extends Component {
         {(edit || !feed) && (
           <form onSubmit={::this.saveFeed}>
             <h3>{'RSS'}</h3>
-            <div>
-              <TextInput ref='text' defaultValue={feed} placeholder='Feed url' />
-              <button className='btn btn-icon'>
-                <i className='ion-checkmark-circled' />
-              </button>
-            </div>
+            <TextInput ref='text' defaultValue={feed} placeholder='Feed url' />
           </form>
         )}
 

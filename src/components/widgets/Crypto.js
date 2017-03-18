@@ -45,12 +45,7 @@ class Crypto extends Component {
         {edit ? (
           <form onSubmit={this.savePair}>
             <h3>{'Edit pair'}</h3>
-            <div className='y'>
-              <TextInput ref='text' defaultValue={pair} placeholder='Pair name' />
-              <button className='btn btn-icon'>
-                <i className='ion-checkmark-circled' />
-              </button>
-            </div>
+            <TextInput ref='text' defaultValue={pair} placeholder='Pair name' />
           </form>
         ) : (
           <div className='z'>

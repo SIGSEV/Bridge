@@ -36,47 +36,6 @@ $blue: #268bd2;
   background: $cb1;
 }
 
-// utility
-
-.f {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.fac {
-  display: flex;
-  align-items: center;
-}
-
-.y {
-  display: flex;
-}
-
-.z {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.za {
-  display: flex;
-  align-items: center;
-}
-
-.s {
-  border: 2px solid transparent;
-  &:active {
-    border-color: $cb15;
-    &:focus { border-color: $cb1; }
-  }
-  &:focus {
-    border-color: $cb2;
-  }
-}
-
 html, body { height: 100%; }
 
 body {
@@ -256,47 +215,14 @@ body {
   }
 }
 
-.DropWrapper {
-  flex-direction: column;
-  align-items: stretch;
-}
-
 .WidgetWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.DragButton { cursor: grab !important; }
-.DragButton:active { cursor: grabbing !important; }
-
-.DragZone {
-  height: 4px;
-  background: transparent;
-  transition: 80ms ease-out all;
-  position: relative;
-  margin: 10px auto;
-  width: 150px;
-
-  &.top { margin-top: -24px; }
-  &.visible {
-    background-color: rgba(black, 0.1);
-    margin: 20px auto;
-  }
-  &.active {
-    background-color: cyan;
-    z-index: 2;
-  }
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
-}
-
-.blink {
-  animation: blink 1s step-start 0s infinite;
-}
-
+@import 'utils';
 @import 'buttons';
 @import 'widgets';
 @import 'inputs';
+@import 'drag';
