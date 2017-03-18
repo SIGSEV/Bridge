@@ -5,23 +5,24 @@ import Select from 'react-select'
 import { toggleLock } from 'actions/mode'
 import languages from 'data/languages'
 
-@connect()
+@connect(null, { toggleLock })
 class Github extends Component {
 
   saveLanguage (data) {
-    const { onSave } = this.props
+    const { onSave, toggleLock } = this.props
     const { config } = this.props.data
     const language = data && data.value
-    this.props.dispatch(toggleLock(false))
+
+    toggleLock(false)
     onSave({ ...config, language }, true)
   }
 
   blur () {
-    this.props.dispatch(toggleLock(false))
+    this.props.toggleLock(false)
   }
 
   focus () {
-    this.props.dispatch(toggleLock(true))
+    this.props.toggleLock(true)
   }
 
   render () {
