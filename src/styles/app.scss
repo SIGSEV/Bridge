@@ -157,6 +157,15 @@ body {
   background: $cb1;
 }
 
+.refreshing {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 1rem !important;
+  width: 1rem !important;
+  font-size: 1rem !important;
+}
+
 .Loader {
   @extend .z;
   width: 2.5rem;

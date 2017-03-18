@@ -11,18 +11,30 @@ class Crypto extends Component {
   state = { now: new Date() }
 
   componentWillMount () {
-    this._int = setInterval(() => this.setState({ now: new Date() }), 1E3)
+    this.start()
   }
 
-  componentWillUpdate () {
+  componentWillUpdate (nextProps) {
     const { fetchWidget, id } = this.props
-    if (this.getDiff() > 30) {
+
+    if (this._int && this.getDiff() > 30) {
+      clearInterval(this._int)
+      this._int = null
       fetchWidget(id)
+    }
+
+    if (!this._int && nextProps.loaded) {
+      this.start()
     }
   }
 
   componentWillUnmount () {
     clearInterval(this._int)
+  }
+
+  start = () => {
+    this.setState({ now: new Date() })
+    this._int = setInterval(() => this.setState({ now: new Date() }), 1E3)
   }
 
   getDiff = () => {

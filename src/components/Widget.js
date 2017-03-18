@@ -92,16 +92,17 @@ class Widget extends Component {
     dispatch(fetchWidget(id))
   }
 
-  toggleEditMode () {
+  toggleEditMode = () => {
     this.setState({ edit: !this.state.edit })
   }
 
-  removeWidget (id) {
+  removeWidget = () => {
+    const { id } = this.props
     this.props.dispatch(removeWidget(id))
     this.props.dispatch(save())
   }
 
-  configureWidget (config, shouldClose) {
+  configureWidget = (config, shouldClose) => {
     const { id, dispatch } = this.props
     dispatch(configWidget({ id, config }))
     if (shouldClose) { this.setState({ edit: false }) }
@@ -116,7 +117,7 @@ class Widget extends Component {
       connectDragPreview
     } = this.props
     const { edit } = this.state
-    const { loading, loaded, type } = widget
+    const { loading, loaded, lastFetch, type } = widget
     const component = widgets[widget.type]
 
     const W = widgetsComponents[type]
@@ -135,12 +136,12 @@ class Widget extends Component {
         <div className='ctx'>
           {editMode && (
             <div>
-              <div className='ctx-btn' onClick={this.removeWidget.bind(this, id)} tabIndex={1}>
+              <div className='ctx-btn' onClick={this.removeWidget} tabIndex={1}>
                 <i className='ion-close' />
               </div>
               {moveButton}
               {component && !!component.config && (
-                <div className='ctx-btn' onClick={::this.toggleEditMode} tabIndex={2}>
+                <div className='ctx-btn' onClick={this.toggleEditMode} tabIndex={2}>
                   <i className='ion-edit' />
                 </div>
               )}
@@ -151,7 +152,19 @@ class Widget extends Component {
         {component && (
           <div className={`Widget ${type}`} style={{ ...component.style }}>
 
-            {loading && (
+            {(edit || (loaded || lastFetch)) && (
+              <div>
+                <W
+                  id={id}
+                  onSave={this.configureWidget}
+                  edit={edit && editMode}
+                  loaded={loaded}
+                  data={widget} />
+                {loading && (<Loader className='refreshing' />)}
+              </div>
+            )}
+
+            {(loading && !lastFetch) && (
               <div className='loading'>
                 <Loader />
               </div>
@@ -161,10 +174,6 @@ class Widget extends Component {
               <div className='loading'>
                 {'Loading issue'}
               </div>
-            )}
-
-            {(edit || !loading && loaded) && (
-              <W id={id} onSave={::this.configureWidget} edit={edit && editMode} data={widget} />
             )}
 
           </div>
