@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { toggleLock } from 'actions/mode'
+import { fetchWidget } from 'actions/widgets'
 import TextInput from 'components/TextInput'
 
-@connect(null, { toggleLock })
+@connect(null, { toggleLock, fetchWidget })
 class Crypto extends Component {
 
   state = { now: new Date() }
@@ -13,16 +14,25 @@ class Crypto extends Component {
     this._int = setInterval(() => this.setState({ now: new Date() }), 1E3)
   }
 
+  componentWillUpdate () {
+    const { fetchWidget, id } = this.props
+    if (this.getDiff() > 30) {
+      fetchWidget(id)
+    }
+  }
+
   componentWillUnmount () {
     clearInterval(this._int)
   }
 
-  getDiff = date => {
+  getDiff = () => {
     const { now } = this.state
+    const { values: { timestamp } } = this.props.data
+    const date = new Date(timestamp)
+
     const diff = Math.abs(now.getTime() - date.getTime())
     const secs = Math.ceil(diff / 1000)
-    if (secs === 1) { return `${secs} sec` }
-    return `${secs} secs`
+    return secs
   }
 
   savePair = e => {
@@ -36,8 +46,9 @@ class Crypto extends Component {
 
   render () {
     const { edit } = this.props
-    const { values, config: { pair } } = this.props.data
-    const timestamp = new Date(values.timestamp)
+    const { config: { pair }, values } = this.props.data
+    const diff = this.getDiff()
+    const text = diff === 1 ? '1 sec' : `${diff} secs`
 
     return (
       <div className='w-crypto'>
@@ -54,7 +65,7 @@ class Crypto extends Component {
               <span>{pair}</span>
             </div>
             <div className='crypto--update'>
-              {`updated ${this.getDiff(timestamp)} ago`}
+              {`updated ${text} ago`}
             </div>
             <div className='crypto--values'>
               <span>

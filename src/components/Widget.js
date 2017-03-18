@@ -164,7 +164,7 @@ class Widget extends Component {
             )}
 
             {(edit || !loading && loaded) && (
-              <W onSave={::this.configureWidget} edit={edit && editMode} data={widget} />
+              <W id={id} onSave={::this.configureWidget} edit={edit && editMode} data={widget} />
             )}
 
           </div>
