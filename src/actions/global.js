@@ -1,13 +1,15 @@
 import { cloneDeep, mapValues, pick } from 'lodash'
 import { createAction } from 'redux-actions'
+
 import { setData } from 'services/storage'
+import { initialState } from 'reducers/mode'
 
 export function save () {
   return (dispatch, getState) => {
     const copy = cloneDeep(pick(getState(), ['layout']))
 
-    // reset global state
-    copy.mode = 'view'
+    // reset global mode state
+    copy.mode = initialState
 
     // reset widgets state
     const widgetKeys = [
