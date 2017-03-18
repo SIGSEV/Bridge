@@ -1,5 +1,5 @@
 export weather from './weather'
-export bitcoin from './bitcoin'
+export crypto from './crypto'
 export stack from './stack'
 export github from './github'
 export dribbble from './dribbble'

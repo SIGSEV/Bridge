@@ -24,7 +24,7 @@ class Picker extends Component {
       'Github',
       'StackOverflow',
       'Dribbble',
-      'Bitcoin',
+      'Crypto',
       'Rss',
       'Bookmarks',
       'Clock',

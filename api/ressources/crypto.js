@@ -1,11 +1,11 @@
 import { Router } from 'express'
 
-import * as bitcoinService from '../services/bitcoin'
+import * as cryptoService from '../services/crypto'
 
 const router = Router()
 
 router.get('/', (req, res) => {
-  bitcoinService.getLatest()
+  cryptoService.getLatest(req.query.pair)
     .then(data => res.status(200).send(data))
     .catch(({ message }) => res.status(400).send({ message }))
 })

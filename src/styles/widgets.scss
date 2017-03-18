@@ -137,22 +137,25 @@
   }
 }
 
-.w-bitcoin {
+.w-crypto {
 
-  flex-direction: column;
+  > div {
+    flex-direction: column;
+  }
 
-  .bitcoin--title {
-    span {
+  .crypto--title {
+    span:first-child {
       font-size: 2.3em;
     }
-    i {
-      font-size: 1.3em;
+    span:last-child {
+      margin-left: 0.3rem;
+      font-size: 0.7rem;
     }
   }
-  .bitcoin--update {
+  .crypto--update {
     margin-bottom: 10px;
   }
-  .bitcoin--values {
+  .crypto--values {
     display: flex;
     justify-content: space-around;
     width: 100%;

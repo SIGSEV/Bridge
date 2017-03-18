@@ -39,12 +39,15 @@ export default {
     url: '/dribbble'
   },
 
-  Bitcoin: {
+  Crypto: {
     style: {
       width: 200,
       height: 100
     },
-    url: '/bitcoin'
+    config: {
+      pair: 'xbtusd'
+    },
+    url: '/crypto'
   },
 
   Rss: {

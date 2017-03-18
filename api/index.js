@@ -15,7 +15,7 @@ server.use((req, res, next) => {
 })
 
 server.use('/weather', ressources.weather)
-server.use('/bitcoin', ressources.bitcoin)
+server.use('/crypto', ressources.crypto)
 server.use('/stack', ressources.stack)
 server.use('/github', ressources.github)
 server.use('/dribbble', ressources.dribbble)
