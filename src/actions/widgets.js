@@ -35,7 +35,7 @@ export function fetchWidget (id) {
         .then(checkStatus)
         .then(res => res.json())
         .then(values => {
-          dispatch(widgetFetched({ id, values }))
+          dispatch(widgetFetched({ id, values, fetchedWith: newConfig || config }))
           dispatch(save())
         })
         .catch(() => dispatch(widgetFailed(id)))

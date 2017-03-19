@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 import { DragSource } from 'react-dnd'
 import { connect } from 'react-redux'
-import { isArray } from 'lodash'
+import { isArray, isEqual } from 'lodash'
 import React, { Component } from 'react'
 
 import { Loader } from 'components'
@@ -90,9 +90,9 @@ class Widget extends Component {
 
   componentWillUpdate (nextProps) {
     const { now } = this.state
-    const { widget: { lastFetch, type } } = this.props
-    const { reload } = widgets[type]
-    const diff = Math.abs(Math.round((now - lastFetch) / 1E3))
+    const { widget } = this.props
+    const { reload } = widgets[widget.type]
+    const diff = Math.abs(Math.round((now - widget.lastFetch) / 1E3))
 
     if (!reload) { return }
 
@@ -151,7 +151,7 @@ class Widget extends Component {
       connectDragPreview
     } = this.props
     const { edit, now } = this.state
-    const { loading, loaded, lastFetch, type } = widget
+    const { loading, loaded, lastFetch, fetchedWith, config, type } = widget
     const component = widgets[widget.type]
 
     const W = widgetsComponents[type]
@@ -190,7 +190,7 @@ class Widget extends Component {
               <div className='loading'>
                 {'Loading issue'}
               </div>
-            ) : (!edit && loading && !lastFetch) ? (
+            ) : (!edit && loading && (!lastFetch || (lastFetch && !isEqual(config, fetchedWith)))) ? (
               <div className='loading'>
                 <Loader />
               </div>

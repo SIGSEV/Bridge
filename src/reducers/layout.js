@@ -35,7 +35,7 @@ export default handleActions({
   },
 
   WIDGET_FETCHED: (state, action) => {
-    const { id, values } = action.payload
+    const { id, values, fetchedWith } = action.payload
 
     return {
       ...state,
@@ -46,7 +46,8 @@ export default handleActions({
           loading: false,
           loaded: true,
           lastFetch: Date.now(),
-          values
+          fetchedWith,
+          values,
         }
       }
     }
