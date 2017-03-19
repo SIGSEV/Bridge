@@ -47,6 +47,7 @@ export default {
     config: {
       pair: 'xbtusd'
     },
+    reload: 30,
     url: '/crypto'
   },
 
@@ -58,6 +59,7 @@ export default {
     config: {
       feed: null
     },
+    reload: 60 * 3,
     requires: ['feed'],
     url: '/rss'
   },

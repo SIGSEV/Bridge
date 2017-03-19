@@ -2,47 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { toggleLock } from 'actions/mode'
-import { fetchWidget } from 'actions/widgets'
 import TextInput from 'components/TextInput'
 
-@connect(null, { toggleLock, fetchWidget })
+@connect(null, { toggleLock })
 class Crypto extends Component {
 
-  state = { now: new Date() }
-
-  componentWillMount () {
-    this.start()
-  }
-
-  componentWillUpdate (nextProps) {
-    const { fetchWidget, id } = this.props
-
-    if (this._int && this.getDiff() > 30) {
-      clearInterval(this._int)
-      this._int = null
-      fetchWidget(id)
-    }
-
-    if (!this._int && nextProps.loaded) {
-      this.start()
-    }
-  }
-
-  componentWillUnmount () {
-    clearInterval(this._int)
-  }
-
-  start = () => {
-    this.setState({ now: new Date() })
-    this._int = setInterval(() => this.setState({ now: new Date() }), 1E3)
-  }
-
   getDiff = () => {
-    const { now } = this.state
-    const { values: { timestamp } } = this.props.data
-    const date = new Date(timestamp)
-
-    const diff = Math.abs(now.getTime() - date.getTime())
+    const { now, data: { values: { timestamp } } } = this.props
+    const diff = Math.abs(now - timestamp)
     const secs = Math.ceil(diff / 1000)
     return secs
   }

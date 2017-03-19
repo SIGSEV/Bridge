@@ -70,7 +70,7 @@ class Widget extends Component {
     super(props)
     const { config, requires } = this.props.widget
 
-    const state = { edit: false }
+    const state = { edit: false, now: new Date().getTime() }
 
     if (requires) {
       requires.forEach(dep => {
@@ -83,11 +83,45 @@ class Widget extends Component {
   }
 
   componentDidMount () {
+    this.startReload()
     if (this.state.edit) { return }
     this.fetchData()
   }
 
-  fetchData () {
+  componentWillUpdate (nextProps) {
+    const { now } = this.state
+    const { widget: { lastFetch, type } } = this.props
+    const { reload } = widgets[type]
+    const diff = Math.abs(Math.round((now - lastFetch) / 1E3))
+
+    if (!reload) { return }
+
+    if (this._int && diff > reload) {
+      clearInterval(this._int)
+      this._int = null
+      this.fetchData()
+    }
+
+    if (!this._int && nextProps.widget.loaded) {
+      this.startReload()
+    }
+  }
+
+  componentWillUnmount () {
+    clearInterval(this._int)
+  }
+
+  startReload = () => {
+    const { type } = this.props.widget
+    const { reload } = widgets[type]
+
+    if (!reload) { return }
+
+    this.setState({ now: new Date().getTime() })
+    this._int = setInterval(() => this.setState({ now: new Date().getTime() }), 1E3)
+  }
+
+  fetchData = () => {
     const { dispatch, id } = this.props
     dispatch(fetchWidget(id))
   }
@@ -116,7 +150,7 @@ class Widget extends Component {
       connectDragSource,
       connectDragPreview
     } = this.props
-    const { edit } = this.state
+    const { edit, now } = this.state
     const { loading, loaded, lastFetch, type } = widget
     const component = widgets[widget.type]
 
@@ -166,6 +200,7 @@ class Widget extends Component {
                   id={id}
                   onSave={this.configureWidget}
                   edit={edit && editMode}
+                  now={now}
                   loaded={loaded}
                   data={widget} />
                 {loading && (<Loader className='refreshing' />)}
