@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
-import { toggleLock } from 'actions/mode'
 import TextInput from 'components/TextInput'
 
-@connect(null, { toggleLock })
 class Crypto extends Component {
 
   getDiff = () => {
@@ -15,11 +12,10 @@ class Crypto extends Component {
   }
 
   savePair = e => {
-    const { toggleLock, onSave, data: { config } } = this.props
+    const { onSave, data: { config } } = this.props
     const pair = this.refs.text.getWrappedInstance().getText()
 
     e.preventDefault()
-    toggleLock(false)
     onSave({ ...config, pair }, true)
   }
 

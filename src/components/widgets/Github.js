@@ -2,18 +2,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Select from 'react-select'
 
-import { toggleLock } from 'actions/mode'
 import languages from 'data/languages'
+import { toggleLock } from 'actions/mode'
 
 @connect(null, { toggleLock })
 class Github extends Component {
 
   saveLanguage (data) {
-    const { onSave, toggleLock } = this.props
-    const { config } = this.props.data
+    const { onSave, data: { config } } = this.props
     const language = data && data.value
 
-    toggleLock(false)
     onSave({ ...config, language }, true)
   }
 

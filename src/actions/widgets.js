@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions'
 import serialize from 'helpers/serialize'
 import checkStatus from 'helpers/check-status'
 import { save } from 'actions/global'
+import { toggleLock } from 'actions/mode'
 import widgets from 'widgets'
 
 const { api } = process.env.config
@@ -70,6 +71,7 @@ export function configWidget (payload) {
     dispatch(widgetConfig({ id, config }))
     dispatch(save())
     dispatch(fetchWidget(id))
+    dispatch(toggleLock(false))
   }
 }
 
