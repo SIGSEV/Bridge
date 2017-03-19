@@ -23,6 +23,7 @@ class Rss extends Component {
           <form onSubmit={::this.saveFeed}>
             <h3>{'RSS'}</h3>
             <TextInput ref='text' defaultValue={feed} placeholder='Feed url' />
+            <button className='xem' />
           </form>
         )}
 

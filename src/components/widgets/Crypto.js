@@ -30,6 +30,7 @@ class Crypto extends Component {
           <form onSubmit={this.savePair}>
             <h3>{'Edit pair'}</h3>
             <TextInput ref='text' defaultValue={pair} placeholder='Pair name' />
+            <button className='xem' />
           </form>
         ) : (
           <div className='z'>

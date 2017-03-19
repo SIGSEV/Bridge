@@ -26,6 +26,7 @@ class StackOverflow extends Component {
           <form onSubmit={::this.saveTag}>
             <h3>{'Edit your tag'}</h3>
             <TextInput defaultValue={tag} ref='text' placeholder='Tag' />
+            <button className='xem' />
           </form>
         )}
 
