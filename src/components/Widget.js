@@ -152,7 +152,15 @@ class Widget extends Component {
         {component && (
           <div className={`Widget ${type}`} style={{ ...component.style }}>
 
-            {(edit || (loaded || lastFetch)) && (
+            {(!edit && !loading && !loaded) ? (
+              <div className='loading'>
+                {'Loading issue'}
+              </div>
+            ) : (!edit && loading && !lastFetch) ? (
+              <div className='loading'>
+                <Loader />
+              </div>
+            ) : (
               <div>
                 <W
                   id={id}
@@ -161,18 +169,6 @@ class Widget extends Component {
                   loaded={loaded}
                   data={widget} />
                 {loading && (<Loader className='refreshing' />)}
-              </div>
-            )}
-
-            {(loading && !lastFetch) && (
-              <div className='loading'>
-                <Loader />
-              </div>
-            )}
-
-            {(!edit && !loading && !loaded) && (
-              <div className='loading'>
-                {'Loading issue'}
               </div>
             )}
 

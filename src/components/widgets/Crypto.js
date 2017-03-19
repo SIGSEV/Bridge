@@ -59,8 +59,6 @@ class Crypto extends Component {
   render () {
     const { edit } = this.props
     const { config: { pair }, values } = this.props.data
-    const diff = this.getDiff()
-    const text = diff === 1 ? '1 sec' : `${diff} secs`
 
     return (
       <div className='w-crypto'>
@@ -77,7 +75,7 @@ class Crypto extends Component {
               <span>{pair}</span>
             </div>
             <div className='crypto--update'>
-              {`updated ${text} ago`}
+              {`updated ${this.getDiff() === 1 ? '1 sec' : `${this.getDiff()} secs`} ago`}
             </div>
             <div className='crypto--values'>
               <span>
