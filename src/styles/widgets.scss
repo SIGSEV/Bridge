@@ -228,7 +228,9 @@
     justify-content: space-between;
     margin-top: 5px;
   }
+
   .rss--entry {
+    padding-right: 0.5rem;
     a {
       color: $cb8;
       text-decoration: none;
@@ -240,6 +242,7 @@
       margin-top: 10px;
     }
   }
+
 }
 
 .w-bookmarks {
