@@ -7,6 +7,10 @@ import { toggleLock } from 'actions/mode'
 @connect(null, null, null, { withRef: true })
 class TextInput extends Component {
 
+  static defaultprops = {
+    required: true,
+  }
+
   focus () {
     this.props.dispatch(toggleLock(true))
   }
@@ -25,12 +29,13 @@ class TextInput extends Component {
 
   render () {
     return (
-      <input type='text'
+      <input
+        type='text'
         ref='me'
         onFocus={::this.focus}
         onBlur={::this.blur}
         {...omit(this.props, ['dispatch'])}
-        required />
+        required={this.props.required} />
     )
   }
 

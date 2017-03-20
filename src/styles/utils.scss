@@ -10,6 +10,10 @@
   bottom: 0;
 }
 
+.nfs {
+  flex-shrink: 0;
+}
+
 .fac {
   display: flex;
   align-items: center;

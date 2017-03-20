@@ -3,7 +3,12 @@ input[type='text'] {
   padding: 5px 3px;
   transition: border-color 150ms ease-in;
   line-height: 1.5em;
+
   &:focus {
     border-color: rgba($blue, .8);
+  }
+
+  & + input {
+    margin-top: 0.5rem;
   }
 }

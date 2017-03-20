@@ -74,6 +74,20 @@ export default {
     requires: ['books']
   },
 
+  Deluge: {
+    style: {
+      width: 350,
+      height: 300,
+    },
+    config: {
+      host: null,
+      pass: '',
+    },
+    requires: ['host'],
+    url: '/deluge',
+    reload: 10,
+  },
+
   Clock: {},
   Timer: {},
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import widgets from 'widgets'
 import { addWidget } from 'actions/widgets'
 import { closePicker } from 'actions/picker'
 import { save } from 'actions/global'
@@ -19,17 +20,7 @@ class Picker extends Component {
 
   render () {
 
-    const widgetsNames = [
-      'Weather',
-      'Github',
-      'StackOverflow',
-      'Dribbble',
-      'Crypto',
-      'Rss',
-      'Bookmarks',
-      'Clock',
-      'Timer',
-    ]
+    const widgetsNames = Object.keys(widgets)
 
     return (
       <div className='Picker'>

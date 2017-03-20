@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import morgan from 'morgan'
 
 import config from '../config'
 import * as ressources from './ressources'
@@ -7,6 +8,10 @@ import * as ressources from './ressources'
 const server = express()
 
 server.use(bodyParser.json())
+
+morgan.token('url', req => req.originalUrl.split('?')[0])
+server.use(morgan('dev'))
+
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
@@ -14,12 +19,7 @@ server.use((req, res, next) => {
   next()
 })
 
-server.use('/weather', ressources.weather)
-server.use('/crypto', ressources.crypto)
-server.use('/stack', ressources.stack)
-server.use('/github', ressources.github)
-server.use('/dribbble', ressources.dribbble)
-server.use('/rss', ressources.rss)
+Object.keys(ressources).forEach(key => server.use(`/${key}`, ressources[key]))
 
 server.listen(config.port, config.host, err => {
   if (err) { return console.log(err) } // eslint-disable-line no-console
