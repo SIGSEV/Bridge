@@ -91,9 +91,11 @@ class Widget extends Component {
   componentWillUpdate (nextProps) {
     const { now } = this.state
     const { widget } = this.props
-    const { reload } = widgets[widget.type]
     const diff = Math.abs(Math.round((now - widget.lastFetch) / 1E3))
 
+    if (!widgets[widget.type]) { return }
+
+    const { reload } = widgets[widget.type]
     if (!reload) { return }
 
     if (this._int && diff > reload) {
@@ -113,8 +115,10 @@ class Widget extends Component {
 
   startReload = () => {
     const { type } = this.props.widget
-    const { reload } = widgets[type]
 
+    if (!widgets[type]) { return }
+
+    const { reload } = widgets[type]
     if (!reload) { return }
 
     this.setState({ now: new Date().getTime() })
