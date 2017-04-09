@@ -1,18 +1,26 @@
 import React, { Component } from 'react'
+import SkyCons from 'react-skycons'
 
 class Weather extends Component {
 
   render () {
-    const { desc, icon, temp, pressure, wind } = this.props.data.values
+    const { desc, icon, temperature, pressure, windSpeed } = this.props.data.values
     return (
       <div className='w-weather'>
+
         <span className='boris'>
           {desc}
         </span>
+
         <h1 className='big-val za'>
-          <i className={icon}/>
-          {`${temp}°`}
+          <SkyCons
+            style={{ width: 110, height: 55 }}
+            color='rgba(0,0,0,0.6)'
+            icon={icon.toUpperCase().replace('-', '_')} />
+
+          {`${temperature}°`}
         </h1>
+
         <section className='gallery'>
 
           <div className='mende'>
@@ -22,10 +30,11 @@ class Weather extends Component {
 
           <div className='mende'>
             <h1>{'Wind'}</h1>
-            <span>{wind}</span>
+            <span>{windSpeed}</span>
           </div>
 
         </section>
+
       </div>
     )
   }
