@@ -12,6 +12,11 @@ export const getByCoords = (lat, lng) => {
 
   return got(`${baseUrl}/${lat},${lng}`, { json: true })
     .then(response => response.body.currently)
+    .then(data => ({
+      ...data,
+      icon: data.icon.toUpperCase().replace('-', '_'),
+      temperature: ((data.temperature - 32) * 5 / 9).toFixed(0),
+    }))
     .then(data => {
       cache.put(`weather-${lat}:${lng}`, data, 10e3 * 60)
       return data

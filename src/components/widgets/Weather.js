@@ -16,7 +16,7 @@ class Weather extends Component {
           <SkyCons
             style={{ width: 110, height: 55 }}
             color='rgba(0,0,0,0.6)'
-            icon={icon.toUpperCase().replace('-', '_')} />
+            icon={icon} />
 
           {`${temperature}°`}
         </h1>
