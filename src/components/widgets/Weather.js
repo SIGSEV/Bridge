@@ -15,7 +15,7 @@ class Weather extends Component {
         <h1 className='big-val za'>
           <SkyCons
             style={{ width: 110, height: 55 }}
-            color='rgba(0,0,0,0.6)'
+            color='#707070'
             icon={icon} />
 
           {`${temperature}°`}
