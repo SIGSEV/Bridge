@@ -30,8 +30,8 @@ export function fetchWidget (id) {
       return dispatch(save())
     }
 
-    function doFetch (newConfig) {
-      return fetch(`${api}${component.url}?${serialize(newConfig || config)}`)
+    const doFetch = newConfig =>
+      fetch(`${api}${component.url}?${serialize(newConfig || config)}`)
         .then(checkStatus)
         .then(res => res.json())
         .then(values => {
@@ -39,7 +39,6 @@ export function fetchWidget (id) {
           dispatch(save())
         })
         .catch(() => dispatch(widgetFailed(id)))
-    }
 
     if (type === 'Weather') {
       return navigator.geolocation.getCurrentPosition(pos => {
@@ -52,13 +51,7 @@ export function fetchWidget (id) {
       })
     }
 
-    const conf = {}
-
-    if (type === 'Motivation') {
-      conf.hour = new Date().getHours()
-    }
-
-    doFetch(type === 'Motivation' ? conf : null)
+    doFetch()
 
   }
 }
