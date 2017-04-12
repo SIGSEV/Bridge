@@ -14,7 +14,7 @@ export const getByCoords = (lat, lng) => {
     .then(response => response.body.currently)
     .then(data => ({
       ...data,
-      icon: data.icon.toUpperCase().replace('-', '_'),
+      icon: data.icon.toUpperCase().replace(/-/g, '_'),
       temperature: ((data.temperature - 32) * 5 / 9).toFixed(0),
     }))
     .then(data => {
