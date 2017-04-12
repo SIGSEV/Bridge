@@ -48,7 +48,7 @@ export function fetchWidget (id) {
         doFetch({ lat, lng })
       }, () => {
         dispatch(widgetFailed(id))
-      })
+      }, { maximumAge: 60E3 * 60 * 5 })
     }
 
     doFetch()
