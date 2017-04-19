@@ -16,7 +16,7 @@ export const fetch = feedUrl =>
         entries: items.map(({ link, author, title, pubDate }) => ({
           author,
           title,
-          link: link.split('url=')[1],
+          link: link.split('url=')[1] || link,
           pubDate: moment(new Date(pubDate)).format('HH:mm DD/MM/YYYY')
         }))
       }
