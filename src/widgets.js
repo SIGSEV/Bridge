@@ -26,7 +26,8 @@ export default {
     },
     config: {
       site: 'stackoverflow',
-      tag: 'javascript'
+      tag: 'javascript',
+      extra: '',
     },
     url: '/stack/recent'
   },

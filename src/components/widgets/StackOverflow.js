@@ -10,14 +10,15 @@ class StackOverflow extends Component {
 
   saveTag (e) {
     const { onSave, config } = this.props
-    const tag = this.refs.text.getWrappedInstance().getText()
+    const tag = this.refs.tag.getWrappedInstance().getText()
+    const extra = this.refs.extra.getWrappedInstance().getText()
 
     e.preventDefault()
-    onSave({ ...config, tag }, true)
+    onSave({ ...config, tag, extra }, true)
   }
 
   render () {
-    const { edit, data: { config: { tag }, values: { items } } } = this.props
+    const { edit, data: { config: { tag, extra }, values: { items } } } = this.props
 
     return (
       <div className='w-stack'>
@@ -25,7 +26,9 @@ class StackOverflow extends Component {
         {edit && (
           <form onSubmit={::this.saveTag}>
             <h3>{'Edit your tag'}</h3>
-            <TextInput defaultValue={tag} ref='text' placeholder='Tag' />
+            <TextInput defaultValue={tag} ref='tag' placeholder='Tag' />
+            <h3>{'Extra params'}</h3>
+            <TextInput defaultValue={extra} ref='extra' placeholder='Tag' />
             <button className='xem' />
           </form>
         )}

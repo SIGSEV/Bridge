@@ -5,13 +5,13 @@ import cache from 'memory-cache'
 
 const baseUrl = 'https://api.stackexchange.com/2.2'
 
-export const getRecentByTag = (tag, site = 'stackoverflow') => {
+export const getRecentByTag = (tag, extra = '', site = 'stackoverflow') => {
 
   if (!tag) { return q.reject(new Error('No tag given.')) }
-  const cached = cache.get(`se-${tag}:${site}`)
+  const cached = cache.get(`se-${tag}:${site}:${extra}`)
   if (cached) { return q(cached) }
 
-  return got(`${baseUrl}/search?order=desc&sort=activity&site=${site}&tagged=${tag}&pagesize=10`, { json: true })
+  return got(`${baseUrl}/search?order=desc&sort=activity&site=${site}&tagged=${tag}&pagesize=100${extra}`, { json: true })
     .then(response => response.body)
     .then(data => {
       return {
