@@ -11,7 +11,7 @@ export const getRecentByTag = (tag, extra = '', site = 'stackoverflow') => {
   const cached = cache.get(`se-${tag}:${site}:${extra}`)
   if (cached) { return q(cached) }
 
-  return got(`${baseUrl}/search?order=desc&sort=activity&site=${site}&tagged=${tag}&pagesize=100${extra}`, { json: true })
+  return got(`${baseUrl}/search/advanced?order=desc&sort=activity&site=${site}&tagged=${tag}&pagesize=100${extra}`, { json: true })
     .then(response => response.body)
     .then(data => {
       return {
