@@ -30,8 +30,8 @@ class Polochat extends Component {
 
       if (!msg) { return }
 
-      const msgs = [...this.state.msgs.slice(0, 50), { nick: dec(nick), msg: dec(msg) }]
-      this.setState({ msgs })
+      const msgs = [...this.state.msgs, { nick: dec(nick), msg: dec(msg) }]
+      this.setState({ msgs: msgs.length > 50 ? msgs.slice(1, 50) : msgs })
 
       const node = findDOMNode(this.end)
       node.scrollIntoView({ behavior: 'smooth' })
@@ -48,6 +48,8 @@ class Polochat extends Component {
 
     return (
       <div>
+
+        {!msgs.length && <span>{'Loading messages...'}</span>}
 
         {msgs.map((m, i) => (
           <div key={i}>
