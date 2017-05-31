@@ -11,39 +11,42 @@ const publicConfigKeys = ['api']
 export default {
 
   resolve: {
-    modulesDirectories: ['node_modules', 'src']
+    modulesDirectories: ['node_modules', 'src'],
   },
 
   entry: [
-    './src/app'
+    './src/app',
   ],
 
   output: {
     path: path.join(__dirname, '../dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
 
   loaders: [{
     test: /\.css$/,
-    loaders: ['style', 'css']
+    loaders: ['style', 'css'],
   }, {
     test: /\.(woff)$/,
-    loader: 'file'
+    loader: 'file',
+  }, {
+    test: /\.json$/,
+    loader: 'json',
   }],
 
   plugins: [
 
     new HtmlWebpackPlugin({
-      template: 'templates/index.html'
+      template: 'templates/index.html',
     }),
 
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(env),
-        config: JSON.stringify(pick(config, publicConfigKeys))
-      }
-    })
+        config: JSON.stringify(pick(config, publicConfigKeys)),
+      },
+    }),
 
-  ]
+  ],
 
 }

@@ -89,6 +89,14 @@ export default {
     reload: 10,
   },
 
+  Polochat: {
+    style: {
+      width: 350,
+      height: 300,
+      overflowX: 'hidden',
+    },
+  },
+
   Clock: {},
   Timer: {},
 
