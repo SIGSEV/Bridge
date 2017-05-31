@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
+import Linkify from 'linkifyjs/react'
 
 const dec = html => {
   const txt = document.createElement('textarea')
@@ -11,6 +12,7 @@ class Polochat extends Component {
 
   state = {
     msgs: [],
+    hover: false,
   }
 
   componentDidMount () {
@@ -33,8 +35,10 @@ class Polochat extends Component {
       const msgs = [...this.state.msgs, { nick: dec(nick), msg: dec(msg) }]
       this.setState({ msgs: msgs.length > 50 ? msgs.slice(1, 50) : msgs })
 
-      const div = findDOMNode(this.div)
-      div.parentNode.parentNode.scrollTop = div.parentNode.parentNode.scrollHeight
+      if (!this.state.hover) {
+        const div = findDOMNode(this.div)
+        div.parentNode.parentNode.scrollTop = div.parentNode.parentNode.scrollHeight
+      }
     }
 
   }
@@ -47,17 +51,18 @@ class Polochat extends Component {
     const { msgs } = this.state
 
     return (
-      <div ref={e => { this.div = e }} className='z'>
+      <div ref={e => { this.div = e }}
+        onMouseEnter={() => this.setState({ hover: true })}
+        onMouseLeave={() => this.setState({ hover: false })}>
 
-        {!msgs.length && <div>{'Loading messages...'}</div>}
-
-        <div>
-          {msgs.map((m, i) => (
-            <div key={i}>
-              <span className='poulet'>{m.nick}</span> {m.msg}
-            </div>
-          ))}
-        </div>
+        {msgs.map((m, i) => (
+          <div key={i}>
+            <span className='poulet'>{m.nick} </span>
+            <Linkify>
+              {m.msg}
+            </Linkify>
+          </div>
+        ))}
 
       </div>
     )

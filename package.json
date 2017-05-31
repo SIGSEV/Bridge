@@ -25,6 +25,7 @@
     "express": "^4.13.4",
     "got": "^6.3.0",
     "gsap": "^1.18.5",
+    "linkifyjs": "^2.1.4",
     "lodash": "^4.13.1",
     "memory-cache": "^0.1.5",
     "moment": "^2.13.0",
