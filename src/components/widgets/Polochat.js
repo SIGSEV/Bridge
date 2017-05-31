@@ -33,8 +33,8 @@ class Polochat extends Component {
       const msgs = [...this.state.msgs, { nick: dec(nick), msg: dec(msg) }]
       this.setState({ msgs: msgs.length > 50 ? msgs.slice(1, 50) : msgs })
 
-      const node = findDOMNode(this.end)
-      node.scrollIntoView({ behavior: 'smooth' })
+      const div = findDOMNode(this.div)
+      div.parentNode.parentNode.scrollTop = div.parentNode.parentNode.scrollHeight
     }
 
   }
@@ -47,18 +47,18 @@ class Polochat extends Component {
     const { msgs } = this.state
 
     return (
-      <div>
+      <div ref={e => { this.div = e }} className='z'>
 
-        {!msgs.length && <span>{'Loading messages...'}</span>}
+        {!msgs.length && <div>{'Loading messages...'}</div>}
 
-        {msgs.map((m, i) => (
-          <div key={i}>
-            <span className='poulet'>{m.nick}</span> {m.msg}
-          </div>
-        ))}
+        <div>
+          {msgs.map((m, i) => (
+            <div key={i}>
+              <span className='poulet'>{m.nick}</span> {m.msg}
+            </div>
+          ))}
+        </div>
 
-        <div style={{ float: 'left', clear: 'both' }}
-          ref={e => { this.end = e }} />
       </div>
     )
   }
