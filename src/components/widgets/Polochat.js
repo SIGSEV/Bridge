@@ -33,7 +33,7 @@ class Polochat extends Component {
       if (!msg) { return }
 
       const msgs = [...this.state.msgs, { nick: dec(nick), msg: dec(msg) }]
-      this.setState({ msgs: msgs.length > 50 && !hover ? msgs.slice(1, 50) : msgs })
+      this.setState({ msgs: msgs.length > 50 && !this.state.hover ? msgs.slice(1, 50) : msgs })
 
       if (!this.state.hover) {
         const div = findDOMNode(this.div)
