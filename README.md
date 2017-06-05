@@ -1,4 +1,6 @@
-# Bridge
+<p align='center'>
+  <img src='./templates/128.png' />
+</p>
 
 > New tab. For devs. F*ck you.
 
