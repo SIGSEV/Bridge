@@ -7,7 +7,7 @@ import * as ressources from './ressources'
 
 const server = express()
 
-server.use(bodyParser.json())
+server.use(bodyParser.json({ limit: '50mb' }))
 
 morgan.token('url', req => req.originalUrl.split('?')[0])
 server.use(morgan('dev'))

@@ -74,3 +74,24 @@ export const moveWidget = payload => dispatch => {
   dispatch(widgetMoved(payload))
   dispatch(save())
 }
+
+export const uploadFiles = (files, config) =>
+  files.forEach(file => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+
+    reader.onload = () => {
+
+      const file = reader.result.replace('data:;base64,', '')
+
+      fetch(`${api}/deluge?${serialize(config)}`, {
+        method: 'post',
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ file }),
+      })
+
+    }
+  })

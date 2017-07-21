@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
+import { DropTarget } from 'react-dnd'
+import { NativeTypes } from 'react-dnd-html5-backend'
 
+import widgets from 'widgets'
+import { uploadFiles } from 'actions/widgets'
 import TextInput from 'components/TextInput'
 
 const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
@@ -10,6 +14,18 @@ const bts = b => {
   return `${parseFloat((b / Math.pow(1E3, i)).toFixed(2))}${sizes[i]}`
 }
 
+@DropTarget(NativeTypes.FILE, {
+  drop: (props, monitor) => {
+    const { files } = monitor.getItem()
+    const { data: { config } } = props
+    if (!config.host) { return }
+
+    uploadFiles(files, config)
+  }
+}, (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver() && monitor.canDrop(),
+}))
 class Deluge extends Component {
 
   saveServer = e => {
@@ -22,17 +38,22 @@ class Deluge extends Component {
   }
 
   render () {
-    const { edit } = this.props
+    const { edit, connectDropTarget, isOver } = this.props
     const { values, config: { host, pass } } = this.props.data
 
     const torrents = values && Object.keys(values.torrents)
       .map(id => ({ id, ...values.torrents[id] }))
       .sort((a, b) => b.time_added - a.time_added)
 
-    return (
+    const out = (
       <div className='w-deluge'>
 
-        {(edit || !host) ? (
+        {isOver ? (
+          <div style={widgets.Deluge.style} className='z fg'>
+            <i style={{ marginRight: '0.5rem', fontSize: '1.5rem' }} className='ion-document' />
+            {'Drop your torrent'}
+          </div>
+        ) : (edit || !host) ? (
           <form onSubmit={this.saveServer}>
             <h3>{'Server infos'}</h3>
 
@@ -86,6 +107,9 @@ class Deluge extends Component {
 
       </div>
     )
+
+    return connectDropTarget(out)
+
   }
 
 }

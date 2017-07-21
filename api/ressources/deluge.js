@@ -10,4 +10,10 @@ router.get('/', (req, res) => {
     .catch(({ message }) => res.status(400).send({ message }))
 })
 
+router.post('/', (req, res) => {
+  delugeService.upload(req.query.host, req.query.pass, req.body.file)
+    .then(data => res.status(200).send(data))
+    .catch(({ message }) => res.status(400).send({ message }))
+})
+
 export default router

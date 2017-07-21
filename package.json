@@ -30,7 +30,7 @@
     "memory-cache": "^0.1.5",
     "moment": "^2.13.0",
     "morgan": "^1.8.1",
-    "node-sass": "^3.7.0",
+    "node-sass": "^4.5.3",
     "q": "^1.4.1",
     "react": "^15.1.0",
     "react-dnd": "^2.1.4",
