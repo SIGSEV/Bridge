@@ -35,24 +35,24 @@ class Crypto extends Component {
         ) : (
           <div className='z'>
             <div className='crypto--title'>
-              <span>{values.last}</span>
+              <span className='selectable'>{values.last}</span>
               <span>{pair}</span>
             </div>
             <div className='crypto--update'>
               {`updated ${this.getDiff() === 1 ? '1 sec' : `${this.getDiff()} secs`} ago`}
             </div>
             <div className='crypto--values'>
-              <span>
+              <span className='selectable'>
                 <i className='ion-arrow-graph-up-right'/>
                 {values.high}
               </span>
-              <span>
+              <span className='selectable'>
                 <i className='ion-arrow-graph-down-right'/>
                 {values.low}
               </span>
             </div>
             <div className='crypto--values'>
-              <span>
+              <span className='selectable'>
                 <i className='ion-stats-bars'/>
                 {values.volume}
               </span>

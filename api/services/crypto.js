@@ -2,16 +2,31 @@ import q from 'q'
 import got from 'got'
 import cache from 'memory-cache'
 
+const format = value => {
+  const n = Number(value)
+  const s = String(value)
+
+  if (n < 0.000001) {
+    return `${(n * 1E8).toFixed(0)}s`
+  } else if (n < 0.01) {
+    return s.substr(0, 7)
+  } else if (n >= 100) {
+    return n.toFixed(0)
+  }
+
+  return s.substr(0, 5)
+}
+
 const bittrex = market =>
-  got(`https://bittrex.com/Api/v2.0/pub/market/GetLatestTick?marketName=${market}&tickInterval=oneMin`, { json: true })
+  got(`https://bittrex.com/Api/v2.0/pub/market/GetLatestTick?marketName=${market}&tickInterval=day`, { json: true })
     .then(response => response.body)
     .then(body => {
       const data = body.result[0]
       return {
-        high: data.H,
-        low: data.L,
-        last: data.C,
-        volume: data.V,
+        high: format(data.H),
+        low: format(data.L),
+        last: format(data.C),
+        volume: Number(data.V).toFixed(2),
         timestamp: Date.now(),
       }
     })
@@ -25,9 +40,9 @@ const kraken = pair =>
       const cur = body.result[key]
 
       return {
-        high: Number(cur.h[0]).toFixed(2),
-        low: Number(cur.l[0]).toFixed(2),
-        last: Number(cur.c[0]).toFixed(2),
+        high: format(cur.h[0]),
+        low: format(cur.l[0]),
+        last: format(cur.c[0]),
         volume: Number(cur.v[0]).toFixed(2),
         timestamp: Date.now()
       }

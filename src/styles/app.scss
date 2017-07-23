@@ -47,8 +47,8 @@ body {
   padding: 10px;
   border: 2px solid $cb1;
   ::selection {
-    background-color: rgba(black, 0.25);
-    color: rgba(white, 0.3);
+    background-color: rgba(black, 0.5);
+    color: rgba(white, 1);
   }
 }
 
@@ -88,6 +88,10 @@ a {
   &.edit {
     border-color: $cb1;
   }
+}
+
+.selectable {
+  user-select: text;
 }
 
 .ctx {
