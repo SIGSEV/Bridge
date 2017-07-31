@@ -6,7 +6,7 @@ const format = value => {
   const n = Number(value)
   const s = String(value)
 
-  if (n < 0.000001) {
+  if (n < 0.0001) {
     return `${(n * 1E8).toFixed(0)}s`
   } else if (n < 0.01) {
     return s.substr(0, 7)
