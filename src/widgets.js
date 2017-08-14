@@ -46,7 +46,7 @@ export default {
       height: 100
     },
     config: {
-      pair: 'btcusd'
+      pair: 'xbtusd'
     },
     reload: 30,
     url: '/crypto'

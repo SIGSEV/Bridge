@@ -33,18 +33,19 @@ const bittrex = market =>
     })
 
 const kraken = pair =>
-  got(`https://api.cryptowat.ch/markets/kraken/${pair}/summary`, { json: true })
+  got(`https://api.kraken.com/0/public/Ticker?pair=${pair}`, { json: true })
     .then(response => response.body)
     .then(body => {
 
-      const { price: { last, high, low }, volume } = body.result
+      const key = Object.keys(body.result)[0]
+      const cur = body.result[key]
 
       return {
-        url: `https://cryptowat.ch/kraken/${pair}/30m`,
-        high: format(high),
-        low: format(low),
-        last: format(last),
-        volume: Number(volume).toFixed(2),
+        url: `https://cryptowat.ch/kraken/${pair === 'xbtusd' ? 'btcusd' : pair}/30m`,
+        high: format(cur.h[0]),
+        low: format(cur.l[0]),
+        last: format(cur.c[0]),
+        volume: Number(cur.v[0]).toFixed(2),
         timestamp: Date.now()
       }
 
@@ -53,11 +54,10 @@ const kraken = pair =>
 export const getLatest = pair => {
   const cached = cache.get(`crypto-${pair}`)
   if (cached) { return q(cached) }
-  const trPair = pair === 'xbtusd' ? 'btcusd' : pair
-  const p = trPair.includes('-') ? bittrex(trPair) : kraken(trPair)
+  const p = pair.includes('-') ? bittrex(pair) : kraken(pair)
 
   return p.then(data => {
-    cache.put(`crypto-${trPair}`, data, 1e3 * 30)
+    cache.put(`crypto-${pair}`, data, 1e3 * 30)
     return data
   })
 }
