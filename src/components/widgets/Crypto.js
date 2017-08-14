@@ -36,7 +36,7 @@ class Crypto extends Component {
           <div className='z'>
             <div className='crypto--title'>
               <span className='selectable'>{values.last}</span>
-              <span>{pair}</span>
+              <a href={values.url}>{pair}</a>
             </div>
             <div className='crypto--update'>
               {`updated ${this.getDiff() === 1 ? '1 sec' : `${this.getDiff()} secs`} ago`}

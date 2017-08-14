@@ -148,14 +148,18 @@
     span:first-child {
       font-size: 2.3em;
     }
-    span:last-child {
+    a {
+      color: $cb6;
+      text-decoration: none;
       margin-left: 0.3rem;
       font-size: 0.7rem;
     }
   }
+
   .crypto--update {
     margin-bottom: 10px;
   }
+
   .crypto--values {
     display: flex;
     justify-content: space-around;
