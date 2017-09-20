@@ -1,23 +1,22 @@
+import { parseURL } from 'rss-parser'
+import cheerio from 'cheerio'
 import moment from 'moment'
-import got from 'got'
-
-const baseUrl = 'https://api.rss2json.com/v1/api.json?rss_url='
 
 export const fetch = feedUrl =>
-  got(`${baseUrl}${feedUrl}`, { json: true })
-    .then(response => response.body)
-    .then(body => {
-
-      const { status, feed, items } = body
-      if (status !== 'ok') { throw new Error('Invalid response') }
-
-      return {
-        title: feed.title,
-        entries: items.map(({ link, author, title, pubDate }) => ({
-          author,
-          title,
-          link: link.split('url=')[1] || link,
-          pubDate: moment(new Date(pubDate)).format('HH:mm DD/MM/YYYY')
-        }))
+  new Promise((resolve, reject) => {
+    parseURL(feedUrl, (err, body) => {
+      if (err) {
+        return reject(err)
       }
+
+      const { feed } = body
+
+      const entries = feed.entries.map(entry => ({
+        ...entry,
+        comments: cheerio.load(entry.content)('a[href]').attr('href'),
+        pubDate: moment(new Date(entry.isoDate)).format('HH:mm DD/MM/YYYY'),
+      }))
+
+      resolve({ ...feed, entries })
     })
+  })

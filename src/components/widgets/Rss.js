@@ -37,6 +37,7 @@ class Rss extends Component {
                   <div>{entry.title}</div>
                 </a>
                 <div className='rss--meta'>
+                  {entry.comments && <a href={entry.comments} target='_blank'><i className='ion-chatbubbles' /></a>}
                   <span>{entry.author}</span>
                   <span>{entry.pubDate}</span>
                 </div>
