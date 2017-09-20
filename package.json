@@ -111,7 +111,8 @@
     },
     "globals": {
       "TimelineMax": false,
-      "chrome": false
+      "chrome": false,
+      "Promise": false
     }
   }
 }
