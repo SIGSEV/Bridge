@@ -11,11 +11,15 @@ export const fetch = feedUrl =>
 
       const { feed } = body
 
-      const entries = feed.entries.map(entry => ({
-        ...entry,
-        comments: cheerio.load(entry.content)('a[href]').attr('href'),
-        pubDate: moment(new Date(entry.isoDate)).format('HH:mm DD/MM/YYYY'),
-      }))
+      const entries = feed.entries.map(entry => {
+        const comments = cheerio.load(entry.content)('a[href]').attr('href')
+
+        return {
+          ...entry,
+          comments: comments !== entry.link && comments,
+          pubDate: moment(new Date(entry.isoDate)).format('HH:mm DD/MM/YYYY'),
+        }
+      })
 
       resolve({ ...feed, entries })
     })
