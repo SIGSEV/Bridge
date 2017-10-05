@@ -12,12 +12,13 @@
     "start": "babel-node bin/start",
     "build": "npm run clean && NODE_ENV=production babel-node bin/build && cp templates/{manifest.json,*.png} dist && zip -r dist.zip dist/",
     "lint": "eslint src api bin webpack config",
-    "server": "node bin/api",
+    "server": "node -r babel-polyfill bin/api",
     "pm2:setup": "pm2 deploy ecosystem.json production setup",
     "pm2:deploy": "pm2 deploy ecosystem.json production",
     "deploy": "npm run lint && npm run pm2:deploy"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.15.1",
     "cheerio": "^0.20.0",
     "classnames": "^2.2.5",

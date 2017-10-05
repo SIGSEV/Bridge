@@ -42,14 +42,18 @@ class Crypto extends Component {
               {`updated ${this.getDiff() === 1 ? '1 sec' : `${this.getDiff()} secs`} ago`}
             </div>
             <div className='crypto--values'>
-              <span className='selectable'>
-                <i className='ion-arrow-graph-up-right'/>
-                {values.high}
-              </span>
-              <span className='selectable'>
-                <i className='ion-arrow-graph-down-right'/>
-                {values.low}
-              </span>
+              {values.high && (
+                <span className='selectable'>
+                  <i className='ion-arrow-graph-up-right'/>
+                  {values.high}
+                </span>
+              )}
+              {values.low && (
+                <span className='selectable'>
+                  <i className='ion-arrow-graph-down-right'/>
+                  {values.low}
+                </span>
+              )}
             </div>
             <div className='crypto--values'>
               <span className='selectable'>

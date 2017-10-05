@@ -1,6 +1,9 @@
 import q from 'q'
 import got from 'got'
+import keyBy from 'lodash/keyBy'
 import cache from 'memory-cache'
+
+const kPairs = 'BCHEUR,BCHUSD,BCHXBT,DASHEUR,DASHUSD,DASHXBT,EOSETH,EOSXBT,GNOETH,GNOXBT,USDTUSD,ETCETH,ETCXBT,ETCEUR,ETCUSD,ETHXBT,ETHXBT.d,ETHCAD,ETHCAD.d,ETHEUR,ETHEUR.d,ETHGBP,ETHGBP.d,ETHJPY,ETHJPY.d,ETHUSD,ETHUSD.d,ICNETH,ICNXBT,LTCXBT,LTCEUR,LTCUSD,MLNETH,MLNXBT,REPETH,REPXBT,REPEUR,XBTCAD,XBTCAD.d,XBTEUR,XBTEUR.d,XBTGBP,XBTGBP.d,XBTJPY,XBTJPY.d,XBTUSD,XBTUSD.d,XDGXBT,XLMXBT,XMRXBT,XMREUR,XMRUSD,XRPXBT,XRPEUR,XRPUSD,ZECXBT,ZECEUR,ZECUSD'.toLowerCase().split(',')
 
 const format = value => {
   const n = Number(value)
@@ -51,13 +54,37 @@ const kraken = pair =>
 
     })
 
-export const getLatest = pair => {
-  const cached = cache.get(`crypto-${pair}`)
-  if (cached) { return q(cached) }
-  const p = pair.includes('-') ? bittrex(pair) : kraken(pair)
+const fall = async () => {
+  const c = cache.get('crypto-fallback')
+  if (c) { return q(c) }
 
-  return p.then(data => {
-    cache.put(`crypto-${pair}`, data, 1e3 * 30)
-    return data
-  })
+  const { body } = await got('https://api.coinmarketcap.com/v1/ticker')
+  const data = keyBy(JSON.parse(body), 'id')
+
+  cache.put('crypto-fallback', data, 1e3 * 20)
+  return data
+}
+
+export const getLatest = async s => {
+  const cached = cache.get(`crypto-${s}`)
+  if (cached) { return q(cached) }
+
+  const notFall = s.includes('-') || kPairs.includes(s)
+
+  if (!notFall) {
+    const f = await fall()
+
+    return {
+      url: `https://coinmarketcap.com/currencies/${f[s].id}`,
+      last: format(f[s].price_btc),
+      volume: f[s]['24h_volume_usd'],
+      timestamp: Date.now(),
+    }
+  }
+
+  const p = s.includes('-') ? bittrex(s) : kraken(s)
+  const data = await p
+  cache.put(`crypto-${s}`, data, 1e3 * 30)
+  return data
+
 }
