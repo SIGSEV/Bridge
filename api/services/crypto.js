@@ -69,7 +69,7 @@ export const getLatest = async s => {
   const cached = cache.get(`crypto-${s}`)
   if (cached) { return q(cached) }
 
-  const notFall = s.includes('-') || kPairs.includes(s)
+  const notFall = (s !== 'request-network' && s.includes('-')) || kPairs.includes(s)
 
   if (!notFall) {
     const f = await fall()
