@@ -15,12 +15,14 @@ export const widgetFailed = createAction('WIDGET_FAILED')
 export const removeWidget = createAction('REMOVE_WIDGET')
 export const addWidget = createAction('ADD_WIDGET')
 
-export function fetchWidget (id) {
-  return (dispatch, getState) => {
+const setGeo = createAction('SET_GEO')
 
+export function fetchWidget(id) {
+  return (dispatch, getState) => {
     dispatch(widgetFetch(id))
 
     const state = getState()
+    const { geo } = state
     const widget = state.layout.widgets[id]
     const { config, type } = widget
     const component = widgets[type]
@@ -41,25 +43,35 @@ export function fetchWidget (id) {
         .catch(() => dispatch(widgetFailed(id)))
 
     if (type === 'Weather') {
-      return navigator.geolocation.getCurrentPosition(pos => {
-        const { latitude, longitude } = pos.coords
-        const lat = latitude.toFixed(3)
-        const lng = longitude.toFixed(3)
-        doFetch({ lat, lng })
-      }, () => {
-        dispatch(widgetFailed(id))
-      }, { maximumAge: 60E3 * 60 * 5 })
+      // 1 hour geolocation cache
+      if (geo.gotAt && Date.now() - geo.gotAt < 60e3 * 60) {
+        const { lat, lng } = geo
+        return doFetch({ lat, lng })
+      }
+
+      return navigator.geolocation.getCurrentPosition(
+        pos => {
+          const { latitude, longitude } = pos.coords
+          const lat = latitude.toFixed(3)
+          const lng = longitude.toFixed(3)
+          dispatch(setGeo({ lat, lng }))
+          doFetch({ lat, lng })
+        },
+        () => {
+          dispatch(widgetFailed(id))
+        },
+        { maximumAge: 60e3 * 60 * 5 },
+      )
     }
 
     doFetch()
-
   }
 }
 
 const widgetConfig = createAction('WIDGET_CONFIG')
 
-export function configWidget (payload) {
-  return (dispatch) => {
+export function configWidget(payload) {
+  return dispatch => {
     const { id, config } = payload
     dispatch(widgetConfig({ id, config }))
     dispatch(save())
@@ -81,7 +93,6 @@ export const uploadFiles = (files, config) =>
     reader.readAsDataURL(file)
 
     reader.onload = () => {
-
       const file = reader.result.replace('data:;base64,', '')
 
       fetch(`${api}/deluge?${serialize(config)}`, {
@@ -92,6 +103,5 @@ export const uploadFiles = (files, config) =>
         },
         body: JSON.stringify({ file }),
       })
-
     }
   })

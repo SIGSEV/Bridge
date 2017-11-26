@@ -4,24 +4,17 @@ import { createAction } from 'redux-actions'
 import { setData } from 'services/storage'
 import { initialState } from 'reducers/mode'
 
-export function save () {
+export function save() {
   return (dispatch, getState) => {
-    const copy = cloneDeep(pick(getState(), ['layout']))
+    const copy = cloneDeep(pick(getState(), ['layout', 'geo']))
 
     // reset global mode state
     copy.mode = initialState
 
     // reset widgets state
-    const widgetKeys = [
-      'type',
-      'config',
-      'requires'
-    ]
+    const widgetKeys = ['type', 'config', 'requires']
 
-    copy.layout.widgets = mapValues(
-      copy.layout.widgets,
-      widget => pick(widget, widgetKeys)
-    )
+    copy.layout.widgets = mapValues(copy.layout.widgets, widget => pick(widget, widgetKeys))
 
     setData(copy, () => {})
   }
