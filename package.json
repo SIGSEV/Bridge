@@ -22,6 +22,7 @@
     "body-parser": "^1.15.1",
     "cheerio": "^0.20.0",
     "classnames": "^2.2.5",
+    "date-fns": "^1.29.0",
     "dotenv": "^2.0.0",
     "express": "^4.13.4",
     "got": "^6.3.0",
@@ -29,7 +30,6 @@
     "linkifyjs": "^2.1.4",
     "lodash": "^4.13.1",
     "memory-cache": "^0.1.5",
-    "moment": "^2.13.0",
     "morgan": "^1.8.1",
     "node-sass": "^4.5.3",
     "q": "^1.4.1",
@@ -60,6 +60,7 @@
     "babel-register": "^6.9.0",
     "css-loader": "^0.23.1",
     "eslint": "^2.11.1",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-config-zavatta": "^3.0.2",
     "eslint-config-zavatta-react": "^1.2.3",
     "eslint-plugin-react": "^5.1.1",
@@ -88,7 +89,9 @@
   "eslintConfig": {
     "extends": [
       "zavatta",
-      "zavatta-react"
+      "zavatta-react",
+      "prettier",
+      "prettier/react"
     ],
     "rules": {
       "react/jsx-max-props-per-line": [

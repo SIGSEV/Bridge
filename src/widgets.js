@@ -1,78 +1,77 @@
 export default {
-
   Weather: {
     style: {
       width: 250,
-      height: 194
+      height: 150,
     },
-    url: '/weather'
+    url: '/weather',
   },
 
   Github: {
     style: {
       width: 350,
-      height: 300
+      height: 300,
     },
     config: {
-      language: null
+      language: null,
     },
-    url: '/github/trending'
+    url: '/github/trending',
   },
 
   StackOverflow: {
     style: {
       width: 350,
-      height: 500
+      height: 500,
     },
     config: {
       site: 'stackoverflow',
       tag: 'javascript',
       extra: '',
     },
-    url: '/stack/recent'
+    url: '/stack/recent',
   },
 
   Dribbble: {
     style: {
       width: 250,
-      height: 250
+      height: 250,
     },
-    url: '/dribbble'
+    url: '/dribbble',
   },
 
   Crypto: {
     style: {
       width: 200,
-      height: 100
+      height: 100,
     },
     config: {
-      pair: 'xbtusd'
+      pair: 'xbtusd',
     },
     reload: 30,
-    url: '/crypto'
+    url: '/crypto',
   },
 
   Rss: {
     style: {
       width: 350,
-      height: 300
+      height: 300,
     },
     config: {
-      feed: null
+      feed: null,
     },
     reload: 60 * 3,
     requires: ['feed'],
-    url: '/rss'
+    url: '/rss',
   },
 
   Bookmarks: {
     style: {
-      width: 350
+      width: 350,
     },
     config: {
-      books: []
+      books: [],
     },
-    requires: ['books']
+    requires: ['books'],
   },
 
   Deluge: {
@@ -99,5 +98,4 @@ export default {
 
   Clock: {},
   Timer: {},
-
 }
