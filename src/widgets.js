@@ -2,7 +2,7 @@ export default {
   Weather: {
     style: {
       width: 250,
-      height: 150,
+      height: 135,
     },
     url: '/weather',
   },
@@ -86,14 +86,6 @@ export default {
     requires: ['host'],
     url: '/deluge',
     reload: 10,
-  },
-
-  Polochat: {
-    style: {
-      width: 350,
-      height: 300,
-      overflowX: 'hidden',
-    },
   },
 
   Clock: {},
