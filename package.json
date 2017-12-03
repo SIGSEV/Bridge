@@ -15,7 +15,8 @@
     "server": "node -r babel-polyfill bin/api",
     "pm2:setup": "pm2 deploy ecosystem.json production setup",
     "pm2:deploy": "pm2 deploy ecosystem.json production",
-    "deploy": "npm run lint && npm run pm2:deploy"
+    "deploy": "npm run lint && npm run pm2:deploy",
+    "publish": "npm run build && webstore upload --source dist.zip --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN --auto-publish"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
@@ -58,6 +59,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
+    "chrome-webstore-upload-cli": "^1.1.1",
     "css-loader": "^0.23.1",
     "eslint": "^2.11.1",
     "eslint-config-prettier": "^2.9.0",
