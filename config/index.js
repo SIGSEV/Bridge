@@ -3,7 +3,9 @@ import dotenv from 'dotenv'
 const env = process.env.NODE_ENV || 'development'
 const config = require(`./${env}`).default
 
-dotenv.load()
+if (!process.env.BUILD) {
+  dotenv.load()
+}
 
 export default {
   env,
@@ -14,5 +16,5 @@ export default {
 
   bannedRepositories: (process.env.BANNED_REPOSITORIES || '').split(','),
 
-  ...config
+  ...config,
 }
