@@ -16,7 +16,7 @@
     "pm2:setup": "pm2 deploy ecosystem.json production setup",
     "pm2:deploy": "pm2 deploy ecosystem.json production",
     "deploy": "npm run lint && npm run pm2:deploy",
-    "publish": "npm run build && webstore upload --source dist.zip --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN --auto-publish",
+    "release": "npm run build && webstore upload --source dist.zip --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN --auto-publish",
     "bump": "node bin/bump"
   },
   "dependencies": {

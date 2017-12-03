@@ -6,7 +6,7 @@ script:
 - yarn build
 deploy:
   provider: script
-  script: yarn publish
+  script: yarn release
   on:
     branch: master
     tags: true
