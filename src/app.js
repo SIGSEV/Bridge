@@ -9,12 +9,12 @@ import { App } from 'components'
 import reducer from 'reducers'
 import * as storageService from 'services/storage'
 
-storageService.getData((state) => {
-
-  const store = createStore(reducer, state, compose(
-    applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-  ))
+storageService.getData(state => {
+  const store = createStore(
+    reducer,
+    state,
+    compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f),
+  )
 
   const root = (
     <Provider store={store}>
@@ -25,5 +25,4 @@ storageService.getData((state) => {
   const rootNode = document.getElementById('root')
 
   render(root, rootNode)
-
 })

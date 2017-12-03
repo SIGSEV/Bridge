@@ -9,33 +9,32 @@ const env = process.env.NODE_ENV || 'development'
 const publicConfigKeys = ['api']
 
 export default {
-
   resolve: {
-    modulesDirectories: ['node_modules', 'src'],
+    modules: ['node_modules', 'src'],
   },
 
-  entry: [
-    './src/app',
-  ],
+  entry: ['./src/app'],
 
   output: {
     path: path.join(__dirname, '../dist'),
     filename: 'bundle.js',
   },
 
-  loaders: [{
-    test: /\.css$/,
-    loaders: ['style', 'css'],
-  }, {
-    test: /\.(woff)$/,
-    loader: 'file',
-  }, {
-    test: /\.json$/,
-    loader: 'json',
-  }],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.(woff)$/,
+        loader: 'file-loader',
+      },
+    ],
+  },
 
   plugins: [
-
     new HtmlWebpackPlugin({
       template: 'templates/index.html',
     }),
@@ -46,7 +45,5 @@ export default {
         config: JSON.stringify(pick(config, publicConfigKeys)),
       },
     }),
-
   ],
-
 }

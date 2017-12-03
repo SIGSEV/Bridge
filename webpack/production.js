@@ -4,19 +4,19 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import webpackConfig from './config'
 
 export default {
-
   ...webpackConfig,
 
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
-      exclude: /node_modules/
-    }, {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('style', 'css!autoprefixer!sass'),
-      exclude: /node_modules/
-    }, ...webpackConfig.loaders]
+    rules: [
+      {
+        test: /\.s?css$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'autoprefixer-loader', 'sass-loader'],
+        }),
+      },
+      ...webpackConfig.module.rules,
+    ],
   },
 
   plugins: [
@@ -25,11 +25,7 @@ export default {
     // extract styles
     new ExtractTextPlugin('styles.css'),
 
-    // optimizations
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({ compressor: { warnings: false } })
-
+    new webpack.optimize.UglifyJsPlugin({ compressor: { warnings: false } }),
   ],
 
   stats: {
@@ -41,7 +37,6 @@ export default {
     chunks: false,
     chunkModules: false,
     cached: false,
-    cachedAssets: false
-  }
-
+    cachedAssets: false,
+  },
 }
