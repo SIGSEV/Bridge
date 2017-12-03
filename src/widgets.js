@@ -1,43 +1,15 @@
 export default {
-  Weather: {
-    style: {
-      width: 250,
-      height: 135,
-    },
-    url: '/weather',
-  },
-
-  Github: {
+  Bookmarks: {
     style: {
       width: 350,
-      height: 300,
     },
     config: {
-      language: null,
+      books: [],
     },
-    url: '/github/trending',
+    requires: ['books'],
   },
 
-  StackOverflow: {
-    style: {
-      width: 350,
-      height: 500,
-    },
-    config: {
-      site: 'stackoverflow',
-      tag: 'javascript',
-      extra: '',
-    },
-    url: '/stack/recent',
-  },
-
-  Dribbble: {
-    style: {
-      width: 250,
-      height: 250,
-    },
-    url: '/dribbble',
-  },
+  Clock: {},
 
   Crypto: {
     style: {
@@ -49,29 +21,6 @@ export default {
     },
     reload: 30,
     url: '/crypto',
-  },
-
-  Rss: {
-    style: {
-      width: 350,
-      height: 300,
-    },
-    config: {
-      feed: null,
-    },
-    reload: 60 * 3,
-    requires: ['feed'],
-    url: '/rss',
-  },
-
-  Bookmarks: {
-    style: {
-      width: 350,
-    },
-    config: {
-      books: [],
-    },
-    requires: ['books'],
   },
 
   Deluge: {
@@ -88,6 +37,58 @@ export default {
     reload: 10,
   },
 
-  Clock: {},
+  Dribbble: {
+    style: {
+      width: 250,
+      height: 250,
+    },
+    url: '/dribbble',
+  },
+
+  Github: {
+    style: {
+      width: 350,
+      height: 300,
+    },
+    config: {
+      language: null,
+    },
+    url: '/github/trending',
+  },
+
+  Rss: {
+    style: {
+      width: 350,
+      height: 300,
+    },
+    config: {
+      feed: null,
+    },
+    reload: 60 * 3,
+    requires: ['feed'],
+    url: '/rss',
+  },
+
+  StackOverflow: {
+    style: {
+      width: 350,
+      height: 500,
+    },
+    config: {
+      site: 'stackoverflow',
+      tag: 'javascript',
+      extra: '',
+    },
+    url: '/stack/recent',
+  },
+
   Timer: {},
+
+  Weather: {
+    style: {
+      width: 250,
+      height: 135,
+    },
+    url: '/weather',
+  },
 }
