@@ -16,7 +16,7 @@ export function save() {
 
     copy.layout.widgets = mapValues(copy.layout.widgets, widget => pick(widget, widgetKeys))
 
-    setData(copy, () => {})
+    setData(copy, f => f)
   }
 }
 

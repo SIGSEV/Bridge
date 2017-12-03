@@ -7,29 +7,27 @@ import { toggleLock } from 'actions/mode'
 
 @connect(null, { toggleLock })
 class Github extends Component {
-
-  saveLanguage (data) {
+  saveLanguage(data) {
     const { onSave, data: { config } } = this.props
     const language = data && data.value
 
     onSave({ ...config, language }, true)
   }
 
-  blur () {
+  blur() {
     this.props.toggleLock(false)
   }
 
-  focus () {
+  focus() {
     this.props.toggleLock(true)
   }
 
-  render () {
+  render() {
     const { edit } = this.props
     const { values, config } = this.props.data
 
     return (
-      <div className='w-github'>
-
+      <div className="w-github">
         {edit && (
           <div>
             <h3>{'Edit your language'}</h3>
@@ -39,27 +37,25 @@ class Github extends Component {
               onChange={::this.saveLanguage}
               onBlur={::this.blur}
               onFocus={::this.focus}
-              ref='select' />
+              ref="select"
+            />
           </div>
         )}
 
-        {!edit && values.map((repo, i) =>
+        {!edit &&
+          values.map(repo => (
+            <a className="github-repo za" href={`https://github.com${repo.url}`} key={repo.url}>
+              <span className="github-name">{repo.name}</span>
 
-          <a key={i} className='github-repo za' href={`https://github.com${repo.url}`}>
-
-            <span className='github-name'>{repo.name}</span>
-
-            <div className='github-stars'>
-              <span>{repo.today}</span>
-              <i className='ion-ios-star'/>
-            </div>
-
-          </a>
-        )}
+              <div className="github-stars">
+                <span>{repo.today}</span>
+                <i className="ion-ios-star" />
+              </div>
+            </a>
+          ))}
       </div>
     )
   }
-
 }
 
 export default Github

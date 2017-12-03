@@ -6,39 +6,38 @@ import { toggleLock } from 'actions/mode'
 
 @connect(null, null, null, { withRef: true })
 class TextInput extends Component {
-
-  static defaultprops = {
+  static defaultProps = {
     required: true,
   }
 
-  focus () {
+  focus() {
     this.props.dispatch(toggleLock(true))
   }
 
-  blur () {
+  blur() {
     this.props.dispatch(toggleLock(false))
   }
 
-  getText () {
+  getText() {
     return this.refs.me.value
   }
 
-  reset () {
+  reset() {
     this.refs.me.value = ''
   }
 
-  render () {
+  render() {
     return (
       <input
-        type='text'
-        ref='me'
+        type="text"
+        ref="me"
         onFocus={::this.focus}
         onBlur={::this.blur}
         {...omit(this.props, ['dispatch'])}
-        required={this.props.required} />
+        required={this.props.required}
+      />
     )
   }
-
 }
 
 export default TextInput

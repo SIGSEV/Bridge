@@ -14,64 +14,57 @@ import Picker from 'components/Picker'
 import { openPicker, closePicker } from 'actions/picker'
 import { toggleEditMode } from 'actions/mode'
 
-@connect(
-  state => ({
-    picker: state.picker,
-    layout: state.layout,
-    hasWidgets: !!(Array.prototype.concat.apply([], state.layout.cols).length)
-  }),
-)
+@connect(state => ({
+  picker: state.picker,
+  layout: state.layout,
+  hasWidgets: !!Array.prototype.concat.apply([], state.layout.cols).length,
+}))
 @DragDropContext(HTML5Backend)
 class App extends Component {
-
-  componentDidMount () {
+  componentDidMount() {
     this.handleKey = ::this.handleKey
     window.addEventListener('keydown', this.handleKey)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKey)
   }
 
-  handleKey (e) {
+  handleKey(e) {
     if (e.which === 69) {
       const { dispatch } = this.props
       dispatch(toggleEditMode())
     }
   }
 
-  handleAddFirstWidget () {
+  handleAddFirstWidget() {
     const { dispatch } = this.props
     dispatch(openPicker(1))
   }
 
-  closePicker () {
+  closePicker() {
     const { dispatch } = this.props
     dispatch(closePicker())
   }
 
-  render () {
+  render() {
     const { layout, picker, hasWidgets } = this.props
     const { cols, widgets } = layout
 
     return (
-      <div className='App'>
-
+      <div className="App">
         {cols.map((widgetsIds, i) => (
           <Col
-            key={i}
+            key={widgetsIds.concat([i]).join(',')}
             col={i}
             hasWidgets={hasWidgets}
             widgetsIds={widgetsIds}
-            widgets={widgets} />)
-        )}
+            widgets={widgets}
+          />
+        ))}
 
-        <Portal
-          closeOnEsc
-          closeOnOutsideClick
-          isOpened={picker.open}
-          onClose={::this.closePicker}>
-          <div className='Modal'>
+        <Portal closeOnEsc closeOnOutsideClick isOpened={picker.open} onClose={::this.closePicker}>
+          <div className="Modal">
             <PseudoModal closePortal={::this.closePicker}>
               <Picker />
             </PseudoModal>
@@ -79,42 +72,34 @@ class App extends Component {
         </Portal>
 
         {!hasWidgets && (
-          <div className='BlankState'>
+          <div className="BlankState">
             <span>{'You have no widgets.'}</span>
-            <div className='btn-ui' tabIndex={0} onClick={::this.handleAddFirstWidget}>
-              <i className='ion-plus-circled' />
+            <div className="btn-ui" tabIndex={0} onClick={::this.handleAddFirstWidget}>
+              <i className="ion-plus-circled" />
               {'Maybe try adding one?'}
             </div>
-            <span className='hint'>{'Remember to press E for toggling edit mode anytime.'}</span>
+            <span className="hint">{'Remember to press E for toggling edit mode anytime.'}</span>
           </div>
         )}
-
       </div>
     )
   }
-
 }
 
 class PseudoModal extends React.Component {
-
-  render () {
+  render() {
     return (
-      <div className='PseudoModal'>
-        <div style={{ marginBottom: '1em' }}>
-          {this.props.children}
-        </div>
+      <div className="PseudoModal">
+        <div style={{ marginBottom: '1em' }}>{this.props.children}</div>
         <div style={{ textAlign: 'right' }}>
-          <div tabIndex={0}
-            className='btn btn-def btn-oe'
-            onClick={this.props.closePortal}>
-            <i className='ion-close' />
+          <div tabIndex={0} className="btn btn-def btn-oe" onClick={this.props.closePortal}>
+            <i className="ion-close" />
             {'Cancel'}
           </div>
         </div>
       </div>
     )
   }
-
 }
 
 export default App

@@ -6,12 +6,9 @@ import React, { Component } from 'react'
 
 import { Loader } from 'components'
 import * as widgetsComponents from 'components/widgets'
-import { removeWidget, moveWidget } from 'actions/widgets'
-import { configWidget } from 'actions/widgets'
+import { fetchWidget, configWidget, removeWidget, moveWidget } from 'actions/widgets'
 import { save, startDrag, stopDrag } from 'actions/global'
 import widgets from 'widgets'
-
-import { fetchWidget } from 'actions/widgets'
 
 @connect(
   state => ({
