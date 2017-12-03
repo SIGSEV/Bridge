@@ -1,3 +1,5 @@
+[![build](https://img.shields.io/travis/SIGSEV/Bridge.svg?style=flat-square)](https://travis-ci.org/SIGSEV/Bridge) [![store](https://img.shields.io/chrome-web-store/v/beoakkifjokgdckjcdlbdfmacaefdfhh.svg?style=flat-square)](https://chrome.google.com/webstore/detail/bridge/beoakkifjokgdckjcdlbdfmacaefdfhh)
+
 <p align='center'>
   <img src='./templates/128.png' />
 </p>
