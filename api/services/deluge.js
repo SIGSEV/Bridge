@@ -4,7 +4,6 @@ const r = (host, body, headers = {}) =>
   got.post(`${host}/json`, {
     body,
     headers: { ...headers, 'Content-Type': 'application/json' },
-    json: true,
   })
 
 const payload = (method, params) => JSON.stringify({ method, params, id: Date.now() })
