@@ -20,11 +20,14 @@ export const getByCoords = (lat, lng) => {
     .then(data => {
       const { currently, daily } = data
 
-      const projections = daily.data.slice(1, 4).map(({ icon, time }) => ({
-        icon: getIcon(icon),
-        ts: time,
-        time: format(time * 1e3, 'ddd'),
-      }))
+      const projections = daily.data
+        .slice(1, 4)
+        .map(({ icon, time, temperatureHigh, temperatureLow }) => ({
+          icon: getIcon(icon),
+          ts: time,
+          temperature: ((temperatureHigh - temperatureLow) / 2 + temperatureLow).toFixed(0),
+          time: format(time * 1e3, 'ddd'),
+        }))
 
       return {
         icon: getIcon(currently.icon),

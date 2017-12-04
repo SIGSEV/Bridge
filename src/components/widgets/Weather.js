@@ -19,7 +19,9 @@ class Weather extends Component {
           {projections.map(projection => (
             <div key={projection.ts}>
               <SkyCons style={{ width: 80, height: 40 }} color="#707070" icon={projection.icon} />
-              <div className="mende">{projection.time}</div>
+              <div className="mende">
+                {projection.time} {`${projection.temperature}°`}
+              </div>
             </div>
           ))}
         </section>
