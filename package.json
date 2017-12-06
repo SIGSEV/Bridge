@@ -22,7 +22,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
-    "cheerio": "^0.20.0",
+    "cheerio": "^1.0.0-rc.2",
     "classnames": "^2.2.5",
     "date-fns": "^1.29.0",
     "dotenv": "^4.0.0",
