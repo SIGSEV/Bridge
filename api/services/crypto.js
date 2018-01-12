@@ -41,18 +41,17 @@ const bittrex = market =>
     })
 
 const kraken = pair =>
-  got(`https://api.kraken.com/0/public/Ticker?pair=${pair}`, { json: true })
+  got(`https://api.cryptowat.ch/markets/kraken/${pair === 'xbtusd' ? 'btcusd' : pair}/summary`, { json: true })
     .then(response => response.body)
     .then(body => {
-      const key = Object.keys(body.result)[0]
-      const cur = body.result[key]
+      const { high, last, low } = body.result.price
 
       return {
         url: `https://cryptowat.ch/kraken/${pair === 'xbtusd' ? 'btcusd' : pair}/30m`,
-        high: format(cur.h[0]),
-        low: format(cur.l[0]),
-        last: format(cur.c[0]),
-        volume: Number(cur.v[0]).toFixed(2),
+        high: format(high),
+        low: format(low),
+        last: format(last),
+        volume: Number(body.result.volume).toFixed(2),
         timestamp: Date.now(),
       }
     })
