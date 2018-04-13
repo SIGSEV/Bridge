@@ -58,7 +58,7 @@ class Crypto extends Component {
             <div className="crypto--title">
               <span className="selectable">{format(price, preferred)}</span>
               {!isSats && icons[preferred]}
-              <a href={values.url}>{values.symbol}</a>
+              <a href={`https://coinmarketcap.com/currencies/${values.id}`}>{values.symbol}</a>
             </div>
 
             <div className="crypto--values">

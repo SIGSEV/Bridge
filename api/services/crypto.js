@@ -3,25 +3,29 @@ import got from 'got'
 import keyBy from 'lodash/keyBy'
 import cache from 'memory-cache'
 
-const getTickers = async () => {
-  const c = cache.get('crypto')
-  if (c) {
-    return q(c)
+let resolving = false
+
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+export const getLatest = async coin => {
+  const cached = cache.get('crypto')
+  if (cached) {
+    return q(cached[coin])
   }
 
-  const { body } = await got('https://api.coinmarketcap.com/v1/ticker/?convert=eth')
+  if (resolving) {
+    await wait(200)
+    return getLatest(coin)
+  }
+
+  resolving = true
+
+  const { body } = await got('https://api.coinmarketcap.com/v1/ticker/?convert=eth&limit=0')
   const data = keyBy(JSON.parse(body), 'id')
 
-  cache.put('crypto', data, 1e3 * 20)
-  return data
-}
+  cache.put('crypto', data, 1e3 * 30)
 
-export const getLatest = async s => {
-  const f = await getTickers()
+  resolving = false
 
-  return {
-    url: `https://coinmarketcap.com/currencies/${f[s].id}`,
-    timestamp: Date.now(),
-    ...f[s],
-  }
+  return data[coin]
 }
