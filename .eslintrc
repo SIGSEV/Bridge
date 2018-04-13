@@ -18,4 +18,5 @@
     "chrome": false,
     "Promise": false,
   },
+  parser: "babel-eslint",
 }
