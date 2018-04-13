@@ -145,27 +145,56 @@
   }
 
   .crypto--title {
-    span:first-child {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 5px;
+
+    span {
       font-size: 2.3em;
     }
+
+    svg {
+      margin-bottom: 5px;
+    }
+
     a {
+      max-width: 4rem;
+      display: block;
+      margin-bottom: 5px;
+
       color: $cb6;
       text-decoration: none;
       margin-left: 0.3rem;
       font-size: 0.7rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
 
-  .crypto--update {
-    margin-bottom: 10px;
+  .crypto--rank {
+    border-radius: 3px;
+    padding: 2px 4px;
+    background-color: #929090;
+    color: white;
   }
 
   .crypto--values {
     display: flex;
     justify-content: space-around;
     width: 100%;
+
+    > span {
+      display: flex;
+      align-items: center;
+    }
+
     span i {
       margin-right: 5px;
+    }
+
+    & + .crypto--values {
+      margin-top: 5px;
     }
   }
 }

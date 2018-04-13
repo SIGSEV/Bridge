@@ -17,7 +17,8 @@ export default {
       height: 100,
     },
     config: {
-      pair: 'xbtusd',
+      coin: 'bitcoin',
+      preferred: 'usd',
     },
     reload: 30,
     url: '/crypto',
