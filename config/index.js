@@ -11,7 +11,6 @@ export default {
   env,
   port: 3001,
 
-  dribbbleToken: process.env.DRIBBBLE,
   weatherToken: process.env.WEATHER,
 
   bannedRepositories: (process.env.BANNED_REPOSITORIES || '').split(','),
