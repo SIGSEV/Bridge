@@ -45,7 +45,6 @@ export const getRandom = () => {
     })
     .then(data => {
       cache.put('dribbble', data, 1e3 * 60 * 60)
-      return data
+      return getRandom()
     })
-    .then(shots => shots[Math.floor(Math.random() * 12)])
 }
