@@ -92,4 +92,12 @@ export default {
     },
     url: '/weather',
   },
+
+  Trollbox: {
+    style: {
+      width: 350,
+      height: 300,
+      overflowX: 'hidden',
+    },
+  },
 }
