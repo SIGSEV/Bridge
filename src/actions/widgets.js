@@ -93,7 +93,7 @@ export const uploadFiles = (files, config) =>
     reader.readAsDataURL(file)
 
     reader.onload = () => {
-      const file = reader.result.replace('data:;base64,', '')
+      const file = reader.result.replace('data:application/octet-stream;base64,', '')
 
       fetch(`${api}/deluge?${serialize(config)}`, {
         method: 'post',
