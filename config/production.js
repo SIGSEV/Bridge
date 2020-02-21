@@ -1,5 +1,3 @@
 export default {
-
-  api: 'http://bridge.sigsev.io'
-
+  api: 'http://192.99.2.67:3031',
 }
