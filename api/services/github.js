@@ -12,7 +12,7 @@ export const getTrending = lang => {
     return q(cached)
   }
 
-  const url = `https://github.com/trending${lang ? `/${lang}` : ''}`
+  const url = `https://github.com/trending${lang && lang !== 'null' ? `/${lang}` : ''}`
 
   return got(url)
     .then(response => {
