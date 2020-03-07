@@ -1,5 +1,4 @@
-import webpack from 'webpack'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import ExtractPlugin from 'mini-css-extract-plugin'
 
 import webpackConfig from './config'
 
@@ -10,23 +9,17 @@ export default {
     rules: [
       {
         test: /\.s?css$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'autoprefixer-loader', 'sass-loader'],
-        }),
+        use: [ExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       ...webpackConfig.module.rules,
     ],
   },
 
-  plugins: [
-    ...webpackConfig.plugins,
+  plugins: [...webpackConfig.plugins, new ExtractPlugin({ filename: 'styles.css' })],
 
-    // extract styles
-    new ExtractTextPlugin('styles.css'),
-
-    new webpack.optimize.UglifyJsPlugin({ compressor: { warnings: false } }),
-  ],
+  optimization: {
+    minimize: true,
+  },
 
   stats: {
     colors: true,

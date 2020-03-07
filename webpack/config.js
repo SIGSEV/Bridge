@@ -9,6 +9,8 @@ const env = process.env.NODE_ENV || 'development'
 const publicConfigKeys = ['api']
 
 export default {
+  mode: env,
+
   resolve: {
     modules: ['node_modules', 'src'],
   },
