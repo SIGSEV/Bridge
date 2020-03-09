@@ -149,6 +149,10 @@
     align-items: flex-end;
     margin-bottom: 5px;
 
+    > a {
+      margin-right: 10px;
+    }
+
     span {
       font-size: 2.3em;
     }

@@ -6,6 +6,8 @@ import UsdIcon from 'assets/usd-symbol.svg'
 
 import TextInput from 'components/TextInput'
 
+import abbrNumber from 'fn/abbrNumber'
+
 const icons = {
   btc: <BtcIcon width={20} height={20} />,
   eth: <EthIcon width={20} />,
@@ -40,8 +42,8 @@ class Crypto extends Component {
     const { edit } = this.props
     const { config: { coin, preferred }, values } = this.props.data
 
-    const direction = values.percent_change_24h.startsWith('-') ? 'down' : 'up'
-    const price = Number(values[`price_${preferred}`])
+    const direction = values.price_change_percentage_24h < 0 ? 'down' : 'up'
+    const price = values.current_price
     const isSats = preferred === 'btc' && price < 0.0001
 
     return (
@@ -56,20 +58,22 @@ class Crypto extends Component {
         ) : (
           <div className="z">
             <div className="crypto--title">
+              <a href={`https://coinmarketcap.com/currencies/${values.id}`}>
+                <img src={values.image} width={18} />
+              </a>
               <span className="selectable">{format(price, preferred)}</span>
               {!isSats && icons[preferred]}
-              <a href={`https://coinmarketcap.com/currencies/${values.id}`}>{values.symbol}</a>
             </div>
 
             <div className="crypto--values">
               <span className="crypto--rank">
                 <i className="ion-ios-star" />
-                {values.rank}
+                {values.market_cap_rank}
               </span>
               <span className="selectable">
                 <i className={`ion-arrow-graph-${direction}-right`} />
                 <span>
-                  {values.percent_change_24h}
+                  {values.price_change_percentage_24h.toFixed(1)}
                   {'%'}
                 </span>
               </span>
@@ -77,9 +81,15 @@ class Crypto extends Component {
 
             <div className="crypto--values">
               <span className="selectable">
+                <i className="ion-android-globe" />
+                {'$'}
+                {abbrNumber(values.usdMc)}
+              </span>
+
+              <span className="selectable">
                 <i className="ion-stats-bars" />
-                {Number(values['24h_volume_usd']).toLocaleString()}
-                {' $'}
+                {'$'}
+                {abbrNumber(values.usdVolume)}
               </span>
             </div>
           </div>

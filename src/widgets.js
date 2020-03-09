@@ -17,7 +17,7 @@ export default {
       height: 100,
     },
     config: {
-      coin: 'bitcoin',
+      coin: 'btc',
       preferred: 'usd',
     },
     reload: 30,
