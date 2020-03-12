@@ -1,13 +1,12 @@
 import 'whatwg-fetch'
 
-import Portal from 'react-portal'
+import { PortalWithState } from 'react-portal'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { DragDropContext } from 'react-dnd'
+import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
 import 'styles/app.scss'
-import 'react-select/dist/react-select.min.css'
 
 import Col from 'components/Col'
 import Picker from 'components/Picker'
@@ -19,7 +18,6 @@ import { toggleEditMode } from 'actions/mode'
   layout: state.layout,
   hasWidgets: !!Array.prototype.concat.apply([], state.layout.cols).length,
 }))
-@DragDropContext(HTML5Backend)
 class App extends Component {
   componentDidMount() {
     this.handleKey = ::this.handleKey
@@ -52,36 +50,42 @@ class App extends Component {
     const { cols, widgets } = layout
 
     return (
-      <div className="App">
-        {cols.map((widgetsIds, i) => (
-          <Col
-            key={widgetsIds.concat([i]).join(',')}
-            col={i}
-            hasWidgets={hasWidgets}
-            widgetsIds={widgetsIds}
-            widgets={widgets}
-          />
-        ))}
+      <DndProvider backend={HTML5Backend}>
+        <div className="App">
+          {cols.map((widgetsIds, i) => (
+            <Col
+              key={widgetsIds.concat([i]).join(',')}
+              col={i}
+              hasWidgets={hasWidgets}
+              widgetsIds={widgetsIds}
+              widgets={widgets}
+            />
+          ))}
 
-        <Portal closeOnEsc closeOnOutsideClick isOpened={picker.open} onClose={::this.closePicker}>
-          <div className="Modal">
-            <PseudoModal closePortal={::this.closePicker}>
-              <Picker />
-            </PseudoModal>
-          </div>
-        </Portal>
+          {picker.open && (
+            <PortalWithState closeOnEsc closeOnOutsideClick onClose={::this.closePicker}>
+              {() => (
+                <div className="Modal">
+                  <PseudoModal closePortal={::this.closePicker}>
+                    <Picker />
+                  </PseudoModal>
+                </div>
+              )}
+            </PortalWithState>
+          )}
 
-        {!hasWidgets && (
-          <div className="BlankState">
-            <span>{'You have no widgets.'}</span>
-            <div className="btn-ui" tabIndex={0} onClick={::this.handleAddFirstWidget}>
-              <i className="ion-plus-circled" />
-              {'Maybe try adding one?'}
+          {!hasWidgets && (
+            <div className="BlankState">
+              <span>{'You have no widgets.'}</span>
+              <div className="btn-ui" tabIndex={0} onClick={::this.handleAddFirstWidget}>
+                <i className="ion-plus-circled" />
+                {'Maybe try adding one?'}
+              </div>
+              <span className="hint">{'Remember to press E for toggling edit mode anytime.'}</span>
             </div>
-            <span className="hint">{'Remember to press E for toggling edit mode anytime.'}</span>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </DndProvider>
     )
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import Linkify from 'linkifyjs/react'
+import get from 'lodash/get'
 
 const dec = html => {
   const txt = document.createElement('textarea')
@@ -25,7 +26,7 @@ class Polochat extends Component {
 
     this.ws.onmessage = e => {
       const data = JSON.parse(e.data)
-      if (data.table !== 'chat' || (data.data && data.data[0].channelID !== 1)) {
+      if (data.table !== 'chat' || get(data, 'data.0.channelID') !== 1) {
         return
       }
 

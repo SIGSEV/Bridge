@@ -16,6 +16,7 @@ import DragZone from 'components/DragZone'
   {
     hover: (props, monitor, component) => {
       const currentOffset = monitor.getClientOffset().y
+      console.log(currentOffset)
       const hoveredIndex = component._offsets.reduce(
         (hovered, offset, i) =>
           i > hovered &&
@@ -24,6 +25,9 @@ import DragZone from 'components/DragZone'
             : hovered,
         0,
       )
+
+      console.log(hoveredIndex)
+
       if (hoveredIndex !== component.state.hoveredIndex) {
         component.setState({ hoveredIndex })
       }

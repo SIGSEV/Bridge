@@ -4,7 +4,7 @@ const env = process.env.NODE_ENV || 'development'
 const config = require(`./${env}`).default
 
 if (!process.env.BUILD) {
-  dotenv.load()
+  dotenv.config()
 }
 
 export default {

@@ -33,10 +33,6 @@ export default {
         test: /\.(woff)$/,
         loader: 'file-loader',
       },
-      {
-        test: /\.svg$/,
-        loader: 'react-svg-loader',
-      },
     ],
   },
 

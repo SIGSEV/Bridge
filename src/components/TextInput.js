@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { toggleLock } from 'actions/mode'
 
-@connect(null, null, null, { withRef: true })
+@connect(null, null, null, { forwardRef: true })
 class TextInput extends Component {
   static defaultProps = {
     required: true,

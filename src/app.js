@@ -3,11 +3,13 @@ import { render } from 'react-dom'
 import { compose, createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
+import { ThemeProvider } from 'styled-components'
 import 'gsap'
 
 import { App } from 'components'
 import reducer from 'reducers'
 import * as storageService from 'services/storage'
+import theme from 'theme'
 
 storageService.getData(state => {
   const store = createStore(
@@ -18,7 +20,9 @@ storageService.getData(state => {
 
   const root = (
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Provider>
   )
 

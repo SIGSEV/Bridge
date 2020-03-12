@@ -45,10 +45,11 @@ body {
   font-family: monospace;
   color: $cb6;
   padding: 10px;
+  background-color: #232323;
   border: 2px solid $cb1;
   ::selection {
-    background-color: rgba(black, 0.5);
-    color: rgba(white, 1);
+    background-color: rgba(white, 0.5);
+    color: rgba(black, 1);
   }
 }
 
