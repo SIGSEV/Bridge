@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import getAssetImage from 'cryptoicons-cdn'
 
 import BtcIcon from 'assets/btc-symbol.svg'
 import EthIcon from 'assets/eth-symbol.svg'
@@ -9,9 +10,9 @@ import TextInput from 'components/TextInput'
 import abbrNumber from 'fn/abbrNumber'
 
 const icons = {
-  btc: <BtcIcon width={20} height={20} />,
-  eth: <EthIcon width={20} />,
-  usd: <UsdIcon width={20} />,
+  btc: <BtcIcon width={20} height={20} fill="#bababa" />,
+  eth: <EthIcon width={20} fill="#bababa" />,
+  usd: <UsdIcon width={20} fill="#bababa" />,
 }
 
 const format = (value, type) => {
@@ -59,7 +60,7 @@ class Crypto extends Component {
           <div className="z">
             <div className="crypto--title">
               <a href={`https://coinmarketcap.com/currencies/${values.id}`}>
-                <img src={values.image} width={18} />
+                <img src={getAssetImage(values.symbol.toUpperCase(), 'dark')} width={20} />
               </a>
               <span className="selectable">{format(price, preferred)}</span>
               {!isSats && icons[preferred]}
@@ -70,7 +71,7 @@ class Crypto extends Component {
                 <i className="ion-ios-star" />
                 {values.market_cap_rank}
               </span>
-              <span className="selectable">
+              <span className={`selectable crypto--color-${direction}`}>
                 <i className={`ion-arrow-graph-${direction}-right`} />
                 <span>
                   {values.price_change_percentage_24h.toFixed(1)}

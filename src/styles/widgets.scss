@@ -73,7 +73,7 @@
         width: 1rem;
         margin: 5px 0;
         height: 2px;
-        background: $cb1;
+        background-color: $cb1;
       }
 
       > .val i {
@@ -83,7 +83,7 @@
 
     > .body {
       flex-grow: 1;
-      background: $clight;
+      background-color: $cb1;
       padding: 1em;
       overflow: hidden;
 
@@ -107,7 +107,7 @@
 
     &:hover {
       .body {
-        background: white;
+        background-color: $cb05;
       }
     }
   }
@@ -147,7 +147,7 @@
   .crypto--title {
     display: flex;
     align-items: flex-end;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 
     > a {
       margin-right: 10px;
@@ -183,6 +183,14 @@
     color: white;
   }
 
+  .crypto--color-down {
+    color: #c00000;
+  }
+
+  .crypto--color-up {
+    color: #03aa03;
+  }
+
   .crypto--values {
     display: flex;
     justify-content: space-around;
@@ -213,13 +221,13 @@
 
   .usr {
     position: absolute;
-    bottom: 0;
+    bottom: 10px;
     right: 10px;
   }
 
   .likes {
     position: absolute;
-    bottom: 0;
+    bottom: 10px;
     left: 10px;
 
     i {
@@ -234,7 +242,7 @@
     bottom: 0;
     right: 0;
 
-    background-color: rgba(white, 0.6);
+    background-color: rgba(black, 0.7);
     color: $cb6;
     opacity: 0;
     transition: opacity 250ms ease-in;
@@ -341,7 +349,7 @@
     align-items: center;
 
     span span {
-      color: rgba(black, 0.3);
+      color: $cb6;
     }
   }
 
@@ -366,7 +374,7 @@
 
     display: flex;
     justify-content: center;
-    background-color: white;
+    background-color: $cmain;
     font-size: 1rem;
 
     > span {

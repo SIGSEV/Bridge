@@ -10,7 +10,7 @@ class Weather extends Component {
         <span className="boris">{desc}</span>
 
         <h1 className="big-val za" style={{ marginTop: 0, marginBottom: '1rem' }}>
-          <SkyCons style={{ width: 110, height: 55 }} color="#707070" icon={icon} />
+          <SkyCons style={{ width: 110, height: 55 }} color="#bababa" icon={icon} />
 
           {`${temperature}°`}
         </h1>
@@ -18,7 +18,7 @@ class Weather extends Component {
         <section className="gallery">
           {projections.map(projection => (
             <div key={projection.ts}>
-              <SkyCons style={{ width: 80, height: 40 }} color="#707070" icon={projection.icon} />
+              <SkyCons style={{ width: 80, height: 40 }} color="#bababa" icon={projection.icon} />
               <div className="mende">
                 {projection.time} {`${projection.temperature}°`}
               </div>

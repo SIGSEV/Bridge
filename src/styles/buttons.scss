@@ -24,7 +24,7 @@
   @extend .btn;
 
   padding: 3px 4px;
-  border: 2px solid rgba(black, .1);
+  border: 2px solid rgba(white, .1);
   background: none;
 
   &:disabled {
@@ -32,9 +32,9 @@
   }
 
   &:hover:not(:disabled) {
-    border-color: rgba(black, .6);
-    background-color: rgba(black, .6);
-    color: white;
+    border-color: rgba(white, .6);
+    background-color: rgba(white, .6);
+    color: black;
   }
 
 }
@@ -42,7 +42,7 @@
 .btn-def {
   @extend .s;
   &:hover {
-    background: $cb1;
+    background: rgba(black, 0.2);
   }
 
   &.success {
@@ -81,7 +81,8 @@
   margin: 0 auto;
   padding: 1rem;
   color: $cb5;
-  background: rgba(white, 0.4);
+  background: rgba(black, 0.4);
+
   > i {
     margin-right: 0.5rem;
   }
