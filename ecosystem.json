@@ -16,7 +16,7 @@
       "host"       : "balthazar.dev",
       "ref"        : "origin/master",
       "repo"       : "git@github.com:Sigsev/Bridge.git",
-      "path"       : "/var/www/bridge",
+      "path"       : "/home/me/git/Bridge",
       "post-deploy": "npm install && pm2 startOrRestart ecosystem.json --env production"
     }
   }
