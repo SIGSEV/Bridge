@@ -1,3 +1,3 @@
 export default {
-  api: 'http://192.99.2.67:3031',
+  api: 'https://bridge.balthazar.dev',
 }
