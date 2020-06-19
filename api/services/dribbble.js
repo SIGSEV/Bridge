@@ -11,7 +11,7 @@ const getThing = (parent, target, key) => {
   }
 
   if (key === 'text') {
-    return el.text().trim()
+    return el.children[0].data.trim()
   }
 
   return el.attribs[key]
