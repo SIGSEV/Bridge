@@ -3,6 +3,20 @@ import got from 'got'
 import cache from 'memory-cache'
 import cheerio from 'cheerio'
 
+const getThing = (parent, target, key) => {
+  const el = parent.find(target)[0]
+
+  if (!el) {
+    return null
+  }
+
+  if (key === 'text') {
+    return el.text().trim()
+  }
+
+  return el.attribs[key]
+}
+
 export const getRandom = () => {
   const cached = cache.get('dribbble')
   if (cached) {
@@ -16,15 +30,14 @@ export const getRandom = () => {
       return dom('ol.dribbbles > li')
         .map((i, e) => {
           const el = dom(e)
-          const video = el.find('video')[0].attribs.src
-          const img = el.find('img')[0].attribs.src
+          const video = getThing(el, 'video', 'src')
+          const img = getThing(el, 'img', 'src')
 
-          const title = el.find('.shot-title')[0].text().trim()
-          const username = el.find('.user-information .display-name')[0].text().trim()
-          const userUrl = el.find('.user-information a')[0].attribs.href
-          const url = el.find('.shot-thumbnail-link')[0].attribs.href
-
-          const likes = el.find('.js-shot-likes-count').last().text().trim()
+          const title = getThing(el, '.shot-title', 'text')
+          const username = getThing(el, '.user-information .display-name', 'text')
+          const userUrl = getThing(el, '.user-information a', 'href')
+          const url = getThing(el, '.shot-thumbnail-link', 'href')
+          const likes = getThing(el, '.js-shot-likes-count', 'text')
 
           return {
             title,
