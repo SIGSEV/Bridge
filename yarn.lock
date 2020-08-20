@@ -2297,10 +2297,10 @@ crypto-browserify@^3.11.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
-cryptoicons-cdn@^0.1.8:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/cryptoicons-cdn/-/cryptoicons-cdn-0.1.8.tgz#092c37972fd87fca62a00560138968ffb83e8d29"
-  integrity sha512-+Hq/qEhAlMuOL8HFhlsKzetmZWGMqSH3UIXCIduUdueMNBdKqBoQViq5uJmigVoxCt5W1bhD6SFN2BLYuJyA5g==
+cryptoicons-cdn@^0.1.12:
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/cryptoicons-cdn/-/cryptoicons-cdn-0.1.12.tgz#8243088a7134539ccbafd21f699ffd90e6d519f7"
+  integrity sha512-LBza0KmF/GTVzveBQRqCLCFaXSeMFrB5iFN8I10gmeJbeRAI6/tDkpKzwGA7yOKAFYsFFPEqSVEMFmwDvyKfcg==
 
 css-loader@^3.4.2:
   version "3.4.2"
