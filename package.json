@@ -44,6 +44,7 @@
     "react-redux": "^4.4.5",
     "react-select": "^1.0.0-beta13",
     "react-skycons": "0.3.0",
+    "react-sparklines": "^1.7.0",
     "redux": "^3.5.2",
     "redux-actions": "^0.9.1",
     "redux-thunk": "^2.1.0",

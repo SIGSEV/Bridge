@@ -158,7 +158,7 @@
     }
 
     svg {
-      margin-bottom: 5px;
+      margin-bottom: 13px;
     }
 
     a {
@@ -439,4 +439,94 @@
     background-color: #268bd2;
   }
 
+}
+
+.w-portfolio {
+  padding-right: 5px;
+  position: relative;
+
+  .balance {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+
+    svg {
+      margin-bottom: 8px;
+    }
+  }
+
+  .privacy-toggle {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .holding {
+    display: flex;
+    align-items: center;
+
+    a {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .rank {
+        position: absolute;
+        bottom: 1px;
+        right: 1px;
+        display: flex;
+        background-color: #ececec;
+        color: black;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-size: 10px;
+        line-height: 1;
+      }
+    }
+
+    > .content {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      grid-gap: 20px;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .buttons {
+      margin-left: 10px;
+      > * {
+        padding: 10px;
+        height: 10px;
+        cursor: pointer;
+      }
+    }
+
+    & + .holding {
+      margin-top: 10px;
+    }
+  }
+
+  .add-form {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+
+    > * {
+      display: flex;
+    }
+
+    > * + * {
+      margin-left: 10px;
+    }
+  }
 }

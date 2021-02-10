@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions'
+import get from 'lodash/get'
 
 import serialize from 'helpers/serialize'
 import checkStatus from 'helpers/check-status'
@@ -64,6 +65,14 @@ export function fetchWidget(id) {
       )
     }
 
+    if (type === 'Portfolio') {
+      return doFetch({
+        coins: get(config, 'folio', [])
+          .map(f => f.name)
+          .join(','),
+      })
+    }
+
     doFetch()
   }
 }
@@ -71,11 +80,22 @@ export function fetchWidget(id) {
 const widgetConfig = createAction('WIDGET_CONFIG')
 
 export function configWidget(payload) {
-  return dispatch => {
+  return (dispatch, getState) => {
     const { id, config } = payload
+    const state = getState()
+    const widget = state.layout.widgets[id]
+
     dispatch(widgetConfig({ id, config }))
     dispatch(save())
-    dispatch(fetchWidget(id))
+
+    if (
+      widget.type !== 'Portfolio' ||
+      (widget.config.folioCurrency === config.folioCurrency &&
+        widget.config.privacy === config.privacy)
+    ) {
+      dispatch(fetchWidget(id))
+    }
+
     dispatch(toggleLock(false))
   }
 }

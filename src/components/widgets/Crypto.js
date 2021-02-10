@@ -31,7 +31,10 @@ const format = (value, type) => {
 
 class Crypto extends Component {
   saveCoin = e => {
-    const { onSave, data: { config } } = this.props
+    const {
+      onSave,
+      data: { config },
+    } = this.props
     const coin = this.refs.coin.getWrappedInstance().getText()
     const preferred = this.refs.preferred.getWrappedInstance().getText()
 
@@ -41,11 +44,16 @@ class Crypto extends Component {
 
   render() {
     const { edit } = this.props
-    const { config: { coin, preferred }, values } = this.props.data
+    const {
+      config: { coin, preferred },
+      values,
+    } = this.props.data
 
     const direction = values.price_change_percentage_24h < 0 ? 'down' : 'up'
     const price = values.current_price
     const isSats = preferred === 'btc' && price < 0.0001
+    const libImage = getAssetImage(values.symbol.toUpperCase(), 'dark')
+    const image = libImage.includes('UNKNOWN') ? values.image : libImage
 
     return (
       <div className="w-crypto">
@@ -60,7 +68,7 @@ class Crypto extends Component {
           <div className="z">
             <div className="crypto--title">
               <a href={`https://coinmarketcap.com/currencies/${values.id}`}>
-                <img src={getAssetImage(values.symbol.toUpperCase(), 'dark')} width={20} />
+                <img src={image} width={20} />
               </a>
               <span className="selectable">{format(price, preferred)}</span>
               {!isSats && icons[preferred]}

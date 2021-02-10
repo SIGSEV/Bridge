@@ -100,4 +100,16 @@ export default {
       overflowX: 'hidden',
     },
   },
+
+  Portfolio: {
+    style: {
+      width: 470,
+      height: 600,
+    },
+    config: {
+      folio: [{ name: 'btc' }, { name: 'eth' }],
+      folioCurrency: 'usd',
+    },
+    url: '/crypto/portfolio',
+  },
 }

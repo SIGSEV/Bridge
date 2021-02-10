@@ -192,12 +192,11 @@ class Widget extends Component {
                 <i className="ion-close" />
               </div>
               {moveButton}
-              {component &&
-                !!component.config && (
-                  <div className="ctx-btn" onClick={this.toggleEditMode} tabIndex={2}>
-                    <i className="ion-edit" />
-                  </div>
-                )}
+              {component && !!component.config && (
+                <div className="ctx-btn" onClick={this.toggleEditMode} tabIndex={2}>
+                  <i className="ion-edit" />
+                </div>
+              )}
             </div>
           )}
         </div>

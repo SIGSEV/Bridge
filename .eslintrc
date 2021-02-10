@@ -12,6 +12,8 @@
     "strict": [2, "never"],
     "comma-dangle": 0,
     "no-undefined": 0,
+    "camelcase": 0,
+    "id-length": 0
   },
   globals: {
     "TimelineMax": false,

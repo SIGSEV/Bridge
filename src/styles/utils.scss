@@ -27,6 +27,12 @@
   align-items: center;
 }
 
+.fdc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 .z {
   display: flex;
   align-items: center;
