@@ -6,8 +6,8 @@ import cache from 'memory-cache'
 const BASE_URL =
   'https://api.coingecko.com/api/v3/coins/markets?order=market_cap_desc&per_page=250&sparkline=true&price_change_percentage=24h,7d'
 
-const CURRENCIES = ['btc', 'eth', 'usd']
-const PAGES = 4
+const CURRENCIES = ['btc', 'eth', 'usd', 'eur']
+const PAGES = 5
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -39,12 +39,50 @@ export const getLatest = async (coin, preferred) => {
   return { ...data, usdMc: market_cap || 0, usdVolume: total_volume || 0 }
 }
 
-export const getPortfolio = async coins => {
-  const cache = await getCache()
+const manualFetch = async coins => {
+  for (const coin of coins) {
+    try {
+      const res = await got(
+        `https://api.coingecko.com/api/v3/coins/${coin}?sparkline=true`,
+      ).then(r => JSON.parse(r.body))
 
-  return coins.reduce((acc, coin) => {
+      if (!res) {
+        continue
+      }
+
+      const base = {
+        id: res.id,
+        symbol: res.symbol,
+        image: res.image.small,
+        market_cap: res.market_data.market_cap.usd,
+        market_cap_rank: res.market_cap_rank || res.coingecko_rank,
+        sparkline_in_7d: res.market_data.sparkline_7d,
+      }
+
+      cache.put(`crypto-${coin}`, {
+        ...CURRENCIES.reduce((acc, key) => {
+          acc[key] = {
+            ...base,
+            current_price: res.market_data.current_price[key],
+            price_change_percentage_24h:
+              res.market_data.price_change_percentage_24h_in_currency[key],
+          }
+
+          return acc
+        }, {}),
+      })
+    } catch (err) {}
+  }
+}
+
+export const getPortfolio = async coins => {
+  const cached = await getCache()
+
+  await manualFetch(coins.filter(c => !cached.usd[c]))
+
+  const out = coins.reduce((acc, coin) => {
     CURRENCIES.forEach(currency => {
-      const data = get(cache, [currency, coin])
+      const data = get(cached, [currency, coin], get(cache.get(`crypto-${coin}`), [currency]))
 
       if (!data) {
         return
@@ -55,10 +93,10 @@ export const getPortfolio = async coins => {
         image,
         symbol,
         total_supply,
+        market_cap,
         market_cap_rank,
         sparkline_in_7d,
 
-        market_cap,
         current_price,
         price_change_percentage_24h,
       } = data
@@ -70,17 +108,20 @@ export const getPortfolio = async coins => {
           symbol,
           sparkline_in_7d,
           total_supply,
+          market_cap,
           market_cap_rank,
 
           prices: {},
         }
       }
 
-      acc[coin].prices[currency] = { market_cap, current_price, price_change_percentage_24h }
+      acc[coin].prices[currency] = { current_price, price_change_percentage_24h }
     })
 
     return acc
   }, {})
+
+  return out
 }
 
 export const refreshCrypto = async () => {

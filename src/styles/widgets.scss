@@ -470,26 +470,26 @@
     display: flex;
     align-items: center;
 
-    a {
+    .imgContainer {
       position: relative;
       width: 50px;
       height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
 
-      .rank {
-        position: absolute;
-        bottom: 1px;
-        right: 1px;
-        display: flex;
-        background-color: #ececec;
-        color: black;
-        padding: 2px 4px;
-        border-radius: 3px;
-        font-size: 10px;
-        line-height: 1;
-      }
+    .rank {
+      position: absolute;
+      bottom: 1px;
+      right: 1px;
+      display: flex;
+      background-color: #ececec;
+      color: black;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-size: 10px;
+      line-height: 1;
     }
 
     > .content {

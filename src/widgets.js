@@ -110,6 +110,7 @@ export default {
       folio: [{ name: 'btc' }, { name: 'eth' }],
       folioCurrency: 'usd',
     },
+    reload: 30,
     url: '/crypto/portfolio',
   },
 }

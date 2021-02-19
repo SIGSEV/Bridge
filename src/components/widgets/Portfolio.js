@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Sparklines, SparklinesLine } from 'react-sparklines'
 import getAssetImage from 'cryptoicons-cdn'
+import orderBy from 'lodash/orderBy'
 
 import BtcIcon from 'assets/btc-symbol.svg'
 import EthIcon from 'assets/eth-symbol.svg'
@@ -29,8 +30,6 @@ const format = (value, type) => {
 
   return s.substr(0, 5)
 }
-
-const move = (from, to, ...a) => (a.splice(to, 0, ...a.splice(from, 1)), a)
 
 class Portfolio extends Component {
   addCrypto = e => {
@@ -65,15 +64,6 @@ class Portfolio extends Component {
     onSave({ ...config, folio })
   }
 
-  moveCoin = (from, to) => {
-    const {
-      onSave,
-      data: { config },
-    } = this.props
-
-    onSave({ ...config, folio: move(from, to, ...config.folio) })
-  }
-
   updateBalance = (key, value) => {
     const {
       onSave,
@@ -94,16 +84,34 @@ class Portfolio extends Component {
   render() {
     const { edit, onSave } = this.props
     const { config, values } = this.props.data
-    const { folio, folioCurrency, privacy } = config
+    const { folio, folioCurrency, privacy, sort = null, sortOrder = 'desc' } = config
 
     const data = folio
-      .map(coin => ({
-        ...values[coin.name],
-        key: coin.name,
-        balance: coin.balance || 0,
-        hasData: !!values[coin.name],
-      }))
+      .map(coin => {
+        const hasData = !!values[coin.name]
+        const balance = coin.balance || 0
+
+        const { price, pricedBalance, change } = values[coin.name]
+          ? {
+              change: values[coin.name].prices[folioCurrency].price_change_percentage_24h,
+              price: values[coin.name].prices[folioCurrency].current_price,
+              pricedBalance: balance * values[coin.name].prices[folioCurrency].current_price,
+            }
+          : {}
+
+        return {
+          ...values[coin.name],
+          key: coin.name,
+          balance,
+          hasData,
+          change,
+          price,
+          pricedBalance,
+        }
+      })
       .filter(d => d.hasData)
+
+    const out = sort ? orderBy(data, sort, sortOrder) : data
 
     const balance = data.reduce(
       (acc, coin) => acc + coin.prices[folioCurrency].current_price * (coin.balance || 0),
@@ -114,22 +122,31 @@ class Portfolio extends Component {
 
     const toggleCurrency = () => onSave({ ...config, folioCurrency: nextCurrency })
     const togglePrivacy = () => onSave({ ...config, privacy: !privacy })
+    const changeSort = newSort =>
+      onSave({
+        ...config,
+        sort: newSort,
+        sortOrder: newSort === sort && sortOrder === 'desc' ? 'asc' : 'desc',
+      })
 
     return (
       <div className="w-portfolio">
-        <div className="balance" onClick={toggleCurrency}>
-          <div>{privacy ? '-' : abbrNumber(Math.floor(balance * 100) / 100)}</div>
-          {icons[folioCurrency](20)}
-        </div>
+        {!!balance && (
+          <div className="balance" onClick={toggleCurrency}>
+            <div>{privacy ? '-' : abbrNumber(Math.floor(balance * 100) / 100)}</div>
+            {icons[folioCurrency](20)}
+          </div>
+        )}
 
-        <div onClick={togglePrivacy} className="privacy-toggle">
-          {privacy ? <i className="ion-eye" /> : <i className="ion-eye-disabled" />}
-        </div>
+        {!!balance && (
+          <div onClick={togglePrivacy} className="privacy-toggle">
+            {privacy ? <i className="ion-eye" /> : <i className="ion-eye-disabled" />}
+          </div>
+        )}
 
-        {data.map((coin, i) => {
-          const change = coin.prices[folioCurrency].price_change_percentage_24h
+        {out.map((coin, i) => {
+          const { change, price } = coin
           const color = change < 0 ? '#DC1A1A' : 'green'
-          const price = coin.prices[folioCurrency].current_price
           const isSats = folioCurrency === 'btc' && price < 0.0001
 
           const libImage = getAssetImage(coin.symbol.toUpperCase(), 'dark')
@@ -137,16 +154,22 @@ class Portfolio extends Component {
 
           return (
             <div className="holding" key={coin.id}>
-              <a href={`https://www.coingecko.com/en/coins/${coin.id}`} target="_blank">
-                <img src={image} width={25} />
+              <div className="imgContainer" onClick={() => changeSort('market_cap_rank')}>
+                <a
+                  href={`https://www.coingecko.com/en/coins/${coin.id}`}
+                  onClick={e => e.stopPropagation()}
+                  target="_blank"
+                >
+                  <img src={image} width={25} />
+                </a>
 
                 <span className="rank">
                   <span>{coin.market_cap_rank}</span>
                 </span>
-              </a>
+              </div>
 
               <div className="content">
-                <div className="fdc">
+                <div className="fdc" onClick={() => changeSort('change')}>
                   <div className="fac">
                     <span>{format(price, folioCurrency)}</span>
                     {!isSats && (
@@ -170,7 +193,7 @@ class Portfolio extends Component {
                     placeholder="Balance"
                   />
                 ) : (
-                  <div className="fdc">
+                  <div className="fdc" onClick={() => changeSort('pricedBalance')}>
                     <span>
                       {coin.balance && !privacy ? (
                         <span className="fac">
@@ -197,9 +220,7 @@ class Portfolio extends Component {
 
               {edit && (
                 <div className="fdc z buttons">
-                  {i !== 0 && <div onClick={() => this.moveCoin(i, i - 1)}>↑</div>}
                   <div onClick={() => this.removeCoin(coin.key)}>x</div>
-                  {i !== data.length - 1 && <div onClick={() => this.moveCoin(i, i + 1)}>↓</div>}
                 </div>
               )}
             </div>
