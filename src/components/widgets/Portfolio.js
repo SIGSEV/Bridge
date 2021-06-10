@@ -144,7 +144,7 @@ class Portfolio extends Component {
           </div>
         )}
 
-        {out.map((coin, i) => {
+        {out.map(coin => {
           const { change, price } = coin
           const color = change < 0 ? '#DC1A1A' : 'green'
           const isSats = folioCurrency === 'btc' && price < 0.0001

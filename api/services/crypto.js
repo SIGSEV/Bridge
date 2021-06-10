@@ -71,7 +71,9 @@ const manualFetch = async coins => {
           return acc
         }, {}),
       })
-    } catch (err) {}
+    } catch (err) {
+      // Ignore
+    }
   }
 }
 
