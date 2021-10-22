@@ -42,9 +42,10 @@ export const getLatest = async (coin, preferred) => {
 const manualFetch = async coins => {
   for (const coin of coins) {
     try {
-      const res = await got(
-        `https://api.coingecko.com/api/v3/coins/${coin}?sparkline=true`,
-      ).then(r => JSON.parse(r.body))
+      const res = await got(`https://api.coingecko.com/api/v3/coins/${coin}?sparkline=true`, {
+        responseType: 'json',
+        resolveBodyOnly: true,
+      })
 
       if (!res) {
         continue
@@ -127,31 +128,38 @@ export const getPortfolio = async coins => {
 }
 
 export const refreshCrypto = async () => {
-  const data = await CURRENCIES.reduce(async (prom, currency) => {
-    const acc = await prom
+  try {
+    const data = await CURRENCIES.reduce(async (prom, currency) => {
+      const acc = await prom
 
-    const pages = await Promise.all(
-      [...Array(PAGES).keys()].map(i =>
-        got(`${BASE_URL}&page=${i + 1}&vs_currency=${currency}`).then(r => JSON.parse(r.body)),
-      ),
-    )
+      const pages = await Promise.all(
+        [...Array(PAGES).keys()].map(i =>
+          got(`${BASE_URL}&page=${i + 1}&vs_currency=${currency}`, {
+            responseType: 'json',
+            resolveBodyOnly: true,
+          }),
+        ),
+      )
 
-    acc[currency] = flatten(pages).reduce((acc, coin) => {
-      const keys = [coin.id.replace(/-\d$/, ''), coin.symbol.toLowerCase()]
+      acc[currency] = flatten(pages).reduce((acc, coin) => {
+        const keys = [coin.id.replace(/-\d$/, ''), coin.symbol.toLowerCase()]
 
-      keys.forEach(key => {
-        if (acc[key]) {
-          return
-        }
+        keys.forEach(key => {
+          if (acc[key]) {
+            return
+          }
 
-        acc[key] = coin
-      })
+          acc[key] = coin
+        })
+
+        return acc
+      }, {})
 
       return acc
-    }, {})
+    }, Promise.resolve({}))
 
-    return acc
-  }, Promise.resolve({}))
-
-  cache.put('crypto', data)
+    cache.put('crypto', data)
+  } catch (err) {
+    // Ignore
+  }
 }
