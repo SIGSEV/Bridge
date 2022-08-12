@@ -6,16 +6,14 @@ import cache from 'memory-cache'
 const BASE_URL =
   'https://api.coingecko.com/api/v3/coins/markets?order=market_cap_desc&per_page=250&sparkline=true&price_change_percentage=24h,7d'
 
-const CURRENCIES = ['btc', 'eth', 'usd', 'eur']
+const CURRENCIES = ['btc', 'eth', 'usd']
 const PAGES = 5
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const getCache = async () => {
   const cached = cache.get('crypto')
-  if (cached) {
-    return cached
-  }
+  if (cached) return cached
 
   await wait(200)
   return getCache()
@@ -23,15 +21,9 @@ const getCache = async () => {
 
 export const getLatest = async (coin, preferred) => {
   const cache = await getCache()
-
   const data = cache[preferred][coin]
 
-  if (!data) {
-    return {
-      usdMc: 0,
-      usdVolume: 0,
-    }
-  }
+  if (!data) return { usdMc: 0, usdVolume: 0 }
 
   const usdCoin = get(cache, `usd.${coin}`, {})
   const { market_cap, total_volume } = usdCoin
@@ -39,44 +31,43 @@ export const getLatest = async (coin, preferred) => {
   return { ...data, usdMc: market_cap || 0, usdVolume: total_volume || 0 }
 }
 
-const manualFetch = async coins => {
-  for (const coin of coins) {
-    try {
-      const res = await got(`https://api.coingecko.com/api/v3/coins/${coin}?sparkline=true`, {
-        responseType: 'json',
-        resolveBodyOnly: true,
-      })
+const manualFetch = coins =>
+  Promise.all(
+    coins.map(async coin => {
+      try {
+        const res = await got(`https://api.coingecko.com/api/v3/coins/${coin}?sparkline=true`, {
+          responseType: 'json',
+          resolveBodyOnly: true,
+        })
 
-      if (!res) {
-        continue
+        if (!res) return
+
+        const base = {
+          id: res.id,
+          symbol: res.symbol,
+          image: res.image.small,
+          market_cap: res.market_data.market_cap.usd,
+          market_cap_rank: res.market_cap_rank || res.coingecko_rank,
+          sparkline_in_7d: res.market_data.sparkline_7d,
+        }
+
+        cache.put(`crypto-${coin}`, {
+          ...CURRENCIES.reduce((acc, key) => {
+            acc[key] = {
+              ...base,
+              current_price: res.market_data.current_price[key],
+              price_change_percentage_24h:
+                res.market_data.price_change_percentage_24h_in_currency[key],
+            }
+
+            return acc
+          }, {}),
+        })
+      } catch (err) {
+        // Ignore
       }
-
-      const base = {
-        id: res.id,
-        symbol: res.symbol,
-        image: res.image.small,
-        market_cap: res.market_data.market_cap.usd,
-        market_cap_rank: res.market_cap_rank || res.coingecko_rank,
-        sparkline_in_7d: res.market_data.sparkline_7d,
-      }
-
-      cache.put(`crypto-${coin}`, {
-        ...CURRENCIES.reduce((acc, key) => {
-          acc[key] = {
-            ...base,
-            current_price: res.market_data.current_price[key],
-            price_change_percentage_24h:
-              res.market_data.price_change_percentage_24h_in_currency[key],
-          }
-
-          return acc
-        }, {}),
-      })
-    } catch (err) {
-      // Ignore
-    }
-  }
-}
+    }),
+  )
 
 export const getPortfolio = async coins => {
   const cached = await getCache()
@@ -87,9 +78,7 @@ export const getPortfolio = async coins => {
     CURRENCIES.forEach(currency => {
       const data = get(cached, [currency, coin], get(cache.get(`crypto-${coin}`), [currency]))
 
-      if (!data) {
-        return
-      }
+      if (!data) return
 
       const {
         id,
@@ -127,39 +116,43 @@ export const getPortfolio = async coins => {
   return out
 }
 
+let refreshing = false
+
 export const refreshCrypto = async () => {
-  try {
-    const data = await CURRENCIES.reduce(async (prom, currency) => {
-      const acc = await prom
+  if (refreshing) return
 
-      const pages = await Promise.all(
-        [...Array(PAGES).keys()].map(i =>
-          got(`${BASE_URL}&page=${i + 1}&vs_currency=${currency}`, {
-            responseType: 'json',
-            resolveBodyOnly: true,
-          }),
-        ),
-      )
+  refreshing = true
 
-      acc[currency] = flatten(pages).reduce((acc, coin) => {
-        const keys = [coin.id.replace(/-\d$/, ''), coin.symbol.toLowerCase()]
+  const payload = CURRENCIES.map(currency =>
+    [...Array(PAGES).keys()].map(i => ({ page: i + 1, currency })),
+  ).flat()
 
-        keys.forEach(key => {
-          if (acc[key]) {
-            return
-          }
+  const res = await Promise.all(
+    payload.map(async ({ currency, page }) => {
+      const data = await got(`${BASE_URL}&page=${page}&vs_currency=${currency}`, {
+        responseType: 'json',
+        resolveBodyOnly: true,
+      })
 
-          acc[key] = coin
-        })
+      return { data, currency }
+    }),
+  )
 
-        return acc
-      }, {})
+  const out = {}
 
-      return acc
-    }, Promise.resolve({}))
+  for (const { currency, data } of res) {
+    if (!out[currency]) out[currency] = {}
 
-    cache.put('crypto', data)
-  } catch (err) {
-    // Ignore
+    for (const coin of data) {
+      const keys = [coin.id.replace(/-\d$/, ''), coin.symbol.toLowerCase()]
+
+      for (const key of keys) {
+        out[currency][key] = coin
+      }
+    }
   }
+
+  cache.put('crypto', out)
+
+  refreshing = false
 }

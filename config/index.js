@@ -9,7 +9,7 @@ if (!process.env.BUILD) {
 
 export default {
   env,
-  port: 3001,
+  port: 4455,
 
   weatherToken: process.env.WEATHER,
 

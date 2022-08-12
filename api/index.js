@@ -36,6 +36,6 @@ server.listen(config.port, config.host, err => {
 
 refreshCrypto()
 
-scheduleJob('* * * * *', () => {
+scheduleJob('0 * * * * *', () => {
   refreshCrypto()
 })
